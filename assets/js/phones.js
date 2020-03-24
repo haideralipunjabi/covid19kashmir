@@ -1,5 +1,4 @@
-const API_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSg-doiJ59mWF5UiJP-tCB6XCqahr9YaXe6eHiyWFyjylHtGRuy5yZrw1ZNWq3etbbyU8Gqz0i5gANp/pub?gid=0&single=true&output=csv"
-const PHONE_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSg-doiJ59mWF5UiJP-tCB6XCqahr9YaXe6eHiyWFyjylHtGRuy5yZrw1ZNWq3etbbyU8Gqz0i5gANp/pub?gid=941252155&single=true&output=csv"
+const API_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSg-doiJ59mWF5UiJP-tCB6XCqahr9YaXe6eHiyWFyjylHtGRuy5yZrw1ZNWq3etbbyU8Gqz0i5gANp/pub?gid=941252155&single=true&output=csv"
 function loadData(){
     progressBarVisible(true)
 
@@ -15,17 +14,12 @@ function loadData(){
 function loadTable(data){
     progressBarVisible(false);
 
-    for(let patient of data){
+    for(let contact of data){
         $("#data-table tbody").append(`
         <tr>
-        <td>${data.indexOf(patient)+1}</td>
-                      <td>${patient["Date Announced"]}</td>
-                      <td>${patient["City"]}</td>
-                      <td>${patient["District"]}</td>
-                      <td>${patient["Age"]}</td>
-                      <td>${patient["Gender"]}</td>
-                      <td>${patient["Notes"]}</td>
-                      <td>${formatSources(patient)}</td>
+        <td>${contact["Name"]}</td>
+                      <td>${contact["Speciality"]}</td>
+                      <td>${contact["Phone No"]}</td>
         </tr>
     `)
     }
