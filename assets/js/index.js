@@ -1,14 +1,49 @@
+const API_URL = "https://api.covid19india.org/raw_data.json"
+function loadData(){
+    progressBarVisible(true)
+    fetch(API_URL).then((response)=>{
+        return response.json()
+    }).then((data)=>{
+        let filteredData = data["raw_data"].filter((item)=>{
+            return item["detectedstate"]==="Jammu and Kashmir"
+        })
+        loadTable(filteredData)
+        loadStats(filteredData);
+    });
+}
 
-function loadStats(){
-    // $.getJSON("/data/stats.json").then(data=>{
-    //     stats = data[0];
-    //     for(let key of Object.keys(stats)){
-    //         $("#"+key).html(stats[key])
-    //     }
-    //     let d =new Date(parseInt(stats.latest_run)*1000)
-    //     $("#latest_utc").html(`${d.toLocaleString()}`)
-    //     $("#storydata_perc").html(Math.round(stats['storydata_count']*100/stats['total_unique_stories']*100)/100+"%")
-    // });
+function loadTable(data){
+    progressBarVisible(false);
+
+    for(let patient of data){
+        $("#data-table tbody").append(`
+        <tr>
+        <td>${patient.patientnumber}</td>
+                      <td>${patient.dateannounced}</td>
+                      <td>${patient.detectedcity}</td>
+                      <td>${patient.detecteddistrict}</td>
+                      <td>${patient.agebracket}</td>
+                      <td>${patient.gender}</td>
+                      <td>${patient.notes}</td>
+                      <td>${formatSources(patient)}</td>
+        </tr>
+    `)
+    }
+}
+function formatSources(patient){
+    return (`
+        ${patient.source1 ? `<a href="${patient.source1}">1</a>`:""} 
+        ${patient.source2 ? `<a href="${patient.source2}">2</a>`:""} 
+        ${patient.source3 ? `<a href="${patient.source3}">3</a>`:""}
+    `)
+}
+function loadStats(data){
+    console.log(data)
+    $("#cases_total").html(data.length);
+    $("#cases_active").html(data.filter((item)=>{return item["currentstatus"]==="Hospitalized"}).length)
+    $("#cases_deaths").html(data.filter((item)=>{return item["currentstatus"]==="Deceased"}).length)
+    $("#cases_recovered").html(data.filter((item)=>{return item["currentstatus"]==="Recovered"}).length)
+
 }
 
 
@@ -70,6 +105,15 @@ function messageVisible(elem){
         message.addClass("is-hidden")
     }
 }
+// function turnPage(i){
+//     page += i
+//     loadTable()
+// }
+
+// function changeLimit(limit){
+//     pagination = limit;
+//     loadTable();
+// }
 $(document).ready(function(){
-    loadStats();
+    loadData();
 })
