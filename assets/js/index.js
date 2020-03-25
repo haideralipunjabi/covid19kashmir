@@ -83,7 +83,52 @@ $(document).ready(function(){
         // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
         $(".navbar-burger").toggleClass("is-active");
         $(".navbar-menu").toggleClass("is-active");
-  
+        
     });
+    $(".dropdown-trigger").click(function(){
+        $(".dropdown").toggleClass("is-active");
+    })
 })
+ 
+function shareStatsImage(){
+    $(".dropdown").toggleClass("is-active");
+    $(".dropdown").toggle()
+    html2canvas(document.querySelector("#stats")).then((canvas)=>{
+        $(".dropdown").toggle()
+        $("#modal-stats-image .modal-card-body").html(canvas);
+        let imData = canvas.toDataURL("image/png").replace( 
+            /^data:image\/png/, "data:application/octet-stream")
+        $("#modal-stats-image footer a.is-success").attr("href",imData);    
+        toggleModal("modal-stats-image")
+    })
+}
 
+function shareStatsText(){
+    $(".dropdown").toggleClass("is-active");
+    toggleModal("modal-stats-text")
+
+    let stats = getStatsText(patientData)    
+    let districts = patientData.map((item)=>{return item["District"]}).filter((value,index,self)=>{return self.indexOf(value)===index});
+    for(let district of districts){
+        districtData = patientData.filter((item)=>{
+            return item["District"]===district
+        });
+        stats += `\n\n${district}: \n${getStatsText(districtData)}`
+    }
+    stats+="\nSource: covid19kashmir.hackesta.org"
+    $("#stats-textarea").text(stats)
+}
+
+function getStatsText(data){
+    let total = data.length;
+    let active = data.filter((item)=>{return item["Status"]==="Hospitalized"}).length;
+    let deaths = data.filter((item)=>{return item["Status"]==="Deceased"}).length;
+    let recovered = data.filter((item)=>{return item["Status"]==="Recovered"}).length
+    return `Total: ${total}${(active)?`\nActive:${active}`:""}${(deaths)?`\nDeaths:${active}`:""}${(recovered)?`\nRecovered:${recovered}`:""}`
+}
+function copyStatsText(){
+    $("#stats-textarea").select();
+    document.execCommand('copy')
+    $("#modal-stats-text footer a.is-success").html("Copied");    
+
+}

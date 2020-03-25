@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Covid19Kashmir</title>
-    <link rel="stylesheet" href="/assets/css/bulma.min.css">
-    <link rel="stylesheet" href="/assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/bulma.min.css">
+    <link rel="stylesheet" href="assets/css/index.css">
   <script src="https://kit.fontawesome.com/4ac40a47d1.js"></script>
-  <script src="/assets/js/utils.js"></script>
+  <script src="assets/js/jquery-3.4.1.min.js"></script>
+  <script src="assets/js/html2canvas.min.js"></script>
+  <script src="assets/js/canvas2image.js"></script>
+  <script src="assets/js/utils.js"></script>
     
 </head>
 <body>
@@ -44,17 +47,41 @@
           <a class="navbar-item" href="/gmc.html">
             <span class="icon"><i class="fas fa-phone-alt"></i></span><span> On Call - GMC Consultants</span>
           </a>
-          <a class="navbar-item" href="https://www.who.int/news-room/q-a-detail/q-a-coronaviruses" target="_blank">
+          <a class="navbar-item" href="/faq.html">
             <span class="icon"><i class="fas fa-question"></i></span><span> COVID-19 F.A.Q (WHO)</span>
+          </a>
+                   <a class="navbar-item" href="mythbuster.html">
+            <span class="icon"><i class="fas fa-question"></i></span><span>Myth Buster</span>
           </a>
         </div>
       </div>
     </nav>
   <seciton class="section">
     <div class="container">
-        <article class="message is-primary">
-            <div onclick="javascript:messageVisible(this);" class="message-header">
+        <article id="stats" class="message is-primary">
+            <div class="message-header">
               <p class="has-text-centered">Statistics</p>
+              <p><div class="dropdown">
+                <div class="dropdown-trigger">
+                  <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
+                      <span class="icon is-small">
+                          <i class="fas fa-share-alt"></i>
+                        </span>
+                    <span>Share</span>
+                  </button>
+                </div>
+                <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+                  <div class="dropdown-content">
+                    <a onclick="javascript:shareStatsImage()" class="dropdown-item">
+                      As Image
+                    </a>
+                    <a onclick="javascript:shareStatsText()" class="dropdown-item">
+                      As Text
+                    </a>
+                  </div>
+                </div>
+              </div></p>
+
             </div>
             <div class="message-body">
                 
@@ -83,6 +110,9 @@
                         <p id="cases_active" class="title">xxx</p>
                       </div>
                     </div>
+                  </nav>
+                  <nav class="level">
+                    <h3 class="subtitle level-item has-text-centered has-text-black">covid19kashmir.hackesta.org</h3>
                   </nav>
                   
             </div>
@@ -214,8 +244,40 @@
     </section>
   </div>
 </div>
-
-  <script src="assets/js/jquery-3.4.1.min.js"></script>
+<div id="modal-stats-image" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Statistics</p>
+      <button class="delete" aria-label="close" onclick="javascript:toggleModal('modal-stats-image')"></button>
+    </header>
+    <section class="modal-card-body">
+      
+    </section>
+    <footer class="modal-card-foot">
+      <a download="covid19kashmir_stats.png" class="button is-success">Download</a>
+      <button class="button" onclick="javascript:toggleModal('modal-stats-image')">Cancel</button>
+    </footer>
+  </div>
+</div>
+<div id="modal-stats-text" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Statistics</p>
+        <button class="delete" aria-label="close" onclick="javascript:toggleModal('modal-stats-text')"></button>
+      </header>
+      <section class="modal-card-body">
+          <div class="control">
+              <textarea class="textarea" id="stats-textarea" readonly>This content is readonly</textarea>
+            </div>
+      </section>
+      <footer class="modal-card-foot">
+        <a onclick="javascript:copyStatsText()" class="button is-success">Copy</a>
+        <button class="button" onclick="javascript:toggleModal('modal-stats-text')">Cancel</button>
+      </footer>
+    </div>
+  </div>
   <script src="assets/js/index.js"></script>
 </body>
 </html>
