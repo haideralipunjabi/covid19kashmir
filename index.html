@@ -56,8 +56,29 @@
   <seciton class="section">
     <div class="container">
         <article id="stats" class="message is-primary">
-            <div onclick="javascript:messageVisible(this);" class="message-header">
+            <div class="message-header">
               <p class="has-text-centered">Statistics</p>
+              <p><div class="dropdown">
+                <div class="dropdown-trigger">
+                  <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
+                      <span class="icon is-small">
+                          <i class="fas fa-share-alt"></i>
+                        </span>
+                    <span>Share</span>
+                  </button>
+                </div>
+                <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+                  <div class="dropdown-content">
+                    <a onclick="javascript:shareStatsImage()" class="dropdown-item">
+                      As Image
+                    </a>
+                    <a onclick="javascript:shareStatsText()" class="dropdown-item">
+                      As Text
+                    </a>
+                  </div>
+                </div>
+              </div></p>
+
             </div>
             <div class="message-body">
                 
@@ -86,6 +107,9 @@
                         <p id="cases_active" class="title">xxx</p>
                       </div>
                     </div>
+                  </nav>
+                  <nav class="level">
+                    <h3 class="subtitle level-item has-text-centered has-text-black">covid19kashmir.hackesta.org</h3>
                   </nav>
                   
             </div>
@@ -228,11 +252,29 @@
       
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-success">Download</button>
-      <button class="button">Cancel</button>
+      <a download="covid19kashmir_stats.png" class="button is-success">Download</a>
+      <button class="button" onclick="javascript:toggleModal('modal-stats-image')">Cancel</button>
     </footer>
   </div>
 </div>
+<div id="modal-stats-text" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Statistics</p>
+        <button class="delete" aria-label="close" onclick="javascript:toggleModal('modal-stats-text')"></button>
+      </header>
+      <section class="modal-card-body">
+          <div class="control">
+              <textarea class="textarea" id="stats-textarea" readonly>This content is readonly</textarea>
+            </div>
+      </section>
+      <footer class="modal-card-foot">
+        <a onclick="javascript:copyStatsText()" class="button is-success">Copy</a>
+        <button class="button" onclick="javascript:toggleModal('modal-stats-text')">Cancel</button>
+      </footer>
+    </div>
+  </div>
   <script src="assets/js/index.js"></script>
 </body>
 </html>
