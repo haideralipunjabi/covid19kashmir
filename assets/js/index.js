@@ -88,6 +88,9 @@ $(document).ready(function(){
     $(".dropdown-trigger").click(function(){
         $(".dropdown").toggleClass("is-active");
     })
+    console.log("E")
+
+    
 })
  
 function shareStatsImage(){
@@ -132,3 +135,8 @@ function copyStatsText(){
     $("#modal-stats-text footer a.is-success").html("Copied");    
 
 }
+ function blink_text() {
+    $('.blink').fadeOut(700);
+    $('.blink').fadeIn(700);
+}
+setInterval(blink_text, 1000);
