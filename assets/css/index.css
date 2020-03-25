@@ -1,3 +1,37 @@
 .modal-card {
     margin: auto!important;
 }
+
+  .footer{
+    background: rgba(108,117,125,.0627451);
+  }
+
+  .footer ul{
+    list-style: none;
+    text-align: left;
+  }
+
+  .footer a{
+    color: black;
+    color: #007bff;
+    
+  }
+
+  .footer a:hover{
+    transition: background .2s ease-in-out;
+    background: rgba(0,123,255,.0627451);
+  }
+
+.top-title{
+
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+}
+
+.top-title span{
+	background-color: #fc1744;
+	color: white;
+	font-weight: 600;
+	padding: 2px;
+}
