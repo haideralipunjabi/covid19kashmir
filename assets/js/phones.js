@@ -18,7 +18,9 @@ function loadTable(data){
         $("#data-table tbody").append(`
         <tr>
         <td>${contact["Name"]}</td>
-                      <td>${contact["Phone No"]}</td>
+                      <td>${contact["Phone No"].split(",").map((phone)=>{
+                        return `<span class="icon"><i class="fas fa-phone-alt"></i></span><a href="tel:${phone}">${phone}</a>`
+                    })}</td>
         </tr>
     `)
     }

@@ -30,6 +30,7 @@ function loadTable(){
                       <td class="is-hidden-mobile is-hidden-tablet-only">${patient["Notes"]}</td>
                       <td class="is-hidden-mobile is-hidden-tablet-only">${formatSources(patient)}</td>
                       <td class="is-hidden-mobile is-hidden-tablet-only">${patient["Status"]}</td>
+                      <td><a class="button is-small - is-rounded is-info" onclick="javascript:patientModal(${patientData.indexOf(patient)}>${patient["Status"]}">View Details</a></td>
                       
         </tr>
     `)
