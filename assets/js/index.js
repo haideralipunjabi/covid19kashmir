@@ -99,7 +99,6 @@ function shareStatsImage(){
         let imData = canvas.toDataURL("image/png").replace( 
             /^data:image\/png/, "data:application/octet-stream")
         $("#modal-stats-image footer a.is-success").attr("href",imData);    
-        console.log(imData)
         toggleModal("modal-stats-image")
     })
 }
