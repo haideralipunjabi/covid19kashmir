@@ -35,3 +35,6 @@
 	font-weight: 600;
 	padding: 2px;
 }
+.navbar-burger span {
+  height: 3px !important;
+}
