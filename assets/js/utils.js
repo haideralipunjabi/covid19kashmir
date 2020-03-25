@@ -56,6 +56,10 @@ function messageVisible(elem){
         message.addClass("is-hidden")
     }
 }
+
+function toggleModal(modalid){
+    $("#"+modalid).toggle()
+}
 // function turnPage(i){
 //     page += i
 //     loadTable()

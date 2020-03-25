@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1024, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Covid19Kashmir</title>
     <link rel="stylesheet" href="/assets/css/bulma.min.css">
@@ -109,17 +109,19 @@
             <div id="data-table">
               <progress class="progress is-hidden is-small is-primary" max="100">75%</progress>
               <h1 id="nodata-error" class="subtitle is-1 has-text-centered is-hidden">NO DATA FOUND</h1>
-            <table class="table is-fullwidth" style="overflow-x:auto;">
+            <table class="table is-fullwidth is-bordered is-striped" style="overflow-x:auto;">
               <thead>
                 <tr>
-                  <td>Id</td>
-                  <td>Date Announced</td>
-                  <td>City</td>
-                  <td>District</td>
-                  <td>Age</td>
-                  <td>Gender</td>
-                  <td>Notes</td>
-                  <td>Sources</td>
+                  <th>Id</th>
+                  <th>Date Announced</th>
+                  <th class="is-hidden-mobile is-hidden-tablet-only">City</th>
+                  <th>District</th>
+                  <th class="is-hidden-mobile is-hidden-tablet-only">Age</th>
+                  <th class="is-hidden-mobile is-hidden-tablet-only">Gender</th>
+                  <th class="is-hidden-mobile is-hidden-tablet-only">Notes</th>
+                  <th class="is-hidden-mobile is-hidden-tablet-only">Sources</th>
+                  <th class="is-hidden-mobile is-hidden-tablet-only">Status</th>
+
                 </tr>
               </thead>   
               <tbody>
@@ -138,6 +140,7 @@
       </article>
     </div>
   </section>
+  <br>
   <footer class="footer" style="position: fixed; bottom:0;right:0; left:0 ;padding: 0;">
     <div class="container columns">
       <div class="column">
@@ -151,6 +154,81 @@
 
     </div>
   </footer>
+<!-- Modals -->
+<div id="modal-patient" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Patient Details</p>
+      <button class="delete" aria-label="close" onclick="javascript:toggleModal('modal-patient')"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span>Patient <span id="modal-details-id"></span></span>
+          </p>
+        </header>
+        <div class="card-content">
+          <div class="content">
+            <p><b>Age: </b><span id="modal-details-age">XXX</span></p>
+            <p><b>Gender: </b><span id="modal-details-gender">XXX</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span>Location</span>
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <p><b>City: </b><span id="modal-details-city">XXX</span></p>
+              <p><b>District: </b><span id="modal-details-district">XXX</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+            <header class="card-header">
+              <p class="card-header-title">
+                <span>Current Status</span>
+              </p>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                <p><b>Date Announced: </b><span id="modal-details-date-announced">XXX</span></p>
+                <p><b>Current Status: </b><span id="modal-details-current-status"></span></p>
+                <p><b>Status Change Date: </b><span id="modal-details-date-change">XXX</span></p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  <span>Notes</span>
+                </p>
+              </header>
+              <div class="card-content">
+                <div class="content" id="modal-details-notes">
+                </div>
+              </div>
+            </div>
+          <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  <span>Sources</span>
+                </p>
+              </header>
+              <div class="card-content">
+                <div class="content" id="modal-details-sources">
+                </div>
+              </div>
+            </div>
+    </section>
+  </div>
+</div>
+
   <script src="assets/js/jquery-3.4.1.min.js"></script>
   <script src="assets/js/index.js"></script>
 </body>
