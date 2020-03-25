@@ -86,4 +86,14 @@ $(document).ready(function(){
   
     });
 })
-
+ 
+function shareStasImage(){
+    html2canvas(document.querySelector("#stats")).then((canvas)=>{
+        $("#modal-stats-image .modal-card-body").html(canvas);
+        let imData = canvas.toDataURL("image/png").replace( 
+            /^data:image\/png/, "data:application/octet-stream")
+        $("#modal-stats-image footer button.is-success").attr("href",imData);    
+        console.log(imData)
+        toggleModal("modal-stats-image")
+    })
+}

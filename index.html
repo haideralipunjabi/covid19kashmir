@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="/assets/css/bulma.min.css">
     <link rel="stylesheet" href="/assets/css/index.css">
   <script src="https://kit.fontawesome.com/4ac40a47d1.js"></script>
+  <script src="assets/js/jquery-3.4.1.min.js"></script>
+  <script src="/assets/js/html2canvas.min.js"></script>
+  <script src="/assets/js/canvas2image.js"></script>
   <script src="/assets/js/utils.js"></script>
     
 </head>
@@ -52,7 +55,7 @@
     </nav>
   <seciton class="section">
     <div class="container">
-        <article class="message is-primary">
+        <article id="stats" class="message is-primary">
             <div onclick="javascript:messageVisible(this);" class="message-header">
               <p class="has-text-centered">Statistics</p>
             </div>
@@ -214,8 +217,22 @@
     </section>
   </div>
 </div>
-
-  <script src="assets/js/jquery-3.4.1.min.js"></script>
+<div id="modal-stats-image" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Statistics</p>
+      <button class="delete" aria-label="close" onclick="javascript:toggleModal('modal-stats-image')"></button>
+    </header>
+    <section class="modal-card-body">
+      
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success">Download</button>
+      <button class="button">Cancel</button>
+    </footer>
+  </div>
+</div>
   <script src="assets/js/index.js"></script>
 </body>
 </html>
