@@ -88,6 +88,9 @@ $(document).ready(function(){
     $(".dropdown-trigger").click(function(){
         $(".dropdown").toggleClass("is-active");
     })
+    console.log("E")
+
+    
 })
  
 function shareStatsImage(){
