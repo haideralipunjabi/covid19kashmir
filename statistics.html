@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Covid19Kashmir</title>
-    <link rel="stylesheet" href="assets/css/bulma.min.css">
-    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="/assets/css/bulma.min.css">
+    <link rel="stylesheet" href="/assets/css/index.css">
   <script src="https://kit.fontawesome.com/4ac40a47d1.js"></script>
-  <script src="assets/js/utils.js"></script>
+  <script src="/assets/js/utils.js"></script>
 
     
 </head>
@@ -47,7 +47,7 @@
           <a class="navbar-item" href="/statistics.html">
             <span class="icon"><i class="fas fa-table"></i></span><span> Govt. Statistics</span>
           </a>
-          <a class="navbar-item" href="/faq.html" >
+          <a class="navbar-item" href="/faq.html">
             <span class="icon"><i class="fas fa-question"></i></span><span> COVID-19 F.A.Q (WHO)</span>
           </a>
               <a class="navbar-item" href="mythbuster.html">
@@ -57,18 +57,50 @@
       </div>
     </nav>
   <seciton class="section">
-
     <div class="container">
-      
-      <p>This Data Has Been Taken From World Health Organization Website: <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public/myth-busters" title="">Source Link</a> </p>
-<br/>
-    </div>
-
-    <div class="container mycont" id="mycont">
-       
-
-
-
+          <article>
+              <div class="message-header">
+                  <p>Surveillance Statistics <a id="data-source" href="" target="_blank">(Source)</a> </p>
+                    <div class="dropdown">
+                      <div class="dropdown-trigger">
+                        <button class="button" onclick="javascript:" aria-haspopup="true" aria-controls="dropdown-menu">
+                          <span id="date-now">Dropdown button</span>
+                          <span class="icon is-small">
+                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                          </span>
+                        </button>
+                      </div>
+                      <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                        <div class="dropdown-content" id="date-options">
+                        </div>
+                      </div>
+                    </div>
+                  </p>
+              </div>
+            <div id="data-table">
+              <progress class="progress is-hidden is-small is-primary" max="100">75%</progress>
+              <h1 id="nodata-error" class="subtitle is-1 has-text-centered is-hidden">NO DATA FOUND</h1>
+            <table class="table is-fullwidth is-bordered is-striped" style="overflow-x:auto;">
+              <thead>
+                <tr>
+                  
+                </tr>
+              </thead>
+    
+              <tbody>
+    
+              </tbody>
+            </table>
+            <!-- <strong>Load: </strong> -->
+        <!-- <a onclick="javascript:changeLimit(10);">10</a>
+        <a onclick="javascript:changeLimit(20);">20</a>
+        <a onclick="javascript:changeLimit(50);">50</a>
+        <a onclick="javascript:changeLimit(100);">100</a>
+        <nav class="pagination" role="navigation" aria-label="pagination">
+          <a onclick="javascript:turnPage(-1);" class="pagination-previous">Previous</a>
+          <a onclick="javascript:turnPage(1);" class="pagination-next">Next</a>
+        </nav> -->
+      </article>
     </div>
   </section>
   <footer class="footer" style="position: fixed; bottom:0;right:0; left:0 ;padding: 0;">
@@ -85,31 +117,6 @@
     </div>
   </footer>
   <script src="assets/js/jquery-3.4.1.min.js"></script>
-
-
-  <script>
-    $.getJSON("https://spreadsheets.google.com/feeds/list/1DMv7T3kSMzr-IQQTeQRGx7b_Ya7obs2XIJGdx6vdjqM/od6/public/values?alt=json", function (data) {
-
-      var sheetData = data.feed.entry;
-      var i;
-      for (i = 0; i < sheetData.length; i++) {
-         
-        var question = data.feed.entry[i]['gsx$q']['$t'];
-        var answer = data.feed.entry[i]['gsx$a']['$t'];
-
-        $(".mycont").append("<article class='message'><div class='message-header'><p>"+question+"</p></div><div class='message-body'><p>"+answer+"</p></div></article>'");
-      }
-    });
-    $(document).ready(function(){
-    $(".navbar-burger").click(function() {
-
-        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-        $(".navbar-burger").toggleClass("is-active");
-        $(".navbar-menu").toggleClass("is-active");
-  
-    });
-})
-
-  </script>
+  <script src="assets/js/statistics.js"></script>
 </body>
 </html>
