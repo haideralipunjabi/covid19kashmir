@@ -1,6 +1,10 @@
 .heading {
   font-size: 14px;
 }
+.brand {
+  text-transform: uppercase;
+  font-size: 20px;
+}
 .level-item {
   margin: 5px;
   padding: 15px;
