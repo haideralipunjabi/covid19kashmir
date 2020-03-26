@@ -38,3 +38,29 @@
 .navbar-burger span {
   height: 3px !important;
 }
+.copyright {
+  font-size: 16px;
+}
+.blue {
+  color:#017CFF;
+}
+.red {
+  color:#FF1545;
+}
+.green {
+  color:#29A746
+}
+.grey {
+  color:#9EA4A9
+}
+@media only screen and (max-width: 600px) {
+  .copyright, .columns.is-mobile {
+    font-size: 14px;
+}
+.footer {
+  padding: 1em .5em;
+}
+.column {
+  padding: 0px;
+}
+}
