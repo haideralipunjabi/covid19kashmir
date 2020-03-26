@@ -104,6 +104,6 @@
 }
 table[data-sortable] td, table[data-sortable] th {
   text-align: left;
-  padding: 5px;
+  padding: 5px !important;
 }
 }
