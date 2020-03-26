@@ -64,3 +64,9 @@
   padding: 0px;
 }
 }
+@media only screen and (max-width: 375px) {
+  .table td, .table th {
+    padding: .5em .5em;
+    
+}
+}
