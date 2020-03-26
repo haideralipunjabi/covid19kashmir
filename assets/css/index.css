@@ -79,9 +79,9 @@
     margin: 0 20%;
   }
 }
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 440px) {
   .table td, .table th {
-    padding: .5em .5em;
+    padding: .5em .3em;
     
 }
 .level {
@@ -89,5 +89,8 @@
 }
 .level-item {
   margin: 5%;
+}
+.section {
+  padding: 3rem .5rem;
 }
 }
