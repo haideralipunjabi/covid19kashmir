@@ -118,7 +118,7 @@ function shareStatsText(){
         });
         stats += `\n\n${district}: \n${getStatsText(districtData)}`
     }
-    stats+="\nSource: covid19kashmir.hackesta.org"
+    stats+="\nSource: covidkashmir.org"
     $("#stats-textarea").text(stats)
 }
 
@@ -127,7 +127,7 @@ function getStatsText(data){
     let active = data.filter((item)=>{return item["Status"]==="Hospitalized"}).length;
     let deaths = data.filter((item)=>{return item["Status"]==="Deceased"}).length;
     let recovered = data.filter((item)=>{return item["Status"]==="Recovered"}).length
-    return `Total: ${total}${(active)?`\nActive:${active}`:""}${(deaths)?`\nDeaths:${active}`:""}${(recovered)?`\nRecovered:${recovered}`:""}`
+    return `Total: ${total}${(active)?`\nActive:${active}`:""}${(deaths)?`\nDeaths:${deaths}`:""}${(recovered)?`\nRecovered:${recovered}`:""}`
 }
 function copyStatsText(){
     $("#stats-textarea").select();

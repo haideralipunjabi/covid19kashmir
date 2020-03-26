@@ -1,3 +1,12 @@
+.heading {
+  font-size: 14px;
+}
+.level-item {
+  margin: 5px;
+  padding: 15px;
+  background: white;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
 .modal-card {
     margin: auto!important;
 }
@@ -21,7 +30,6 @@
     transition: background .2s ease-in-out;
     background: rgba(0,123,255,.0627451);
   }
-
 .top-title{
 
     font-family: 'Montserrat', sans-serif;
@@ -30,8 +38,61 @@
 }
 
 .top-title span{
-	background-color: #fc1744;
-	color: white;
-	font-weight: 600;
-	padding: 2px;
+  background-color: #fc1744;
+  color: white;
+  font-weight: 600;
+  padding: 2px;
+}
+.navbar-burger span {
+  height: 3px !important;
+}
+.copyright {
+  font-size: 16px;
+}
+.blue {
+  color:#017CFF;
+}
+.red {
+  color:#FF1545;
+}
+.green {
+  color:#29A746
+}
+.grey {
+  color:#9EA4A9
+}
+@media only screen and (max-width: 600px) {
+  .copyright, .columns.is-mobile {
+    font-size: 14px;
+}
+.footer {
+  padding: 1em .5em;
+}
+.column {
+  padding: 0px;
+}
+
+}
+@media only screen and (max-width: 768px) and (min-width: 376px)  {
+  .level {
+    margin: 0 20%;
+  }
+}
+@media only screen and (max-width: 440px) {
+  .table td, .table th {
+    padding: .5em .3em;
+    
+}
+.level {
+  margin: 0 5px;
+}
+.level-item {
+  margin: 5%;
+}
+.section {
+  padding: 3rem .5rem;
+}
+.button {
+  font-size: 12px;
+}
 }
