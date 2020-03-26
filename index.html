@@ -9,11 +9,13 @@
 
     <link rel="stylesheet" href="assets/css/bulma.min.css">
     <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/sortable-theme-minimal.css">
   <script src="https://kit.fontawesome.com/4ac40a47d1.js"></script>
   <script src="assets/js/jquery-3.4.1.min.js"></script>
 
   <script src="assets/js/html2canvas.min.js"></script>
   <script src="assets/js/canvas2image.js"></script>
+  <script src="assets/js/sortable.min.js"></script>
   <script src="assets/js/utils.js"></script>
 
   <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700i,900&display=swap" rel="stylesheet"> 
@@ -80,9 +82,9 @@
                 </div>
                 <div class="dropdown-menu" id="dropdown-menu3" role="menu">
                   <div class="dropdown-content">
-                    <a onclick="javascript:shareStatsImage()" class="dropdown-item">
+                    <!-- <a onclick="javascript:shareStatsImage()" class="dropdown-item">
                       As Image
-                    </a>
+                    </a> -->
                     <a onclick="javascript:shareStatsText()" class="dropdown-item">
                       As Text
                     </a>
@@ -133,19 +135,19 @@
             <div id="data-table">
               <progress class="progress is-hidden is-small is-primary" max="100">75%</progress>
               <h1 id="nodata-error" class="subtitle is-1 has-text-centered is-hidden">NO DATA FOUND</h1>
-              <table class="table is-fullwidth is-bordered is-striped" style="overflow-x:auto;">
+              <table class="table sortable sortable-theme-minimal is-fullwidth is-bordered is-striped" data-sortable style="overflow-x:auto;">
               <thead>
                 <tr>
-                  <th>Id</th>
+                  <th data-sortable="false">Id</th>
                   <th>Date Announced</th>
                   <th class="is-hidden-mobile is-hidden-tablet-only">City</th>
                   <th>District</th>
-                  <th class="is-hidden-mobile is-hidden-tablet-only">Age</th>
-                  <th class="is-hidden-mobile is-hidden-tablet-only">Gender</th>
-                  <th class="is-hidden-mobile is-hidden-tablet-only">Notes</th>
-                  <th class="is-hidden-mobile is-hidden-tablet-only">Sources</th>
-                  <th class="is-hidden-mobile is-hidden-tablet-only">Status</th>
-                  <th>Details</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Age</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Gender</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Notes</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Sources</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Status</th>
+                  <th data-sortable="false">Details</th>
                 </tr>
               </thead>   
               <tbody>
