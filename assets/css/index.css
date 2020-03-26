@@ -93,4 +93,7 @@
 .section {
   padding: 3rem .5rem;
 }
+.button {
+  font-size: 12px;
+}
 }
