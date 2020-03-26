@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Covid19Kashmir</title>
+
+
     <link rel="stylesheet" href="assets/css/bulma.min.css">
     <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/sortable-theme-minimal.css">
   <script src="https://kit.fontawesome.com/4ac40a47d1.js"></script>
   <script src="assets/js/jquery-3.4.1.min.js"></script>
 
   <script src="assets/js/html2canvas.min.js"></script>
   <script src="assets/js/canvas2image.js"></script>
+  <script src="assets/js/sortable.min.js"></script>
   <script src="assets/js/utils.js"></script>
 
   <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700i,900&display=swap" rel="stylesheet"> 
@@ -23,7 +27,8 @@
   <section class="section">
     <div class="container has-text-centered">
      <h2 class="title top-title">
-        COVID-19 KASHMIR <span class="blink">Tracker</span>
+        COVID-19 KASHMIR <br/><span class="blink">Tracker</span>
+
       </h2>
       <a href="https://twitter.com/COVIDKashmir?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @COVIDKashmir</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </div>
@@ -78,9 +83,9 @@
                 </div>
                 <div class="dropdown-menu" id="dropdown-menu3" role="menu">
                   <div class="dropdown-content">
-                    <a onclick="javascript:shareStatsImage()" class="dropdown-item">
+                    <!-- <a onclick="javascript:shareStatsImage()" class="dropdown-item">
                       As Image
-                    </a>
+                    </a> -->
                     <a onclick="javascript:shareStatsText()" class="dropdown-item">
                       As Text
                     </a>
@@ -131,19 +136,19 @@
             <div id="data-table">
               <progress class="progress is-hidden is-small is-primary" max="100">75%</progress>
               <h1 id="nodata-error" class="subtitle is-1 has-text-centered is-hidden">NO DATA FOUND</h1>
-              <table class="table is-fullwidth is-bordered is-striped" style="overflow-x:auto;">
+              <table class="table sortable sortable-theme-minimal is-fullwidth is-bordered is-striped" data-sortable style="overflow-x:auto;">
               <thead>
                 <tr>
-                  <th>Id</th>
+                  <th data-sortable="false">Id</th>
                   <th>Date Announced</th>
                   <th class="is-hidden-mobile is-hidden-tablet-only">City</th>
                   <th>District</th>
-                  <th class="is-hidden-mobile is-hidden-tablet-only">Age</th>
-                  <th class="is-hidden-mobile is-hidden-tablet-only">Gender</th>
-                  <th class="is-hidden-mobile is-hidden-tablet-only">Notes</th>
-                  <th class="is-hidden-mobile is-hidden-tablet-only">Sources</th>
-                  <th class="is-hidden-mobile is-hidden-tablet-only">Status</th>
-                  <th>Details</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Age</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Gender</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Notes</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Sources</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Status</th>
+                  <th data-sortable="false">Details</th>
                 </tr>
               </thead>   
               <tbody>
@@ -285,45 +290,74 @@
       </footer>
     </div>
   </div>
+<div class="container has-text-centered ">
+    <a href="statistics.html" class="button is-primary is-rounded">View Detailed Statistics (Govt)</a>
+</div>
+<br/>
 
+<!-- Starts -->
+<style type="text/css" media="screen">
+  
+  .below-box-self{
+    text-align: center;
+  }
+
+  .below-box-self i{
+    font-size: 35px;
+  }
+
+  .below-box-self h5{
+   font-family: 'Montserrat', sans-serif;
+   font-size: 14px;
+   font-weight: 400;
+  }
+
+</style>
+<hr/>
+<div class="container">
+<div class="tile is-parent">
+    <article class="tile is-child box below-box-self">
+         
+          <h5>On Call Duty Roster GMC Srinagar.</h5>   
+           <i class="fa fa-h-square"></i>    <br/>      
+         <a href="gmc.html" class="button is-small is-primary is-rounded">Check Out</a>
+    </article>
+  </div>
+
+<div class="tile is-parent">
+    <article class="tile is-child box below-box-self">
+         
+          <h5>Don't Believe Everything. Check Our Myth Buster</h5>   
+           <i class="fab fa-smile-o"></i>       <br/>  
+         <a href="mythbuster.html" class="button is-small is-info is-rounded">Check Out</a>
+    </article>
+  </div>
+</div>
+<!-- Footer Starts -->
   <footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
     <div class="columns is-mobile">
-      <div class="column">
-          
-          <ul>
-            <li><a href="phones.html">Important Numbers</a></li>
-            <li><a href="gmc.html">On Call - GMC Consultants</a></li>
-            <li><a href="statistics.html">Statistics</a></li>
-            
-          </ul>
-
-      </div>
-      <div class="column">
-        <ul>
-           <li><a href="faq.html">Some Answers About COVID</a></li>
-           <li><a href="mythbuster.html">COVID Myth Busters</a></li>
-        </ul>
-       
-      </div>
-      <div class="column">
-         <ul>
-           <li><a href="https://github.com/haideralipunjabi/covid19kashmir">Github</a></li>
-           <li><a href="https://twitter.com/COVIDKashmir?ref_src=twsrc%5Etfw">Follow Us on Twitter</a></li>
-        </ul>
-      </div>
+      <div class="column is-12">
       
+         
+      <p class="bd-footer-link-title">
+        <a href="about.html">About Project</a>
+      </p>
+      <p class="bd-footer-link-title">
+        <a href="sources.html">Our Sources</a>
+      </p>
+      
+      </div>
     </div>
+
       <p class="copyright">
         <strong>covidkashmir.org</strong> by <a href="http://haideralipunjabi.com">Haider Ali Punjabi</a> | <a href="https://hackesta.org" title="">Hackesta</a> | <a href="https://facebook.com/vikasbukhari">Vikas Bukhari</a> | <a href="https://mudasirali.com">Mudasir Ali</a>. The source code is Available on Github
         <a href="https://github.com/haideralipunjabi/covid19kashmir">Click Here</a>
-       
+      
       </p>
-    </div>
   </div>
 </footer>
-
 
   <script src="assets/js/index.js"></script>
 </body>
