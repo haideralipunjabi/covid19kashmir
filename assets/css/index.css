@@ -100,4 +100,8 @@
 .button {
   font-size: 12px;
 }
+table[data-sortable] td, table[data-sortable] th {
+  text-align: left;
+  padding: 5px;
+}
 }
