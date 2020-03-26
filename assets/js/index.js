@@ -35,6 +35,8 @@ function loadTable(){
         </tr>
     `)
     }
+    $("#data-table th")[1].click()
+    $("#data-table th")[1].click()
 }
 function formatSources(patient){
     let links = patient["Sources"].split(",")
@@ -88,7 +90,7 @@ $(document).ready(function(){
     $(".dropdown-trigger").click(function(){
         $(".dropdown").toggleClass("is-active");
     })
-    console.log("E")
+    
 
     
 })
