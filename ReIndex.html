@@ -19,23 +19,7 @@
   <script src="assets/js/utils.js"></script>
 
   <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700i,900&display=swap" rel="stylesheet"> 
-  <style type="text/css" media="screen">
-  
-    .below-box-self{
-      text-align: center;
-    }
-  
-    .below-box-self i{
-      font-size: 35px;
-    }
-  
-    .below-box-self h5{
-     font-family: 'Montserrat', sans-serif;
-     font-size: 14px;
-     font-weight: 400;
-    }
-  
-  </style>
+
 </head>
 <body>
   
@@ -110,40 +94,160 @@
               </div>
 
             </div>
+              <!-- Styling -->
+<style type="text/css" media="screen">
+            
+            .message-body{
+              background-color: white;
+            }
+
+            .count-num{
+             float: right;
+            
+            }
+
+            .container-stat i{
+             /* float: right;*/
+            }
+
+            .count-head{
+               font-family: 'Roboto Condensed', sans-serif;
+               text-transform: uppercase;
+               font-weight: 700;
+            }
+
+            .tile-total{
+              background: rgba(255,7,58,.12549);
+              color: #ff073a;
+              padding: 16px;
+            }
+
+            .tile-death{
+              background: rgba(108,117,125,.12549);
+              color: rgba(108,117,125,1);
+               padding: 16px;
+            }
+
+            .tile-recovered{
+              background: rgba(72, 199, 116, .12849);
+              color: #28a745;
+               padding: 16px;
+            }
+
+            .tile-active{
+              background: rgba(0,123,255,.12549);
+              color: rgba(0,123,255,1);
+               padding: 16px;
+            }
+
+            .count-num{
+              font-size: 30px;
+               font-family: 'Montserrat', sans-serif;
+              font-weight: 700;
+            }
+
+            .source-message{
+              text-align: center;
+              
+              color: black;
+             
+              font-family: 'Roboto Condensed', sans-serif;
+              text-transform: uppercase;
+               font-weight: 700;
+            }
+
+          </style>
+  
             <div class="message-body">
-                
-                  <div class="level">
-                    <div class="level-item has-text-centered">
-                      <div>
-                        <p class="heading blue"><i class="fas fa-users fa-4x"></i></p>
-                        <p class="heading">Total Cases</p>
-                        <p id="cases_total" class="title">xxx</p>
+                   
+                      <div class="column">
+
+                        <div class="columns is-desktop">
+
+                          <div class="column is-3">
+                              <div class="tile is-parent">
+                                  <article class="tile tile-total is-child box">
+
+                                        <div class="container-stat">
+                                          
+                                          <p><i class="fas fa-users"></i> 
+
+                                            <span class="count-head">TOTAL</span>  
+                                            
+                                            <span id="cases_total" class="count-num">xxx</span>
+                                            
+
+                                          </p>
+                                        </div>
+                                    
+                                  </article>
+                                </div>
+                          </div>
+
+                             <div class="column is-3">
+                              <div class="tile is-parent">
+                                  <article class="tile tile-recovered is-child box">
+                                                            
+                                        <div class="container-stat">
+                                          <p>
+                                               <i class="fas fa-heart"></i>
+                                            <span class="count-head">Recovered</span>  
+                                            
+                                            <span id="cases_recovered" class="count-num">xxx</span>
+                                           
+
+                                          </p>
+                                        </div>
+                                    
+                                  </article>
+                                </div>
+                          </div>
+
+                             <div class="column is-3">
+                              <div class="tile is-parent">
+                                  <article class="tile tile-active is-child box">
+                                                            
+                                        <div class="container-stat">
+                                          <p>
+                                             <i class="fas fa-bed"></i>
+                                            <span class="count-head">Active</span>  
+                                          
+                                            <span id="cases_active" class="count-num">xxx</span>
+                                           
+
+                                          </p>
+                                        </div>
+                                    
+                                  </article>
+                                </div>
+                          </div>
+
+                             <div class="column is-3">
+                              <div class="tile is-parent">
+                                  <article class="tile tile-death is-child box">
+                                                            
+                                        <div class="container-stat">
+                                          <p>
+                                             <i class="fas fa-ambulance"></i>
+                                            <span class="count-head">Death</span>  
+                                            
+                                            <span id="cases_deaths" class="count-num">xxx</span>
+                                           
+
+                                          </p>
+                                        </div>
+                                    
+                                  </article>
+                                </div>
+                          </div>
+ 
+                        </div>
                       </div>
+                      <br/>
+                      <p class="source-message">www.covidkashmir.org
+                        <br/>#StayHomeStaySafe
+                      </p>
                     </div>
-                    <div class="level-item has-text-centered">
-                      <div>
-                        <p class="heading green"><i class="fas fa-heart fa-4x"></i></p>
-                        <p class="heading">Recovered</p>
-                        <p id="cases_recovered" class="title">xxx</p>
-                      </div>
-                    </div>
-                    <div class="level-item has-text-centered">
-                      <div>
-                        <p class="heading grey"><i class="fas fa-ambulance fa-4x"></i></p>
-                        <p class="heading">Deaths</p>
-                        <p id="cases_deaths" class="title">xxx</p>
-                      </div>
-                    </div>
-                    <div class="level-item has-text-centered">
-                      <div>
-                        <p class="heading red"><i class="fas fa-bed fa-4x"></i></p>
-                        <p class="heading">Active</p>
-                        <p id="cases_active" class="title">xxx</p>
-                      </div>
-                    </div>
-                  </div>
-                <p class="has-text-centered brand"><strong>covidkashmir.org</strong></p>
-            </div>
           </article>
           <article>
               <div class="message-header">
@@ -196,6 +300,7 @@
         <p>Hosted with <span class="icon has-text-danger"><i class="fas fa-heart"></i></span> on <strong><a
               href="https://netlify.com" target="_blank">Netlify</a></strong></p>
       </div>
+
     </div>
   </footer> -->
 <!-- Modals -->
@@ -312,34 +417,77 @@
 <br/>
 
 <!-- Starts -->
+<style type="text/css" media="screen">
+  
+  .below-box-self{
+    text-align: center;
+  }
+
+  .below-box-self i{
+    font-size: 35px;
+  }
+
+  .below-box-self h5{
+   font-family: 'Montserrat', sans-serif;
+   font-size: 14px;
+   font-weight: 400;
+  }
+
+</style>
 <hr/>
 <div class="container">
-<div class="tile is-parent">
-    <article class="tile is-child box below-box-self">
-         
-          <h5>On Call Duty Roster GMC Srinagar.</h5>   
-           <i class="fa fa-h-square"></i>    <br/>      
-         <a href="gmc.html" class="button is-small is-primary is-rounded">Check Out</a>
-    </article>
-  </div>
 
-<div class="tile is-parent">
+
+
+
+   <div class="columns is-desktop">
+
+      <div class="column is-4">
+      <article class="tile is-child box below-box-self">
+          <h5>On Call Duty Roster<br/> GMC Srinagar.</h5>   
+           <i class="fa fa-h-square"></i>    <br/>   <br/>    
+         <a href="gmc.html" class="button is-small is-danger is-rounded">View Numbers</a>
+    </article>
+            </div>
+
+            <div class="column is-4">
+            
     <article class="tile is-child box below-box-self">
          
-          <h5>Don't Believe Everything. Check Our Myth Buster</h5>   
-           <i class="fab fa-smile-o"></i>       <br/>  
-         <a href="mythbuster.html" class="button is-small is-info is-rounded">Check Out</a>
+        <h5>Myth's About COVID19. <br/> WHO </h5>   
+           <i class="fa fa-times"></i>  <br/>    <br/> 
+         <a href="mythbuster.html" class="button is-small is-danger is-rounded">View Myths</a>
     </article>
-  </div>
+
 </div>
+    <div class="column is-4">
+       <article class="tile is-child box below-box-self">
+         
+        <h5>Important. <br/> Phone Numbers </h5>   
+           <i class="fa fa-phone-square"></i>  <br/> <br/>   
+         <a href="phones.html" class="button is-small is-info is-danger is-rounded">View Emergency Numbers</a>
+    </article>
+
+
+    </div>
+            
+   </div>
+
+
+</div>
+
+
+<br/>
+<br/>
 <!-- Footer Starts -->
-  <footer class="footer">
+<footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
     <div class="columns is-mobile">
       <div class="column is-12">
       
-         
+         <br/>
+         <br/>
       <p class="bd-footer-link-title">
         <a href="about.html">About Project</a>
       </p>
@@ -350,11 +498,15 @@
       </div>
     </div>
 
-    <p class="copyright">
-      <strong>covidkashmir.org</strong> by <a href="http://haideralipunjabi.com">Haider Ali Punjabi</a> | <a href="https://hackesta.org" title="">Hackesta</a> | <a href="https://facebook.com/vikasbukhari">Vikas Bukhari</a> | <a href="https://mudasirali.com">Mudasir Ali</a>. The source code is Available on Github
-      <a href="https://github.com/haideralipunjabi/covid19kashmir">Click Here</a>
-    </p>
-  </div>
+      <p class="copyright">
+        <strong>covidkashmir.org</strong> <br/>By <br/> <a href="http://haideralipunjabi.com">Haider Ali Punjabi</a> 
+        | <a href="https://hackesta.org" title="">Hackesta</a> | <a href="https://facebook.com/vikasbukhari">Vikas Bukhari</a> 
+        | <a href="https://mudasirali.com">Mudasir Ali</a>. 
+          <br/> The source code is Available on Github
+        <a href="https://github.com/haideralipunjabi/covid19kashmir">Click Here</a>
+      
+      </p>
+
   </div>
 </footer>
 
