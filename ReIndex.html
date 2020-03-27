@@ -102,11 +102,12 @@
             }
 
             .count-num{
-             
+             float: right;
+            
             }
 
             .container-stat i{
-              float: right;
+             /* float: right;*/
             }
 
             .count-head{
@@ -118,29 +119,29 @@
             .tile-total{
               background: rgba(255,7,58,.12549);
               color: #ff073a;
-              padding: 9px;
+              padding: 16px;
             }
 
             .tile-death{
               background: rgba(108,117,125,.12549);
               color: rgba(108,117,125,1);
-              padding: 9px;
+               padding: 16px;
             }
 
             .tile-recovered{
-              background: rgba(40, 167, 69, .12549);
+              background: rgba(72, 199, 116, .12849);
               color: #28a745;
-              padding: 9px;
+               padding: 16px;
             }
 
             .tile-active{
               background: rgba(0,123,255,.12549);
               color: rgba(0,123,255,1);
-              padding: 9px;
+               padding: 16px;
             }
 
             .count-num{
-              font-size: 24px;
+              font-size: 30px;
                font-family: 'Montserrat', sans-serif;
               font-weight: 700;
             }
@@ -168,10 +169,13 @@
                                   <article class="tile tile-total is-child box">
 
                                         <div class="container-stat">
-                                          <p><span class="count-head">TOTAL</span>  
-                                            <br/>
+                                          
+                                          <p><i class="fas fa-users"></i> 
+
+                                            <span class="count-head">TOTAL</span>  
+                                            
                                             <span id="cases_total" class="count-num">xxx</span>
-                                            <i class="fas fa-users"></i>
+                                            
 
                                           </p>
                                         </div>
@@ -185,10 +189,12 @@
                                   <article class="tile tile-recovered is-child box">
                                                             
                                         <div class="container-stat">
-                                          <p><span class="count-head">Recovered</span>  
-                                            <br/>
+                                          <p>
+                                               <i class="fas fa-heart"></i>
+                                            <span class="count-head">Recovered</span>  
+                                            
                                             <span id="cases_recovered" class="count-num">xxx</span>
-                                            <i class="fas fa-heart"></i>
+                                           
 
                                           </p>
                                         </div>
@@ -202,10 +208,12 @@
                                   <article class="tile tile-active is-child box">
                                                             
                                         <div class="container-stat">
-                                          <p><span class="count-head">Active</span>  
-                                            <br/>
+                                          <p>
+                                             <i class="fas fa-bed"></i>
+                                            <span class="count-head">Active</span>  
+                                          
                                             <span id="cases_active" class="count-num">xxx</span>
-                                            <i class="fas fa-bed"></i>
+                                           
 
                                           </p>
                                         </div>
@@ -219,10 +227,12 @@
                                   <article class="tile tile-death is-child box">
                                                             
                                         <div class="container-stat">
-                                          <p><span class="count-head">Death</span>  
-                                            <br/>
+                                          <p>
+                                             <i class="fas fa-ambulance"></i>
+                                            <span class="count-head">Death</span>  
+                                            
                                             <span id="cases_deaths" class="count-num">xxx</span>
-                                            <i class="fas fa-ambulance"></i>
+                                           
 
                                           </p>
                                         </div>
@@ -446,7 +456,7 @@
          
         <h5>Myth's About COVID19. <br/> WHO </h5>   
            <i class="fa fa-times"></i>  <br/>    <br/> 
-         <a href="mythbuster.html" class="button is-small is-danger is-rounded"><br/>View Myths</a>
+         <a href="mythbuster.html" class="button is-small is-danger is-rounded">View Myths</a>
     </article>
 
 </div>
