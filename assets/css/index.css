@@ -90,6 +90,9 @@
   }
 }
 @media only screen and (max-width: 440px) {
+  .is-size-5-mobile {
+    font-size: 1rem!important;
+}
   .table td, .table th {
     padding: .5em .3em;
     
