@@ -323,7 +323,64 @@
           <a onclick="javascript:turnPage(1);" class="pagination-next">Next</a>
         </nav> -->
     </article>
+    <br/>
+      <div class="container has-text-centered ">
+    <a href="statistics.html" class="button is-primary is-rounded">View Detailed Statistics (Govt)</a>
+  </div>
+  <br />
     <br>
+
+    <style type="text/css">
+      
+        .map-total {
+            background: rgba(255, 7, 58, .12549);
+            color: #ff073a;
+            margin: 2px;
+            padding: 4px;
+              border-radius: 15px;
+           
+          }
+
+          .map-death {
+            background: rgba(108, 117, 125, .12549);
+            color: rgba(108, 117, 125, 1);
+             margin: 2px;
+            padding: 4px;
+              border-radius: 15px;
+          }
+
+          .map-recovered {
+            background: rgba(72, 199, 116, .12849);
+            color: #28a745;
+            margin: 2px;
+            padding: 4px;
+              border-radius: 15px;
+          }
+
+          .map-active {
+            background: rgba(0, 123, 255, .12549);
+            color: rgba(0, 123, 255, 1);
+            margin: 2px;
+             padding: 4px;
+              border-radius: 15px;
+            
+          }
+
+          #map-cases_total , #map-cases_active , #map-cases_recovered , #map-cases_deceased{
+             font-weight: 700;
+             font-family: 'Montserrat', sans-serif;
+             font-size: 25px;
+          }
+
+          .map-count-text{
+             text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 700;
+          }
+      
+        
+
+    </style>
 
     <article class=""> 
         <div class="container" id="mapContainer">
@@ -346,36 +403,36 @@
             <div style="display: block;margin: auto;" id="map">
 
             </div>
-            <br>
+            <br/>
             <div class="columns is-mobile is-multiline">
                 <div class="column is-full">
                     <h1 id="map-district_name" class="has-text-centered title is-size-3 is-size-4-mobile has-text-black">
                         Total</h1>
-                </div><br>
-                <div class="column">
-                    <h1 id="map-cases_total" class="has-text-centered subtitle is-size-5 is-size-6-mobile  has-text-danger">
+                </div><br/><br/><br/>
+                <div class="column map-total">
+                    <h1 id="map-cases_total" class="has-text-centered has-text-danger">
                         XXX</h1>
-                    <h1 class="has-text-centered  has-text-danger title is-size-4 is-size-5-mobile">Total</h1>
+                    <h1 class="has-text-centered title has-text-danger map-count-text">Total</h1>
                 </div>
-                <div class="column">
-                    <h1 id="map-cases_active" class="has-text-centered subtitle is-size-5 is-size-6-mobile has-text-info">
+                <div class="column map-active">
+                    <h1 id="map-cases_active" class="has-text-centered has-text-info">
                         XXX</h1>
-                    <h1 class="has-text-centered title is-size-4 is-size-5-mobile has-text-info">Active</h1>
+                    <h1 class="has-text-centered title map-count-text has-text-info">Active</h1>
                 </div>
-                <div class="column">
+                <div class="column map-recovered">
                     <h1 id="map-cases_recovered"
-                        class="has-text-centered subtitle is-size-5 is-size-6-mobile has-text-success">XXX</h1>
-                    <h1 class="has-text-centered title is-size-4 is-size-5-mobile has-text-success">Recovered</h1>
+                        class="has-text-centered has-text-success">XXX</h1>
+                    <h1 class="has-text-centered title map-count-text has-text-success">Recovered</h1>
                 </div>
-                <div class="column">
+                <div class="column map-death">
                     <h1 id="map-cases_deceased"
-                        class="has-text-centered subtitle is-size-5 is-size-6-mobile has-text-grey-dark">XXX</h1>
-                    <h1 class="has-text-centered title is-size-4 is-size-5-mobile has-text-grey-dark">Deceased</h1>
+                        class="has-text-centered has-text-grey-dark">XXX</h1>
+                    <h1 class="has-text-centered title map-count-text has-text-grey-dark">Deceased</h1>
                 </div>
 
             </div>
             <div>
-                <h3>Map Source: <a href="https://pib.gov.in/PressReleasePage.aspx?PRID=1590112" target="_blank">Map of UTs - pib.gov.in</a></h3>
+                <h3>Map Source: <a href="https://pib.gov.in/PressReleasePage.aspx?PRID=1590112" target="_blank">Map of UTs - pib.gov.in</a> (Click on the district to view stats).</h3>
             </div>
         </div>
     </article>
@@ -503,10 +560,7 @@
       </footer>
     </div>
   </div>
-  <div class="container has-text-centered ">
-    <a href="statistics.html" class="button is-primary is-rounded">View Detailed Statistics (Govt)</a>
-  </div>
-  <br />
+
 
   <!-- Starts -->
   <style type="text/css" media="screen">
