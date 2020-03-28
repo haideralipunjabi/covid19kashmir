@@ -78,6 +78,10 @@
 .column {
   padding: 0px;
 }
+  .count-num {
+    bottom: 10px;
+    position: relative;
+}
 
 }
 @media only screen and (max-width: 768px) and (min-width: 376px)  {
@@ -86,6 +90,9 @@
   }
 }
 @media only screen and (max-width: 440px) {
+  .is-size-5-mobile {
+    font-size: 1rem!important;
+}
   .table td, .table th {
     padding: .5em .3em;
     
