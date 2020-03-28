@@ -174,3 +174,7 @@ function getTodaysDate(){
     d = new Date();
     return `${d.getDate().toString().padStart(2,"0")}/${(d.getMonth()+1).toString().padStart(2,"0")}/${d.getFullYear()}`
 }
+
+String.prototype.toTitleCase = function(){
+    return this[0].toUpperCase() + this.substring(1)
+}

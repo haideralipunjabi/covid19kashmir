@@ -11,24 +11,21 @@
     <link rel="stylesheet" href="assets/css/bulma.min.css">
     <link rel="stylesheet" href="assets/css/index.css">
     <script src="https://kit.fontawesome.com/4ac40a47d1.js"></script>
+    <link rel="stylesheet" href="assets/css/map.css">
     <script src="assets/js/jquery-3.4.1.min.js"></script>
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-        crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-        integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-        crossorigin=""></script>
-    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="assets/js/snap.svg-min.js"></script>
     <script src="assets/js/utils.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700i,900&display=swap" rel="stylesheet">
     <style>
-    #mapid { height: 512px; }
-    .case-amount {
-        font-size: 4em;
-        font-weight: bold;
-    }
+        #mapid {
+            height: 512px;
+        }
+
+        .case-amount {
+            font-size: 4em;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -105,7 +102,9 @@
                 <a class="navbar-item" href="https://covidkashmir.org">
                     Home
                 </a>
-
+                <a class="navbar-item" href="/map.html">
+                    <span class="icon"><i class="fas fa-project-diagram"></i></span><span> Map</span>
+                  </a>
                 <a class="navbar-item" href="/phones.html">
                     <span class="icon"><i class="fas fa-clinic-medical"></i></span><span> Important Numbers</span>
                 </a>
@@ -126,58 +125,55 @@
     </nav>
     <section class="section">
         <div class="container">
-            <div class="columns">
-                <div class="column is-one-half-desktop">
-                    <div class="columns">
-                        <div class="column is-one-half-desktop">
-                                <article class="message is-danger">
-                                        <div class="message-header has-text-centered">
-                                          <p>Confirmed Cases</p>
-                                        </div>
-                                        <div class="message-body has-text-centered">
-                                          <span class="case-amount">X</span>
-                                        </div>
-                                      </article>
-                        </div>
-                        <div class="column is-one-half-desktop">
-                                <article class="message is-info">
-                                        <div class="message-header has-text-centered">
-                                          <p>Active Cases</p>
-                                        </div>
-                                        <div class="message-body has-text-centered">
-                                          <span class="case-amount">X</span>
-                                        </div>
-                                      </article>
-                        </div>
-                        <div class="column is-one-half-desktop">
-                                <article class="message is-success">
-                                        <div class="message-header has-text-centered">
-                                          <p>Recovered</p>
-                                        </div>
-                                        <div class="message-body has-text-centered">
-                                          <span class="case-amount">X</span>
-                                        </div>
-                                      </article>
-                        </div>
-                        <div class="column is-one-half-desktop">
-                                <article class="message is-dark">
-                                        <div class="message-header has-text-centered">
-                                          <p>Deceased</p>
-                                        </div>
-                                        <div class="message-body has-text-centered">
-                                          <span class="case-amount">X</span>
-                                        </div>
-                                      </article>
-                        </div>
-                    </div>
-                </div>  
-                <div class="column  is-one-half-desktop">
-                        <div id="mapid"></div>
-                </div>  
+            <h1 class="title">Active Cases Heat Map</h1>
+            <div class="legend is-mobile">
+                <div class="item">
+                    <div class="tag title is-size-6"></div>
+                </div>
+                <div class="item">
+                    <div class="tag title is-size-6"></div>
+                </div>
+                <div class="item">
+                    <div class="tag title is-size-6"></div>
+                </div>
 
             </div>
+            <br>
+            <div style="display: block;margin: auto;" id="map">
+
+            </div>
+            <br>
+            <div class="columns is-mobile is-multiline">
+                <div class="column is-full">
+                    <h1 id="district_name" class="has-text-centered title is-size-3 is-size-4-mobile has-text-black">
+                        Total</h1>
+                </div><br>
+                <div class="column">
+                    <h1 id="cases_total" class="has-text-centered subtitle is-size-5 is-size-6-mobile  has-text-danger">
+                        XXX</h1>
+                    <h1 class="has-text-centered  has-text-danger title is-size-4 is-size-5-mobile">Total</h1>
+                </div>
+                <div class="column">
+                    <h1 id="cases_active" class="has-text-centered subtitle is-size-5 is-size-6-mobile has-text-info">
+                        XXX</h1>
+                    <h1 class="has-text-centered title is-size-4 is-size-5-mobile has-text-info">Active</h1>
+                </div>
+                <div class="column">
+                    <h1 id="cases_recovered"
+                        class="has-text-centered subtitle is-size-5 is-size-6-mobile has-text-success">XXX</h1>
+                    <h1 class="has-text-centered title is-size-4 is-size-5-mobile has-text-success">Recovered</h1>
+                </div>
+                <div class="column">
+                    <h1 id="cases_deceased"
+                        class="has-text-centered subtitle is-size-5 is-size-6-mobile has-text-grey-dark">XXX</h1>
+                    <h1 class="has-text-centered title is-size-4 is-size-5-mobile has-text-grey-dark">Deceased</h1>
+                </div>
+
+            </div>
+            <div>
+                <h3>Map Source: <a href="https://pib.gov.in/PressReleasePage.aspx?PRID=1590112" target="_blank">Map of UTs - pib.gov.in</a></h3>
+            </div>
         </div>
-        
 
     </section>
 
