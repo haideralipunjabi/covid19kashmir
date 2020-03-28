@@ -17,6 +17,8 @@
   <script src="assets/js/html2canvas.min.js"></script>
   <script src="assets/js/canvas2image.js"></script>
   <script src="assets/js/sortable.min.js"></script>
+  <script src="assets/js/snap.svg-min.js"></script>
+
   <script src="assets/js/utils.js"></script>
 
   <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700i,900&display=swap" rel="stylesheet">
@@ -96,9 +98,7 @@
         <a class="navbar-item" href="https://covidkashmir.org">
           Home
         </a>
-        <a class="navbar-item" href="/map.html">
-          <span class="icon"><i class="fas fa-project-diagram"></i></span><span> Map</span>
-        </a>
+       
         <a class="navbar-item" href="/phones.html">
           <span class="icon"><i class="fas fa-clinic-medical"></i></span><span> Important Numbers</span>
         </a>
@@ -123,26 +123,13 @@
         <div class="message-header">
           <p class="has-text-centered"><span class="icon"><i class="fas fa-table"></i></span><span>Statistics</span></p>
           <p>
-            <div class="dropdown">
-              <div class="dropdown-trigger">
-                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
+              <button  onclick="javascript:shareStatsText()" class="button">
                   <span class="icon is-small">
                     <i class="fas fa-share-alt"></i>
                   </span>
                   <span>Share</span>
                 </button>
-              </div>
-              <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-                <div class="dropdown-content">
-                  <!-- <a onclick="javascript:shareStatsImage()" class="dropdown-item">
-                      As Image
-                    </a> -->
-                  <a onclick="javascript:shareStatsText()" class="dropdown-item">
-                    As Text
-                  </a>
-                </div>
-              </div>
-            </div>
+           
 
         </div>
         <!-- Styling -->
@@ -287,10 +274,10 @@
             </div>
           </div>
           <br />
-        <p class="source-message">www.covidkashmir.org
-          <br />#StayHomeStaySafe
-        </p>
-        </div> 
+          <p class="source-message">www.covidkashmir.org
+            <br />#StayHomeStaySafe
+          </p>
+        </div>
     </div>
     </article>
     <br>
@@ -321,7 +308,7 @@
               </tr>
             </thead>
             <tbody>
-  
+
             </tbody>
           </table>
         </div>
@@ -335,6 +322,62 @@
           <a onclick="javascript:turnPage(-1);" class="pagination-previous">Previous</a>
           <a onclick="javascript:turnPage(1);" class="pagination-next">Next</a>
         </nav> -->
+    </article>
+    <br>
+
+    <article class=""> 
+        <div class="container" id="mapContainer">
+            <div class="message-header">
+                <p><span class="icon"><i class="fas fa-virus"></i></span><span>Active Cases Heat Map</span></p>
+              </div>
+            <div class="legend is-mobile">
+                <div class="item">
+                    <div class="tag title is-size-6"></div>
+                </div>
+                <div class="item">
+                    <div class="tag title is-size-6"></div>
+                </div>
+                <div class="item">
+                    <div class="tag title is-size-6"></div>
+                </div>
+
+            </div>
+            <br>
+            <div style="display: block;margin: auto;" id="map">
+
+            </div>
+            <br>
+            <div class="columns is-mobile is-multiline">
+                <div class="column is-full">
+                    <h1 id="map-district_name" class="has-text-centered title is-size-3 is-size-4-mobile has-text-black">
+                        Total</h1>
+                </div><br>
+                <div class="column">
+                    <h1 id="map-cases_total" class="has-text-centered subtitle is-size-5 is-size-6-mobile  has-text-danger">
+                        XXX</h1>
+                    <h1 class="has-text-centered  has-text-danger title is-size-4 is-size-5-mobile">Total</h1>
+                </div>
+                <div class="column">
+                    <h1 id="map-cases_active" class="has-text-centered subtitle is-size-5 is-size-6-mobile has-text-info">
+                        XXX</h1>
+                    <h1 class="has-text-centered title is-size-4 is-size-5-mobile has-text-info">Active</h1>
+                </div>
+                <div class="column">
+                    <h1 id="map-cases_recovered"
+                        class="has-text-centered subtitle is-size-5 is-size-6-mobile has-text-success">XXX</h1>
+                    <h1 class="has-text-centered title is-size-4 is-size-5-mobile has-text-success">Recovered</h1>
+                </div>
+                <div class="column">
+                    <h1 id="map-cases_deceased"
+                        class="has-text-centered subtitle is-size-5 is-size-6-mobile has-text-grey-dark">XXX</h1>
+                    <h1 class="has-text-centered title is-size-4 is-size-5-mobile has-text-grey-dark">Deceased</h1>
+                </div>
+
+            </div>
+            <div>
+                <h3>Map Source: <a href="https://pib.gov.in/PressReleasePage.aspx?PRID=1590112" target="_blank">Map of UTs - pib.gov.in</a></h3>
+            </div>
+        </div>
     </article>
     </div>
   </section>
