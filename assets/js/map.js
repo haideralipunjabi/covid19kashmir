@@ -10,7 +10,7 @@ function loadData() {
         $("#cases_active").html(patientData.filter((item) => {
             return item["Status"] === "Hospitalized"
         }).length)
-        $("#cases_deaths").html(patientData.filter((item) => {
+        $("#cases_deceased").html(patientData.filter((item) => {
             return item["Status"] === "Deceased"
         }).length)
         $("#cases_recovered").html(patientData.filter((item) => {
