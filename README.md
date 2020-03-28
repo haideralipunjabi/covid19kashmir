@@ -1,2 +1,2 @@
 # covid19kashmir
-## This website tracks Covid-19 Spread in Kashmir 
+## This website tracks Covid19 Spread in Kashmir 
