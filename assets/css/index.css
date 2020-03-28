@@ -320,3 +320,21 @@
   font-size: 14px;
   font-weight: 400;
 }
+
+.hitcounter span {
+  display: inline-block;
+  padding: 6px 6px 4px;
+  border-radius: 3px;
+  background: #c9c9c9;
+  margin-right: -2px;
+}
+.hitcounter.center {
+  text-align: center;
+  width: 50%;
+  margin: 20px auto;
+}
+.hitcounter .message {
+  color: #ccc6e3;
+  font-family: Verdana;
+  font-size: 12px;
+}
