@@ -1,0 +1,22 @@
+
+    .about-container{
+        font-family: 'Montserrat', sans-serif;
+
+  }
+
+  .about-container h2{
+    font-size: 20px;
+    font-weight: 800;
+    text-transform: uppercase;
+     text-align: center;
+  }
+
+  .question{
+      font-weight: 600;
+      margin-top: 3px;
+  }
+
+  .answer{
+    font-weight: 400;
+    color: #007bff;
+  }

@@ -1,23 +1,30 @@
-const API_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSg-doiJ59mWF5UiJP-tCB6XCqahr9YaXe6eHiyWFyjylHtGRuy5yZrw1ZNWq3etbbyU8Gqz0i5gANp/pub?gid=0&single=true&output=csv"
-let patientData, districtsMap, activeDistrictsMap, districtInformation;
+const API_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSg-doiJ59mWF5UiJP-tCB6XCqahr9YaXe6eHiyWFyjylHtGRuy5yZrw1ZNWq3etbbyU8Gqz0i5gANp/pub?gid=0&single=true&output=csv&prevent-cache=" + (Math.floor(Math.random()*10**8)).toString()
+let patientData, districtsMap, activeDistrictsMap, districtInformation,snap, countback;
 const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad"]
-
-function loadData() {
-    progressBarVisible(true)
-
+const COLORS = {
+    "PRIMARY": {"TOTAL": "#f14668","ACTIVE":"#3298dc", "RECOVERED":"#48c774", "DECEASED":"#4a4a4a"},
+}
+function loadData(first) {
+    if(first) progressBarVisible(true)
+    if(!first){
+        $("#cases_total").html("");
+    $("#cases_active").html("")
+    $("#cases_deaths").html("")
+    $("#cases_recovered").html("")
+    }
     fetch(API_URL).then((response) => {
         return response.text()
     }).then((text) => {
         patientData = ArraysToDict(CSVToArray(text));
-        loadTable()
+        if(first)loadTable()
         loadStats();
-        loadMap();
+        if(first)loadMap();
     });
 }
 
 function loadTable() {
     progressBarVisible(false);
-
+    $("#data-table tbody").html("")
     for (let patient of patientData) {
         $("#data-table tbody").append(`
         <tr ${(patient["Status"]=="Recovered") ? `style="background-color: #ebfffc"`:""} 
@@ -93,31 +100,33 @@ function loadMap() {
             return item["Status"] === "Recovered"
         }).length
     }
-    let s = Snap("#map")
+    snap = Snap("#map")
     Snap.load("assets/media/jk_districts.svg", (data) => {
-        s.append(data)
-        let districtShapes = s.selectAll("polygon")
+        snap.append(data)
+        let districtShapes = snap.selectAll("polygon")
         districtShapes.forEach((districtShape) => {
+            districtShape.attr("fill", getFillColor(districtShape.node.id.toTitleCase()))
             districtShape.hover((event) => {
-                if (DISTRICTS.includes(districtShape.node.id.toTitleCase())) {
-                    districtShape.attr("stroke", "#ff0000")
-                    activateDistrict(districtShape.node.id.toTitleCase())
-                }
-
-
+               selectMapDistrict(districtShape)
             }, (event) => {
-                districtShape.attr("stroke", "#000000")
             })
         })
-        for (let district of Object.keys(activeDistrictsMap)) {
-            s.select("#" + district.toLowerCase()).attr("fill", getFillColor(district))
-        }
         makeLegend()
-        activateDistrict("Srinagar")
+        selectMapDistrict(snap.select("#srinagar"))
     })
 }
 
-
+function selectMapDistrict(dShape){
+    snap.selectAll("polygon").forEach((item)=>{
+        item.attr("stroke","#000000");
+        item.attr("strokeWidth","1px");
+    })
+    dShape.paper.node.removeChild(dShape.node)
+    dShape.paper.node.insertBefore(dShape.node, dShape.paper.node.firstChild)
+    dShape.attr("stroke", COLORS.PRIMARY.RECOVERED)
+    dShape.attr("strokeWidth","5px")
+    activateDistrict(dShape.node.id.toTitleCase())
+}
 function patientModal(id) {
     let patient = patientData[id];
     $("#modal-details-id").html(id + 1);
@@ -142,22 +151,6 @@ function patientModal(id) {
 }
 
 
-$(document).ready(function () {
-    loadData();
-    $(".navbar-burger").click(function () {
-
-        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-        $(".navbar-burger").toggleClass("is-active");
-        $(".navbar-menu").toggleClass("is-active");
-
-    });
-    $(".dropdown-trigger").click(function () {
-        $(".dropdown").toggleClass("is-active");
-    })
-
-
-
-})
 
 function shareStatsImage() {
     $(".dropdown").toggleClass("is-active");
@@ -212,6 +205,7 @@ function copyStatsText() {
     $("#modal-stats-text footer a.is-success").html("Copied");
 
 }
+
 function activateDistrict(district) {
     $("#map-district_name").html(district);
     for (let c of Object.keys(districtsMap[district])) {
@@ -219,7 +213,7 @@ function activateDistrict(district) {
     }
 }
 
-function makeLegend(){
+function makeLegend() {
     let min = Math.min(...Object.values(activeDistrictsMap))
     let max = Math.max(...Object.values(activeDistrictsMap))
     let range = (max - min) / 3
@@ -231,7 +225,9 @@ function makeLegend(){
     $(tags[2]).html(`Active Cases <= ${max}`)
     $(tags[2]).css("background-color", "#e34a33")
 }
+
 function getFillColor(district) {
+    if(!Object.keys(activeDistrictsMap).includes(district)) return "#ffffff"
     let min = Math.min(...Object.values(activeDistrictsMap))
     let max = Math.max(...Object.values(activeDistrictsMap))
     let range = (max - min) / 3
@@ -240,3 +236,18 @@ function getFillColor(district) {
     else if (number < min + (range * 2)) return "#fdbb84"
     else if (number <= max) return "#e34a33"
 }
+
+
+$(document).ready(function () {
+    loadData(true);
+    $(".navbar-burger").click(function () {
+
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        $(".navbar-burger").toggleClass("is-active");
+        $(".navbar-menu").toggleClass("is-active");
+
+    });
+    $(".dropdown-trigger").click(function () {
+        $(".dropdown").toggleClass("is-active");
+    })
+})
