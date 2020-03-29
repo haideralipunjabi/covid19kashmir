@@ -18,7 +18,7 @@
   <script src="assets/js/canvas2image.js"></script>
   <script src="assets/js/sortable.min.js"></script>
   <script src="assets/js/snap.svg-min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
   <script src="assets/js/utils.js"></script>
 
   <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700i,900&display=swap" rel="stylesheet">
@@ -38,6 +38,13 @@
         <div class="message-header">
           <p class="has-text-centered"><span class="icon"><i class="fas fa-table"></i></span><span>Statistics</span></p>
           <p>
+              <button onclick="javascript:loadData(false)" class="button">
+                  <span class="icon is-small">
+                    <i class="fas fa-sync"></i>
+                  </span>
+                  <span>Refresh</span>
+                </button>
+    
             <button onclick="javascript:shareStatsText()" class="button">
               <span class="icon is-small">
                 <i class="fas fa-share-alt"></i>
@@ -138,7 +145,7 @@
     <br>
 
 
-    <article class="">
+    <article>
       <div class="container" id="mapContainer">
         <div class="message-header">
           <p><span class="icon"><i class="fas fa-virus"></i></span><span>Active Cases Heat Map</span></p>
@@ -189,6 +196,16 @@
           <h3 class="has-text-centered">Map Source: <a href="https://pib.gov.in/PressReleasePage.aspx?PRID=1590112"
               target="_blank">Map of UTs - pib.gov.in</a> (Click on the district to view stats).</h3>
         </div>
+      </div>
+    </article>
+    <br>
+    <article>
+      <div class="container">
+          <div class="message-header">
+              <p><span>Visualisations</span></p>
+              
+            </div>
+        <iframe style="display: block; margin: auto;" width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSg-doiJ59mWF5UiJP-tCB6XCqahr9YaXe6eHiyWFyjylHtGRuy5yZrw1ZNWq3etbbyU8Gqz0i5gANp/pubchart?oid=590371414&amp;format=interactive"></iframe>
       </div>
     </article>
     <br>

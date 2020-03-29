@@ -36,7 +36,6 @@ function loadCounter(){
     for(let c of totalSiteViews){
         $("#hitcounter-2").append(`<span>${c}</span> `)
     }
-    console.log(thisPageViews)
 }
 $(document).ready(function() {
     loadAnalyticsData();

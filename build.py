@@ -32,5 +32,6 @@ def gen_sitemap():
     sitemap_file.write('</urlset>')
     sitemap_file.close()
 
+
 gen_templates()
 gen_sitemap()
