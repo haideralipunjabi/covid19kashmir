@@ -101,14 +101,13 @@ function loadMap() {
         }).length
     }
     snap = Snap("#map")
-    Snap.load("assets/media/jk_districts.svg", (data) => {
+    Snap.load("assets/media/jk_districts_1.svg", (data) => {
         snap.append(data)
-        let districtShapes = snap.selectAll("polygon")
+        let districtShapes = snap.selectAll("path")
         districtShapes.forEach((districtShape) => {
             districtShape.attr("fill", getFillColor(districtShape.node.id.toTitleCase()))
-            districtShape.hover((event) => {
+            districtShape.click((event) => {
                selectMapDistrict(districtShape)
-            }, (event) => {
             })
         })
         makeLegend()
@@ -117,7 +116,7 @@ function loadMap() {
 }
 
 function selectMapDistrict(dShape){
-    snap.selectAll("polygon").forEach((item)=>{
+    snap.selectAll("path").forEach((item)=>{
         item.attr("stroke","#000000");
         item.attr("strokeWidth","1px");
     })
