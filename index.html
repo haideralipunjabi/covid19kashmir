@@ -5,44 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  
-  <!-- SEO by  Mudasir Ali -->
-  <title>CovidKashmir | Covid-19 J&K Tracker</title>
-  <meta name="description" content="Covid-19 J&K Tracker with live statistics, case details, heat map, GMC consultations, myth busters and much more." />
+  <title>CovidKashmir</title>
 
-  <!-- Schema.org markup for Google+ -->
-  <meta itemprop="name" content="CovidKashmir | Covid-19 J&K Tracker">
-  <meta itemprop="description" content="Covid-19 J&K Tracker with live statistics, case details, heat map, GMC consultations, myth busters and much more.">
-  <meta itemprop="image" content="https://mudasirali.com/wp-content/uploads/2020/03/covid-19.jpg">
-
-  <!-- Twitter Card data -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@covidkashmir">
-  <meta name="twitter:title" content="CovidKashmir | Covid-19 J&K Tracker">
-  <meta name="twitter:description" content="Covid-19 J&K Tracker with live statistics, case details, heat map, GMC consultations, myth busters and much more.">
-  <!-- Twitter summary card with large image must be at least 280x150px -->
-  <meta name="twitter:image:src" content="https://mudasirali.com/wp-content/uploads/2020/03/covid-19.jpg">
-
-  <!-- Open Graph data -->
-  <meta property="og:title" content="CovidKashmir | Covid-19 J&K Tracker" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://covidkashmir.org/" />
-  <meta property="og:image" content="https://mudasirali.com/wp-content/uploads/2020/03/covid-19.jpg" />
-  <meta property="og:description" content="Covid-19 J&K Tracker with live statistics, case details, heat map, GMC consultations, myth busters and much more." />
-  <meta property="og:site_name" content="CovidKashmir" />
 
   <link rel="stylesheet" href="assets/css/bulma.min.css">
   <link rel="stylesheet" href="assets/css/index.css">
   <link rel="stylesheet" href="assets/css/sortable-theme-minimal.css">
   <link rel="stylesheet" href="/assets/css/brands.min.css">
   <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
-  <link rel="stylesheet" href="/assets/css/solid.min.css">  <script src="assets/js/jquery-3.4.1.min.js"></script>
-
+  <link rel="stylesheet" href="/assets/css/solid.min.css">  
+  <script src="assets/js/jquery-3.4.1.min.js"></script>
   <script src="assets/js/html2canvas.min.js"></script>
   <script src="assets/js/canvas2image.js"></script>
   <script src="assets/js/sortable.min.js"></script>
   <script src="assets/js/snap.svg-min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
   <script src="assets/js/utils.js"></script>
 
   <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700i,900&display=swap" rel="stylesheet">
@@ -243,29 +219,58 @@
           <p><a class="button" href="https://forms.gle/DNF58AXM25QKup3k8"><span class="icon"><i
                   class="fas fa-hospital-user"></i></span><span>Add/Update Information</span></a></p>
         </div>
-        <div id="data-table">
-          <progress class="progress is-hidden is-small is-primary" max="100">75%</progress>
-          <h1 id="nodata-error" class="subtitle is-1 has-text-centered is-hidden">NO DATA FOUND</h1>
-          <table class="table sortable sortable-theme-minimal is-fullwidth is-bordered is-striped" data-sortable
-            style="overflow-x:auto;">
-            <thead>
-              <tr>
-                <th data-sortable="false">Id</th>
-                <th>Date Announced</th>
-                <th class="is-hidden-mobile is-hidden-tablet-only">City</th>
-                <th>District</th>
-                <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Age</th>
-                <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Gender</th>
-                <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Notes</th>
-                <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Sources</th>
-                <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Status</th>
-                <th data-sortable="false">Details</th>
-              </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-          </table>
+        <div class="message-body">
+            <div id="data-table">
+                <progress class="progress is-hidden is-small is-primary" max="100">75%</progress>
+                <h1 id="nodata-error" class="subtitle is-1 has-text-centered is-hidden">NO DATA FOUND</h1>
+                <div class="columns is-mobile is-multiline" id="data-filters">
+                  <div class="column is-full-mobile">
+                    <h1 class="subtitle">Filters:</h1>
+                  </div>
+                  <div class="control column is-one-third-mobile">
+                    <div class="select is-loading">
+                      <select id="filter-date-announced">
+                        <option>Date: All</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="control column is-one-third-mobile">
+                    <div class="select is-loading">
+                      <select id="filter-district">
+                        <option>District: All</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="control column is-one-third-mobile">
+                    <div class="select is-loading">
+                      <select id="filter-status">
+                        <option>Status: All</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <table class="table sortable sortable-theme-minimal is-fullwidth is-bordered is-striped" data-sortable
+                  style="overflow-x:auto;">
+                  <thead>
+                    <tr>
+                      <th data-sortable="false">Id</th>
+                      <th>Date Announced</th>
+                      <th>District</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Locality</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Age</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Gender</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">History</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Notes</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Sources</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Status</th>
+                      <th data-sortable="false">Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+      
+                  </tbody>
+                </table>
+              </div>
         </div>
       </div>
     </article>
@@ -299,6 +304,7 @@
             <div class="content">
               <p><b>Age: </b><span id="modal-details-age">XXX</span></p>
               <p><b>Gender: </b><span id="modal-details-gender">XXX</span></p>
+              <p><b>History: </b><span id="modal-details-history"></span></p>
             </div>
           </div>
         </div>
@@ -312,6 +318,8 @@
             <div class="content">
               <p><b>City: </b><span id="modal-details-city">XXX</span></p>
               <p><b>District: </b><span id="modal-details-district">XXX</span></p>
+              <p><b>Locality: </b><span id="modal-details-locality"></span></p>
+
             </div>
           </div>
         </div>
