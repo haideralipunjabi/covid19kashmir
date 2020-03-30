@@ -1,0 +1,20 @@
+{
+  "name": "covid19kashmir",
+  "version": "2.0.1",
+  "description": "Repository for CovidKashmir",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Covid-19",
+    "Covid",
+    "Tracker",
+    "Kashmir"
+  ],
+  "author": "Haider",
+  "license": "ISC",
+  "dependencies": {
+    "bulma": "^0.8.1"
+  }
+}
