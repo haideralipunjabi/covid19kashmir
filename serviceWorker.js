@@ -2,6 +2,8 @@ const VERSION = "1"
 
 var cacheFirstFiles = [
 '/404.html',
+'/404',
+
 '/',
 '/index.html',
 '/about.html',
@@ -10,6 +12,13 @@ var cacheFirstFiles = [
 '/gmc.html',
 '/mythbuster.html',
 '/statistics.html',
+'/index',
+'/about',
+'/sources',
+'/phones',
+'/gmc',
+'/mythbuster',
+'/statistics',
 '/assets/js/jquery-3.4.1.min.js',
 '/assets/js/widgetFunction.js',
 '/assets/js/gmc.js',
