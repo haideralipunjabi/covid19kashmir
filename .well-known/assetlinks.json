@@ -1,0 +1,10 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "org.hackesta.covidkashmir",
+      "sha256_cert_fingerprints": [
+        "1B:BB:3A:22:83:F5:89:22:44:C4:20:7F:69:EB:1C:5F:14:3A:90:C7:AB:4A:6E:9F:8D:1B:26:3D:E5:F9:72:55"
+      ]
+    }
+  }]
