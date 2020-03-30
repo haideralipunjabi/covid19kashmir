@@ -1,0 +1,14 @@
+{% for icon in icons %}
+    <link href="{{ icon['src'] }}" rel="icon" sizes="{{ icon['sizes'] }}" />
+{% endfor %}
+<link href="/assets/favicons/icon-180x180.png" rel="apple-touch-icon" sizes="180x180" />
+<link href="/assets/favicons/icon-180x180.png" rel="apple-touch-icon-precomposed">
+<link rel="icon" href="/assets/favicons/icon-32x32.png" sizes="32x32">
+<link color="{{ appcolor }}" href="/assets/media/icon.svg" rel="mask-icon" />
+<link href="/assets/favicons/favicon.ico?v=2" rel="shortcut icon" />
+<meta name="msapplication-TileColor" content="{{ bgcolor }}">
+<meta name="msapplication-TileImage" content="/assets/favicons/icon-144x144.png">
+<link rel="shortcut icon" sizes="196x196" href="/assets/favicons/icon-196x196.png">
+<meta name="application-name" content="{{ appname }}">
+<meta name="msapplication-tooltip" content="{{ appname }}">
+<meta name="msapplication-config" content="/assets/favicons/ieconfig.xml">

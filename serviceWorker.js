@@ -3,7 +3,6 @@ const VERSION = "1"
 var cacheFirstFiles = [
 '/404.html',
 '/404',
-
 '/',
 '/index.html',
 '/about.html',
