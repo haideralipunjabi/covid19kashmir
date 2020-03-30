@@ -146,6 +146,11 @@ div#data-filters {
     margin: auto;
     padding-bottom: 10px;
 }
+  .columns {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+}
 }
 
 #map svg {
