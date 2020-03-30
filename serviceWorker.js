@@ -52,9 +52,27 @@ var cacheFirstFiles = [
 '/assets/css/fontawesome.min.css',
 '/assets/css/brands.min copy.css',
 '/assets/css/about.css',
-'/assets/css/brands.min.css'
-];
+'/assets/css/brands.min.css',
+'/assets/favicons/favicon.ico',
+'/assets/favicons/icon-150x150.png',
+'/assets/favicons/icon-192x192.png',
+'/assets/favicons/icon-32x32.png',
+'/assets/favicons/icon-70x70.png',
+'/assets/favicons/ieconfig.xml',
+'/assets/favicons/icon-128x128.png',
+'/assets/favicons/icon-152x152.png',
+'/assets/favicons/icon-196x196.png',
+'/assets/favicons/icon-384x384.png',
+'/assets/favicons/icon-72x72.png',
+'/assets/favicons/icon-144x144.png',
+'/assets/favicons/icon-180x180.png',
+'/assets/favicons/icon-310x310.png',
+'/assets/favicons/icon-512x512.png',
+'/assets/favicons/icon-96x96.png',
 
+];
+                 
+        
 self.addEventListener('install', function(event) {
   // Perform install steps
   event.waitUntil(
