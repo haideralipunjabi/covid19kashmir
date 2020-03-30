@@ -138,11 +138,11 @@
     text-align: left;
     padding: 5px !important;
   }
-  .message-body {
+   .message-body {
     padding: 25px 0px;
 }
 
-div#data-filters {
+  div#data-filters {
     margin: auto;
     padding-bottom: 10px;
 }
