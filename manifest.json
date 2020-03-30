@@ -1,10 +1,10 @@
 {
     "name": "CovidKashmir | Covid-19 J&K Tracker",
-    "short_name": "Demo App",
+    "short_name": "CovidKashmir",
     "start_url": "index.html",
     "display": "standalone",
     "background_color": "#fdfdfd",
-    "theme_color": "#007bff",
+    "theme_color": "#ff0b55",
     "orientation": "portrait-primary",
     "icons": [
       {
