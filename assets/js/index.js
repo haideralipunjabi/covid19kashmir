@@ -1,4 +1,4 @@
-const API_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSg-doiJ59mWF5UiJP-tCB6XCqahr9YaXe6eHiyWFyjylHtGRuy5yZrw1ZNWq3etbbyU8Gqz0i5gANp/pub?gid=0&single=true&output=csv&prevent-cache=" + (Math.floor(Math.random()*10**8)).toString()
+const API_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSg-doiJ59mWF5UiJP-tCB6XCqahr9YaXe6eHiyWFyjylHtGRuy5yZrw1ZNWq3etbbyU8Gqz0i5gANp/pub?gid=0&single=true&output=csv&prevent-cache="
 let patientData, districtsMap, activeDistrictsMap, districtInformation,snap, countback;
 const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad"]
 const COLORS = {
@@ -17,7 +17,7 @@ function loadData(first) {
     $("#cases_deaths").html("")
     $("#cases_recovered").html("")
     }
-    fetch(API_URL).then((response) => {
+    fetch(API_URL + (Math.floor(Math.random()*10**8)).toString()).then((response) => {
         return response.text()
     }).then((text) => {
         patientData = ArraysToDict(CSVToArray(text));
