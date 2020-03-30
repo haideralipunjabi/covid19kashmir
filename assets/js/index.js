@@ -33,10 +33,11 @@ function loadTable() {
         >
         <td>${patientData.indexOf(patient)+1}</td>
                       <td>${patient["Date Announced"]}</td>
-                      <td class="is-hidden-mobile is-hidden-tablet-only">${patient["City"]}</td>
                       <td>${patient["District"]}</td>
+                      <td class="is-hidden-mobile is-hidden-tablet-only">${patient["Locality"]}</td>
                       <td class="is-hidden-mobile is-hidden-tablet-only">${patient["Age"]}</td>
                       <td class="is-hidden-mobile is-hidden-tablet-only">${patient["Gender"]}</td>
+                      <td class="is-hidden-mobile is-hidden-tablet-only">${patient["History"]}</td>
                       <td class="is-hidden-mobile is-hidden-tablet-only">${patient["Notes"]}</td>
                       <td class="is-hidden-mobile is-hidden-tablet-only">${formatSources(patient)}</td>
                       <td class="is-hidden-mobile is-hidden-tablet-only">${patient["Status"]}</td>
@@ -131,15 +132,18 @@ function patientModal(id) {
     $("#modal-details-id").html(id + 1);
     $("#modal-details-age").html(patient["Age"])
     $("#modal-details-gender").html(patient["Gender"])
+    $("#modal-details-history").html(patient["History"])
+
     $("#modal-details-city").html(patient["City"])
     $("#modal-details-district").html(patient["District"])
+    $("#modal-details-locality").html(patient["Locality"])
     $("#modal-details-date-announced").html(patient["Date Announced"])
-
     $("#modal-details-date-change").html(patient["Date Status Change"])
     $("#modal-details-notes").html(patient["Notes"])
     $("#modal-details-sources").html(patient["Sources"].split(",").map((link) => {
         return `<p class="subtitle"><a href="${link}" target="_blank">${link}</a></p>`
     }))
+
 
     $("#modal-details-current-status").html(`<span class="tag 
         ${(patient["Status"]==="Recovered") ? `is-primary`:""}
