@@ -219,30 +219,58 @@
           <p><a class="button" href="https://forms.gle/DNF58AXM25QKup3k8"><span class="icon"><i
                   class="fas fa-hospital-user"></i></span><span>Add/Update Information</span></a></p>
         </div>
-        <div id="data-table">
-          <progress class="progress is-hidden is-small is-primary" max="100">75%</progress>
-          <h1 id="nodata-error" class="subtitle is-1 has-text-centered is-hidden">NO DATA FOUND</h1>
-          <table class="table sortable sortable-theme-minimal is-fullwidth is-bordered is-striped" data-sortable
-            style="overflow-x:auto;">
-            <thead>
-              <tr>
-                <th data-sortable="false">Id</th>
-                <th>Date Announced</th>
-                <th>District</th>
-                <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Locality</th>
-                <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Age</th>
-                <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Gender</th>
-                <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">History</th>
-                <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Notes</th>
-                <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Sources</th>
-                <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Status</th>
-                <th data-sortable="false">Details</th>
-              </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-          </table>
+        <div class="message-body">
+            <div id="data-table">
+                <progress class="progress is-hidden is-small is-primary" max="100">75%</progress>
+                <h1 id="nodata-error" class="subtitle is-1 has-text-centered is-hidden">NO DATA FOUND</h1>
+                <div class="columns is-mobile is-multiline" id="data-filters">
+                  <div class="column is-full-mobile">
+                    <h1 class="subtitle">Filters:</h1>
+                  </div>
+                  <div class="control column is-one-third-mobile">
+                    <div class="select is-loading">
+                      <select id="filter-date-announced">
+                        <option>Date: All</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="control column is-one-third-mobile">
+                    <div class="select is-loading">
+                      <select id="filter-district">
+                        <option>District: All</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="control column is-one-third-mobile">
+                    <div class="select is-loading">
+                      <select id="filter-status">
+                        <option>Status: All</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <table class="table sortable sortable-theme-minimal is-fullwidth is-bordered is-striped" data-sortable
+                  style="overflow-x:auto;">
+                  <thead>
+                    <tr>
+                      <th data-sortable="false">Id</th>
+                      <th>Date Announced</th>
+                      <th>District</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Locality</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Age</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Gender</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">History</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Notes</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Sources</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Status</th>
+                      <th data-sortable="false">Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+      
+                  </tbody>
+                </table>
+              </div>
         </div>
       </div>
     </article>

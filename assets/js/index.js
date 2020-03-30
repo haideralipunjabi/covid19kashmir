@@ -4,6 +4,11 @@ const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag"
 const COLORS = {
     "PRIMARY": {"TOTAL": "#f14668","ACTIVE":"#3298dc", "RECOVERED":"#48c774", "DECEASED":"#4a4a4a"},
 }
+const FILTERS = {
+    "Date Announced": "",
+    "District": "",
+    "Status": ""
+}
 function loadData(first) {
     if(first) progressBarVisible(true)
     if(!first){
@@ -16,7 +21,8 @@ function loadData(first) {
         return response.text()
     }).then((text) => {
         patientData = ArraysToDict(CSVToArray(text));
-        if(first)loadTable()
+        if(first)loadTable();
+        if(first)loadFilters();
         loadStats();
         if(first)loadMap();
     });
@@ -26,6 +32,7 @@ function loadTable() {
     progressBarVisible(false);
     $("#data-table tbody").html("")
     for (let patient of patientData) {
+        if(!matchesFilters(patient)) continue;
         $("#data-table tbody").append(`
         <tr ${(patient["Status"]=="Recovered") ? `style="background-color: #ebfffc"`:""} 
         ${(patient["Status"]=="Deceased") ? `style="background-color: #feecf0"`:""}
@@ -238,6 +245,45 @@ function getFillColor(district) {
     if (number < min + range) return "#fee8c8"
     else if (number < min + (range * 2)) return "#fdbb84"
     else if (number <= max) return "#e34a33"
+}
+
+function loadFilters(){
+    let districts = getUniqueData("District")
+    let dates = getUniqueData("Date Announced")
+    let statuses = getUniqueData("Status")
+    for(let district of districts) $("#filter-district").append(`<option>${district}</option>`)
+    for(let date of dates) $("#filter-date-announced").append(`<option>${date}</option>`)
+    for(let status of statuses) $("#filter-status").append(`<option>${status}</option>`)
+    $("#data-filters .select").removeClass("is-loading")
+    $("#filter-district").change(()=>{
+        if($("#filter-district")[0].selectedIndex!==0) FILTERS["District"]=$("#filter-district").val()
+        else FILTERS["District"]=""
+        loadTable()
+    })
+    $("#filter-date-announced").change(()=>{
+        if($("#filter-date-announced")[0].selectedIndex!==0) FILTERS["Date Announced"]=$("#filter-date-announced").val()
+        else FILTERS["Date Announced"]=""
+        loadTable()
+    })
+    $("#filter-status").change(()=>{
+        if($("#filter-status")[0].selectedIndex!==0) FILTERS["Status"]=$("#filter-status").val()
+        else FILTERS["Status"]=""
+        loadTable()
+    })
+}
+function getUniqueData(key){
+    return patientData.map((item) => {
+        return item[key]
+    }).filter((value, index, self) => {
+        return self.indexOf(value) === index
+    });
+}
+function matchesFilters(patient){
+    for(let key of Object.keys(FILTERS)){
+        if(FILTERS[key] === "") continue;
+        if(patient[key] !== FILTERS[key]) return false;
+    }
+    return true;
 }
 
 
