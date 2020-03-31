@@ -47,7 +47,7 @@ def gen_favicons():
     print(template.render(icons=icons,appname=manifest["short_name"], appcolor=manifest["theme_color"], bgcolor=manifest["background_color"]),file=open("favicons.html","w"))
 
 def gen_redirects():
-    redirects_file = open("_redirects","w")
+    redirects_file = open("_redirects","a")
     redirects_file.write("/api/patients/ " + os.getenv("API_PATIENT_DATA") + " 200")
     redirects_file.close()
 
