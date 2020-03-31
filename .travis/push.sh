@@ -5,7 +5,7 @@ setup_git() {
 }
 
 commit_website_files() {
-  git add public/*
+  git add -A
   git commit --amend --message "[ci skip] Travis build: $TRAVIS_BUILD_NUMBER"
 }
 

@@ -6,7 +6,7 @@ import os
 from os import listdir
 from os.path import isfile, join, splitext
 
-EXCLUDE_FILES = ['navbar.html', 'header.html', 'footer.html', '404.html', 'favicons.html']
+EXCLUDE_FILES = ['navbar.html', 'header.html', 'footer.html', '404.html', 'favicons.html', 'favicons_template.html']
 onlyfiles = [f for f in listdir("templates") if splitext(f)[1]==".html"]
 templateLoader = jinja2.FileSystemLoader(searchpath="./templates")
 templateEnv = jinja2.Environment(loader=templateLoader)
@@ -43,7 +43,7 @@ def gen_favicons():
         svg2png(url=icon_svg, write_to=icon["src"][1:], parent_width=int(icon["sizes"].split("x")[0]), parent_height=int(icon["sizes"].split("x")[1]))
     Image.open("assets/favicons/icon-512x512.png").save("assets/favicons/favicon.ico")
     template = templateEnv.get_template("favicons_template.html")
-    print(template.render(icons=icons,appname=manifest["short_name"], appcolor=manifest["theme_color"], bgcolor=manifest["background_color"]),file=open("favicons.html","w"))
+    print(template.render(icons=icons,appname=manifest["short_name"], appcolor=manifest["theme_color"], bgcolor=manifest["background_color"]),file=open("templates/favicons.html","w"))
 
 
 
