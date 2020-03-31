@@ -12,7 +12,10 @@ templateLoader = jinja2.FileSystemLoader(searchpath="./")
 templateEnv = jinja2.Environment(loader=templateLoader)
 # url_faq = os.getenv("URL_FAQ")
 # url_mb = os.getenv("URL_MB")
-
+URLS = {
+    "mythbuster": os.getenv("URL_MYTHBUSTER"),
+    "faq": os.getenv("URL_FAQ")
+}
 SOURCES = {
     "mythbuster": "https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public/myth-busters",
     "faq":"https://www.who.int/news-room/q-a-detail/q-a-coronaviruses"
