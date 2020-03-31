@@ -1,15 +1,14 @@
 import jinja2
 from cairosvg import svg2png
 from PIL import Image
-
 import json
 import os
 from os import listdir
 from os.path import isfile, join, splitext
 
-EXCLUDE_FILES = ['navbar.html', 'header.html', 'footer.html', '404.html']
-onlyfiles = [f for f in listdir() if splitext(f)[1]==".html"]
-templateLoader = jinja2.FileSystemLoader(searchpath="./")
+EXCLUDE_FILES = ['navbar.html', 'header.html', 'footer.html', '404.html', 'favicons.html']
+onlyfiles = [f for f in listdir("templates") if splitext(f)[1]==".html"]
+templateLoader = jinja2.FileSystemLoader(searchpath="./templates")
 templateEnv = jinja2.Environment(loader=templateLoader)
 def gen_templates():
     for f in onlyfiles:
@@ -43,15 +42,11 @@ def gen_favicons():
     for icon in icons:
         svg2png(url=icon_svg, write_to=icon["src"][1:], parent_width=int(icon["sizes"].split("x")[0]), parent_height=int(icon["sizes"].split("x")[1]))
     Image.open("assets/favicons/icon-512x512.png").save("assets/favicons/favicon.ico")
-    template = templateEnv.get_template("favicons.html")
+    template = templateEnv.get_template("favicons_template.html")
     print(template.render(icons=icons,appname=manifest["short_name"], appcolor=manifest["theme_color"], bgcolor=manifest["background_color"]),file=open("favicons.html","w"))
 
-def gen_redirects():
-    redirects_file = open("_redirects","a")
-    redirects_file.write("\n/api/patients/ " + os.getenv("API_PATIENT_DATA") + " 200")
-    redirects_file.close()
 
-gen_redirects()
+
 gen_favicons()
 gen_templates()
 gen_sitemap()
