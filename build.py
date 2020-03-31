@@ -36,10 +36,10 @@ def gen_sitemap():
 
 
 def gen_redirects():
-    redirects_file = open("_redirects","a")
-    redirects_file.write("\n/api/patients/ " + os.getenv("API_PATIENT_DATA") + " 200")
-    redirects_file.close()
+    f = "netltify.toml"
+    template = templateEnv.get_template(f)
+    print(template.render(API_PATIENTS_URL=os.getenv("API_PATIENT_DATA")),file=open(f,"w"))
 
-# gen_redirects()
+gen_redirects()
 gen_templates()
 gen_sitemap()
