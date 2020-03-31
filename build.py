@@ -36,7 +36,7 @@ def gen_sitemap():
 
 
 def gen_redirects():
-    f = "netltify.toml"
+    f = "netlify.toml"
     template = templateEnv.get_template(f)
     print(template.render(API_PATIENTS_URL=os.getenv("API_PATIENT_DATA")),file=open(f,"w"))
 
