@@ -351,3 +351,8 @@
   font-family: Verdana;
   font-size: 12px;
 }
+.live-back{
+  background-color: #fc1744;
+  color: white;
+  padding: 2px;
+}
