@@ -17,7 +17,7 @@ function loadData(first) {
     $("#cases_deaths").html("")
     $("#cases_recovered").html("")
     }
-    fetch(API_URL + (Math.floor(Math.random()*10**8)).toString()).then((response) => {
+    fetch(API_URL).then((response) => {
         return response.text()
     }).then((text) => {
         patientData = ArraysToDict(CSVToArray(text));
