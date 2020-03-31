@@ -3,6 +3,7 @@ from cairosvg import svg2png
 from PIL import Image
 
 import json
+import os
 from os import listdir
 from os.path import isfile, join, splitext
 
@@ -45,7 +46,12 @@ def gen_favicons():
     template = templateEnv.get_template("favicons.html")
     print(template.render(icons=icons,appname=manifest["short_name"], appcolor=manifest["theme_color"], bgcolor=manifest["background_color"]),file=open("favicons.html","w"))
 
+def gen_redirects():
+    redirects_file = open("_redirects","w")
+    redirects_file.write("/api/patients/ " + os.getenv("API_PATIENT_DATA") + " 200")
+    redirects_file.close()
 
+gen_redirects()
 gen_favicons()
 gen_templates()
 gen_sitemap()
