@@ -48,7 +48,7 @@ def gen_favicons():
 
 def gen_redirects():
     redirects_file = open("_redirects","a")
-    redirects_file.write("/api/patients/ " + os.getenv("API_PATIENT_DATA") + " 200")
+    redirects_file.write("\n/api/patients/ " + os.getenv("API_PATIENT_DATA") + " 200")
     redirects_file.close()
 
 gen_redirects()
