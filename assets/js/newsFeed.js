@@ -1,5 +1,5 @@
 
-$.getJSON("https://spreadsheets.google.com/feeds/list/1nF0HoIVWQpXxtE1p46A0ipy1dZC4gf84MB35atNWLAw/od6/public/values?alt=json", function (data) {
+$.getJSON("/api/news/", function (data) {
     
     var sheetData = data.feed.entry;
     var i;
