@@ -9,7 +9,9 @@
   <link rel="stylesheet" href="assets/css/bulma.min.css">
   <link rel="stylesheet" href="assets/css/index.css">
   <script src="assets/js/jquery-3.4.1.min.js"></script>
-  <script src="https://kit.fontawesome.com/4ac40a47d1.js"></script>
+  <link rel="stylesheet" href="/assets/css/brands.min.css">
+  <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
+  <link rel="stylesheet" href="/assets/css/solid.min.css">
   <script src="/assets/js/utils.js"></script>
 
 
@@ -35,10 +37,7 @@
                         <p class="panel-heading">
                          NEWSFEED <span class="blink live-back">LIVE</span>
                         </p>
-                        <div class="AllnewsFeedContainer">
-                            <br/>
-                                                   
-                            
+                        <div id="news-container">
 
                         </div>
 
@@ -47,7 +46,8 @@
   <div id="include-footer">
     {% include 'footer.html' %}
   </div>
-  <script src="assets/js/gmc.js"></script>
+  <script src="assets/js/localDebug.js"></script>
+
   <script src="assets/js/widgetFunction.js"></script>
   <script src="assets/js/newsFeed.js"></script>
 </body>

@@ -1,5 +1,7 @@
 const VERSION = "1"
-
+var networkFirstFiles = [
+  '/api/patients/'
+]
 var cacheFirstFiles = [
 '/404.html',
 '/404',
@@ -11,12 +13,16 @@ var cacheFirstFiles = [
 '/gmc.html',
 '/mythbuster.html',
 '/statistics.html',
+'/press.html',
+'/allNews.html',
 '/index',
 '/about',
 '/sources',
 '/phones',
 '/gmc',
+'/press',
 '/mythbuster',
+'/allNews',
 '/statistics',
 '/assets/js/jquery-3.4.1.min.js',
 '/assets/js/widgetFunction.js',
@@ -30,6 +36,7 @@ var cacheFirstFiles = [
 '/assets/js/index.js',
 '/assets/js/sortable.min.js',
 '/assets/js/phones.js',
+'/assets/js/newsFeed.js',
 '/assets/js/statistics.js',
 '/assets/webfonts/fa-solid-900.woff2',
 '/assets/webfonts/fa-solid-900.woff',
@@ -69,7 +76,9 @@ var cacheFirstFiles = [
 '/assets/favicons/icon-310x310.png',
 '/assets/favicons/icon-512x512.png',
 '/assets/favicons/icon-96x96.png',
-
+'/api/phones/',
+'/api/bulletin/',
+'/api/news/',
 ];
                  
         
@@ -101,12 +110,13 @@ self.addEventListener('fetch', function(event) {
               // as well as the cache consuming the response, we need
               // to clone it so we have two streams.
               var responseToCache = response.clone();
-  
+            
               caches.open(VERSION)
                 .then(function(cache) {
                   cache.put(event.request, responseToCache);
                 });
-  
+              
+              
               return response;
             }
           );

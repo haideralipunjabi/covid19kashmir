@@ -1,4 +1,4 @@
-const API_URL = "/api/phones/"
+const API_URL = "https://covidkashmir.org/api/phones/"
 function loadData(){
     progressBarVisible(true)
 

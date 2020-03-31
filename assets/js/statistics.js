@@ -1,4 +1,4 @@
-const API_URL = "/api/bulletin/"
+const API_URL = "https://covidkashmir.org/api/bulletin/"
 let data;
 let dates;
 let currentDateIndex;
