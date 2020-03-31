@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }} | CovidKashmir</title>
+    {% if build %}
+      {% include 'favicons.html' %}
+    {% endif %}
+    <link rel="stylesheet" href="assets/css/bulma.min.css">
+    <link rel="stylesheet" href="assets/css/index.css">
+    <script src="assets/js/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="/assets/css/brands.min.css">
+    <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/assets/css/solid.min.css">  
+    <script src="assets/js/utils.js"></script>
+</head>
+<body>
+  <div id="include-header">
+    {% if build %}
+      {% include 'header.html' %}
+    {% endif %}  
+  </div>
+  <div id="include-navbar">
+    {% if build %}
+      {% include 'navbar.html' %}
+    {% endif %}
+  </div>
+  <section class="section">
+    <div class="container">
+      <p>This Data Has Been Taken From World Health Organization Website: <a href="{{ source }}" title="">Source Link</a> </p>
+<br/>
+    </div>
+    <div class="container mycont" id="mycont">
+       {% for item in data %}
+          <article class='message'>
+            <div class='message-header'>
+              <p>{{ item["question"] }}</p>
+            </div>
+            <div class='message-body'>
+              <p>{{ item["answer"] }}</p>
+            </div>
+          </article>
+       {% endfor %}
+    </div>
+  </section>
+  <div id="include-footer">
+    {% if build %}
+      {% include 'footer.html' %}
+    {% endif %}  
+  </div>
+  <script src="assets/js/widgetFunction.js"></script>
+</body>
+</html>
