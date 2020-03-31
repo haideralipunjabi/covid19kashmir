@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ title }} | CovidKashmir</title>
-    {% if build %}
+    {% raw %}
       {% include 'favicons.html' %}
-    {% endif %}
+    {% endraw %}
     <link rel="stylesheet" href="assets/css/bulma.min.css">
     <link rel="stylesheet" href="assets/css/index.css">
     <script src="assets/js/jquery-3.4.1.min.js"></script>
@@ -18,14 +18,14 @@
 </head>
 <body>
   <div id="include-header">
-    {% if build %}
+    {% raw %}
       {% include 'header.html' %}
-    {% endif %}  
+    {% endraw %}  
   </div>
   <div id="include-navbar">
-    {% if build %}
+    {% raw %}
       {% include 'navbar.html' %}
-    {% endif %}
+    {% endraw %}
   </div>
   <section class="section">
     <div class="container">
@@ -46,9 +46,9 @@
     </div>
   </section>
   <div id="include-footer">
-    {% if build %}
+    {% raw %}
       {% include 'footer.html' %}
-    {% endif %}  
+    {% endraw %}  
   </div>
   <script src="assets/js/widgetFunction.js"></script>
 </body>

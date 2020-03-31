@@ -13,6 +13,10 @@ templateEnv = jinja2.Environment(loader=templateLoader)
 # url_faq = os.getenv("URL_FAQ")
 # url_mb = os.getenv("URL_MB")
 
+SOURCES = {
+    "mythbuster": "https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public/myth-busters",
+    "faq":"https://www.who.int/news-room/q-a-detail/q-a-coronaviruses"
+}
 
 def gen_favicons():
     icon_svg = "assets/media/icon.svg"
@@ -36,7 +40,7 @@ def gen_static_pages():
                 "question": row["gsx$q"]['$t'],
                 "answer": row["gsx$a"]["$t"]
             })
-        print(template.render(data=data), file=open(frmt+".html","w"))
+        print(template.render(data=data, title=frmt.title(), source=SOURCES[frmt]), file=open(frmt+".html","w"))
 
 gen_favicons()
 gen_static_pages()
