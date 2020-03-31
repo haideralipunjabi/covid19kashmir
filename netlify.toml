@@ -1,0 +1,12 @@
+[build]
+    base = "/"
+    publish = "/"
+    command = "sed -i s/API_PATIENTS_URL/${API_PATIENT_DATA}/g netlify.toml && python3 build.py"
+
+    [[redirects]]
+         from = "/api/patients/"
+         to = "API_PATIENTS_URL"
+         status = 200
+         force = true
+         [redirects.headers] 
+            Access-Control-Allow-Origin = "https://covidkashmir.org"
