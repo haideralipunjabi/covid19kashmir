@@ -1,4 +1,4 @@
 /api/patients/
-    Access-Control-Allow-Origin: https://covidkashmir.org
+    Access-Control-Allow-Origin: "covidkashmir.org"
     Access-Control-Allow-Methods: GET
     Access-Control-Allow-Headers: Content-Type
