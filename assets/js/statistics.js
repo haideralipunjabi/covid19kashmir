@@ -1,4 +1,4 @@
-const API_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSg-doiJ59mWF5UiJP-tCB6XCqahr9YaXe6eHiyWFyjylHtGRuy5yZrw1ZNWq3etbbyU8Gqz0i5gANp/pub?gid=1918769997&single=true&output=csv"
+const API_URL = "/api/bulletin/"
 let data;
 let dates;
 let currentDateIndex;

@@ -8,8 +8,9 @@ from os.path import isfile, join, splitext
 EXCLUDE_FILES = ['navbar.html', 'header.html', 'footer.html', '404.html']
 API_ENDPOINTS = {
     "API_PATIENTS": "/api/patients/",
-    "API_BULLETIN": "/api/bulletin",
-    "API_PHONES": "/api/phones",
+    "API_BULLETIN": "/api/bulletin/",
+    "API_PHONES": "/api/phones/",
+    "API_NEWS":"/api/news/"
 }
 onlyfiles = [f for f in listdir() if splitext(f)[1]==".html"]
 templateLoader = jinja2.FileSystemLoader(searchpath="./")
