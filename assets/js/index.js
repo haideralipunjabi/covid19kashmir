@@ -237,15 +237,16 @@ function makeLegend() {
     let max = Math.max(...Object.values(activeDistrictsMap))
     let range = (max - min) / 3
     let stops = [svgWidth/3,4*svgWidth/9, 5*svgWidth/9, 2*svgWidth/3]
+    // let stops = [0, svgWidth/3, 2*svgWidth/3, svgWidth]
     let barWidth = svgWidth/9;
-    let barHeight = 15;
-    legend.rect(stops[0],stops[1],barWidth,barHeight).attr("fill","#fee8c8")
-    legend.rect(stops[1],stops[2],barWidth,barHeight).attr("fill","#fdbb84")
-    legend.rect(stops[2],stops[3],barWidth,barHeight).attr("fill","#e34a33")
-    legend.text(stops[0],barHeight+barHeight/3,"0").attr("fill","#000")
-    legend.text(stops[1],barHeight+barHeight/3,`${Math.floor(min + range)}`).attr("fill","#000")
-    legend.text(stops[2],barHeight+barHeight/3,`${Math.floor(min + (range * 2))}`).attr("fill","#000")
-    legend.text(stops[3],barHeight+barHeight/3,max).attr("fill","#000")
+    let barHeight = 10;
+    legend.rect(stops[0],0,barWidth,barHeight).attr("fill","#fee8c8")
+    legend.rect(stops[1],0,barWidth,barHeight).attr("fill","#fdbb84")
+    legend.rect(stops[2],0,barWidth,barHeight).attr("fill","#e34a33")
+    legend.text(stops[0]-5,2.5*barHeight,"1").attr("fill","#000")
+    legend.text(stops[1]-5,2.5*barHeight,`${Math.floor(min + range)}`).attr("fill","#000")
+    legend.text(stops[2]-5,2.5*barHeight,`${Math.floor(min + (range * 2))}`).attr("fill","#000")
+    legend.text(stops[3]-5,2.5*barHeight,max).attr("fill","#000")
 
 }
 
