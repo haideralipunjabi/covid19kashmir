@@ -39,7 +39,7 @@ function loadTable() {
         onclick=javascript:patientModal(${patientData.indexOf(patient)})
         >
         <td>${patientData.indexOf(patient)+1}</td>
-                      <td>${patient["Date Announced"]}</td>
+                      <td data-value=${patientData.indexOf(patient)+1}>${patient["Date Announced"]}</td>
                       <td>${patient["District"]}</td>
                       <td class="is-hidden-mobile is-hidden-tablet-only">${patient["Locality"]}</td>
                       <td class="is-hidden-mobile is-hidden-tablet-only">${patient["Age"]}</td>
@@ -54,7 +54,7 @@ function loadTable() {
     `)
     }
     $("#data-table th")[1].click()
-    $("#data-table th")[1].click()
+    // $("#data-table th")[1].click()
 }
 
 function formatSources(patient) {
