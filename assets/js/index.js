@@ -121,17 +121,18 @@ function loadMap() {
         makeLegend()
         selectMapDistrict(snap.select("#srinagar"))
     })
+    // legend.rect(0,0,500,500)
 }
 
 function selectMapDistrict(dShape){
     snap.selectAll("path").forEach((item)=>{
         item.attr("stroke","#000000");
-        item.attr("strokeWidth","1px");
+        item.attr("strokeWidth","1");
     })
     dShape.paper.node.removeChild(dShape.node)
     dShape.paper.node.insertBefore(dShape.node, dShape.paper.node.firstChild)
     dShape.attr("stroke", COLORS.PRIMARY.RECOVERED)
-    dShape.attr("strokeWidth","5px")
+    dShape.attr("strokeWidth","3px")
     activateDistrict(dShape.node.id.toTitleCase())
 }
 function patientModal(id) {
@@ -222,18 +223,27 @@ function activateDistrict(district) {
         $("#map-cases_" + c.toLowerCase()).html(districtsMap[district][c])
     }
 }
-
+$(window).resize(function(){
+    if($("#legend").children().length){
+        $("#legend").html("");
+        makeLegend();
+    }
+})
 function makeLegend() {
+    legend = Snap("#legend")
+    
+    let svgWidth = snap.node.offsetWidth;
     let min = Math.min(...Object.values(activeDistrictsMap))
     let max = Math.max(...Object.values(activeDistrictsMap))
     let range = (max - min) / 3
-    let tags = $(".legend .tag")
-    $(tags[0]).html(`Active Cases < ${Math.floor(min + range)}`)
-    $(tags[0]).css("background-color", "#fee8c8")
-    $(tags[1]).html(`Active Cases < ${Math.floor(min + (range * 2))}`)
-    $(tags[1]).css("background-color", "#fdbb84")
-    $(tags[2]).html(`Active Cases <= ${max}`)
-    $(tags[2]).css("background-color", "#e34a33")
+    legend.rect(0,0,svgWidth/3,20).attr("fill","#fee8c8")
+    legend.rect(svgWidth/3,0,svgWidth/3,20).attr("fill","#fdbb84")
+    legend.rect(svgWidth*2/3,0,svgWidth/3,20).attr("fill","#e34a33")
+    legend.text(0,15,"0").attr("fill","#000")
+    legend.text(svgWidth/3-5,15,`${Math.floor(min + range)}`).attr("fill","#000")
+    legend.text(svgWidth*2/3-5,15,`${Math.floor(min + (range * 2))}`).attr("fill","#000")
+    legend.text(svgWidth - 20,15,max).attr("fill","#000")
+
 }
 
 function getFillColor(district) {

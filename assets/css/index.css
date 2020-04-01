@@ -162,7 +162,7 @@
 }
 
 .legend .tag {
-  /* width: 100%; */
+  width: 100%;
   min-width: 150px;
 }
 
@@ -174,11 +174,11 @@
   margin-top: 16px;
 }
 
-@media only screen and (min-width: 1024px) {
+/* @media only screen and (min-width: 1024px) {
   .legend {
     position: absolute;
   }
-}
+} */
 
 .modal {
   padding: 32px;
