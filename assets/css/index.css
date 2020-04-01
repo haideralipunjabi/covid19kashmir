@@ -20,6 +20,7 @@
 
 .footer {
   background: rgba(108, 117, 125, .0627451);
+  padding-bottom: 3rem !important;
 }
 
 .footer ul {
@@ -37,7 +38,6 @@
   transition: background .2s ease-in-out;
   background: rgba(0, 123, 255, .0627451);
 }
-
 .top-title {
 
   font-family: 'Montserrat', sans-serif;
@@ -162,7 +162,7 @@
 }
 
 .legend .tag {
-  /* width: 100%; */
+  width: 100%;
   min-width: 150px;
 }
 
@@ -174,11 +174,11 @@
   margin-top: 16px;
 }
 
-@media only screen and (min-width: 1024px) {
+/* @media only screen and (min-width: 1024px) {
   .legend {
     position: absolute;
   }
-}
+} */
 
 .modal {
   padding: 32px;
@@ -343,7 +343,6 @@
 }
 .hitcounter.center {
   text-align: center;
-  width: 50%;
   margin: 20px auto;
 }
 .hitcounter .message {

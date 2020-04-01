@@ -147,7 +147,8 @@
     <br>
 
 
-<article>
+
+<!-- <article>
 
       <div class="container">
 
@@ -155,17 +156,14 @@
           <p class="panel-heading">
            NEWSFEED <span class="blink live-back">LIVE</span>
           </p>
-          <div class="IndexnewsFeedContainer">
-              <br/>
-            
-                
-           
-               
+
+          <div id="news-container">
+
           </div>
           
          
           <div class="panel-block">
-            <a id="LoadMore" href="allNews.html" class="button is-link is-outlined is-fullwidth">
+            <a id="LoadMore" href="allnews.html" class="button is-link is-outlined is-fullwidth">
              View More
             </a>
           </div>
@@ -174,7 +172,8 @@
 
       </div>
 
-    </article>
+    </article> -->
+
 
 <br/>
 
@@ -185,16 +184,12 @@
         <div class="message-header">
           <p><span class="icon"><i class="fas fa-virus"></i></span><span>Active Cases Heat Map</span></p>
         </div>
-        <div class="legend is-mobile">
-          <div class="item">
-            <div class="tag title is-size-6"></div>
-          </div>
-          <div class="item">
-            <div class="tag title is-size-6"></div>
-          </div>
-          <div class="item">
-            <div class="tag title is-size-6"></div>
-          </div>
+
+        <div  class="legend is-mobile">
+          <svg width="100%" height="50px" id="legend">
+
+          </svg>
+
 
         </div>
         <br>
@@ -289,7 +284,7 @@
                   <thead>
                     <tr>
                       <th data-sortable="false">Id</th>
-                      <th>Date Announced</th>
+                      <th data-sortable-type="numeric">Date Announced</th>
                       <th>District</th>
                       <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Locality</th>
                       <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Age</th>
@@ -482,8 +477,10 @@
     {% include 'footer.html' %}
   </div>
   <script src="assets/js/index.js"></script>
+  <script src="assets/js/localDebug.js"></script>
   <script src="assets/js/widgetFunction.js"></script>
-  <script src="assets/js/newsFeed.js"></script>
+
+  <!-- <script src="assets/js/newsFeed.js"></script> -->
 </body>
 
 </html>

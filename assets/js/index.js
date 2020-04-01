@@ -1,4 +1,4 @@
-const API_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSg-doiJ59mWF5UiJP-tCB6XCqahr9YaXe6eHiyWFyjylHtGRuy5yZrw1ZNWq3etbbyU8Gqz0i5gANp/pub?gid=0&single=true&output=csv&prevent-cache="
+const API_URL = "https://covidkashmir.org/api/patients/"
 let patientData, districtsMap, activeDistrictsMap, districtInformation,snap, countback;
 const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad"]
 const COLORS = {
@@ -17,7 +17,7 @@ function loadData(first) {
     $("#cases_deaths").html("")
     $("#cases_recovered").html("")
     }
-    fetch(API_URL + (Math.floor(Math.random()*10**8)).toString()).then((response) => {
+    fetch(API_URL).then((response) => {
         return response.text()
     }).then((text) => {
         patientData = ArraysToDict(CSVToArray(text));
@@ -39,7 +39,7 @@ function loadTable() {
         onclick=javascript:patientModal(${patientData.indexOf(patient)})
         >
         <td>${patientData.indexOf(patient)+1}</td>
-                      <td>${patient["Date Announced"]}</td>
+                      <td data-value=${patientData.indexOf(patient)+1}>${patient["Date Announced"]}</td>
                       <td>${patient["District"]}</td>
                       <td class="is-hidden-mobile is-hidden-tablet-only">${patient["Locality"]}</td>
                       <td class="is-hidden-mobile is-hidden-tablet-only">${patient["Age"]}</td>
@@ -54,7 +54,7 @@ function loadTable() {
     `)
     }
     $("#data-table th")[1].click()
-    $("#data-table th")[1].click()
+    // $("#data-table th")[1].click()
 }
 
 function formatSources(patient) {
@@ -121,17 +121,18 @@ function loadMap() {
         makeLegend()
         selectMapDistrict(snap.select("#srinagar"))
     })
+    // legend.rect(0,0,500,500)
 }
 
 function selectMapDistrict(dShape){
     snap.selectAll("path").forEach((item)=>{
         item.attr("stroke","#000000");
-        item.attr("strokeWidth","1px");
+        item.attr("strokeWidth","1");
     })
     dShape.paper.node.removeChild(dShape.node)
     dShape.paper.node.insertBefore(dShape.node, dShape.paper.node.firstChild)
     dShape.attr("stroke", COLORS.PRIMARY.RECOVERED)
-    dShape.attr("strokeWidth","5px")
+    dShape.attr("strokeWidth","3px")
     activateDistrict(dShape.node.id.toTitleCase())
 }
 function patientModal(id) {
@@ -222,18 +223,31 @@ function activateDistrict(district) {
         $("#map-cases_" + c.toLowerCase()).html(districtsMap[district][c])
     }
 }
-
+$(window).resize(function(){
+    if($("#legend").children().length){
+        $("#legend").html("");
+        makeLegend();
+    }
+})
 function makeLegend() {
+    legend = Snap("#legend")
+    
+    let svgWidth = snap.node.offsetWidth;
     let min = Math.min(...Object.values(activeDistrictsMap))
     let max = Math.max(...Object.values(activeDistrictsMap))
     let range = (max - min) / 3
-    let tags = $(".legend .tag")
-    $(tags[0]).html(`Active Cases < ${Math.floor(min + range)}`)
-    $(tags[0]).css("background-color", "#fee8c8")
-    $(tags[1]).html(`Active Cases < ${Math.floor(min + (range * 2))}`)
-    $(tags[1]).css("background-color", "#fdbb84")
-    $(tags[2]).html(`Active Cases <= ${max}`)
-    $(tags[2]).css("background-color", "#e34a33")
+    let stops = [svgWidth/3,4*svgWidth/9, 5*svgWidth/9, 2*svgWidth/3]
+    // let stops = [0, svgWidth/3, 2*svgWidth/3, svgWidth]
+    let barWidth = svgWidth/9;
+    let barHeight = 10;
+    legend.rect(stops[0],0,barWidth,barHeight).attr("fill","#fee8c8")
+    legend.rect(stops[1],0,barWidth,barHeight).attr("fill","#fdbb84")
+    legend.rect(stops[2],0,barWidth,barHeight).attr("fill","#e34a33")
+    legend.text(stops[0]-5,2.5*barHeight,"1").attr("fill","#000")
+    legend.text(stops[1]-5,2.5*barHeight,`${Math.floor(min + range)}`).attr("fill","#000")
+    legend.text(stops[2]-5,2.5*barHeight,`${Math.floor(min + (range * 2))}`).attr("fill","#000")
+    legend.text(stops[3]-5,2.5*barHeight,max).attr("fill","#000")
+
 }
 
 function getFillColor(district) {

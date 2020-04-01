@@ -6,6 +6,12 @@ from os import listdir
 from os.path import isfile, join, splitext
 
 EXCLUDE_FILES = ['navbar.html', 'header.html', 'footer.html', '404.html']
+API_ENDPOINTS = {
+    "API_PATIENTS": "/api/patients/",
+    "API_BULLETIN": "/api/bulletin/",
+    "API_PHONES": "/api/phones/",
+    "API_NEWS":"/api/news/"
+}
 onlyfiles = [f for f in listdir() if splitext(f)[1]==".html"]
 templateLoader = jinja2.FileSystemLoader(searchpath="./")
 templateEnv = jinja2.Environment(loader=templateLoader)
@@ -36,9 +42,11 @@ def gen_sitemap():
 
 
 def gen_redirects():
-    f = "netlify.toml"
-    template = templateEnv.get_template(f)
-    print(template.render(API_PATIENTS_URL=os.getenv("API_PATIENT_DATA")),file=open(f,"w"))
+    redirects_file = open("_redirects","a")
+    for k,v in API_ENDPOINTS.items():
+        redirects_file.write("\n%s %s 200"%(v, os.getenv(k)))
+    redirects_file.close()
+
 
 gen_redirects()
 gen_templates()

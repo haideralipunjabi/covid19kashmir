@@ -1,5 +1,8 @@
-const VERSION = "1"
-
+const VERSION = "4"
+var networkFirstFiles = [
+  '/api/patients/',
+  '/api/news'
+]
 var cacheFirstFiles = [
 '/404.html',
 '/404',
@@ -11,12 +14,16 @@ var cacheFirstFiles = [
 '/gmc.html',
 '/mythbuster.html',
 '/statistics.html',
+'/press.html',
+'/allnews.html',
 '/index',
 '/about',
 '/sources',
 '/phones',
 '/gmc',
+'/press',
 '/mythbuster',
+'/allnews',
 '/statistics',
 '/assets/js/jquery-3.4.1.min.js',
 '/assets/js/widgetFunction.js',
@@ -30,6 +37,7 @@ var cacheFirstFiles = [
 '/assets/js/index.js',
 '/assets/js/sortable.min.js',
 '/assets/js/phones.js',
+'/assets/js/newsFeed.js',
 '/assets/js/statistics.js',
 '/assets/webfonts/fa-solid-900.woff2',
 '/assets/webfonts/fa-solid-900.woff',
@@ -69,7 +77,9 @@ var cacheFirstFiles = [
 '/assets/favicons/icon-310x310.png',
 '/assets/favicons/icon-512x512.png',
 '/assets/favicons/icon-96x96.png',
-
+'/api/phones/',
+'/api/bulletin/',
+'/api/news/',
 ];
                  
         
@@ -84,46 +94,53 @@ self.addEventListener('install', function(event) {
   );
 });
 self.addEventListener('fetch', function(event) {
-  event.respondWith(
-    caches.match(event.request)
-      .then(function(response) {
-        // Cache hit - return response
-        function fetchAndUpdate(){
-          return fetch(event.request).then(
-            function(response) {
-              // Check if we received a valid response
-              if(!response || response.status !== 200 || response.type !== 'basic') {
-                return response;
-              }
-  
-              // IMPORTANT: Clone the response. A response is a stream
-              // and because we want the browser to consume the response
-              // as well as the cache consuming the response, we need
-              // to clone it so we have two streams.
-              var responseToCache = response.clone();
-  
-              caches.open(VERSION)
-                .then(function(cache) {
-                  cache.put(event.request, responseToCache);
-                });
-  
-              return response;
-            }
-          );
+  function fetchAndUpdate(){
+    return fetch(event.request).then(
+      function(response) {
+        if(!response || response.status !== 200 || response.type !== 'basic') {
+          return response;
         }
-        if (!response) {
-          return fetchAndUpdate();
-        }
-        fetchAndUpdate();
-        return response;        
+        var responseToCache = response.clone();
+      
+        caches.open(VERSION)
+          .then(function(cache) {
+            cache.put(event.request, responseToCache);
+          });       
+        return response;
+      }
+    );
+  }
+  if(cacheFirstFiles.includes(event.request.url)){
+    event.respondWith(
+      caches.match(event.request)
+        .then(function(response) {
+          if (!response) {
+            return fetchAndUpdate();
+          }
+          fetchAndUpdate();
+          return response;        
+        })
+      );
+  }
+  else if(networkFirstFiles.includes(event.request.url)){
+    event.respondWith(
+      fetch(event.request).then(function(response){
+        caches.open(VERSION)
+        .then(function(cache) {
+          cache.put(event.request, responseToCache);
+        });       
+      return response;
+      }).catch(function() {
+        fetchFails.push(event.request.url)
+        return caches.match(event.request);
       })
     );
+  }
 });
 
 self.addEventListener('activate', function(event) {
-
   var cacheWhitelist = [VERSION];
-
+  window.fetchFails = []
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
       return Promise.all(
