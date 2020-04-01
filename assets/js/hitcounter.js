@@ -27,7 +27,7 @@ function loadCounter(){
             urlPageViewsMap[key] = value
         }
     }
-    let thisPageViews = urlPageViewsMap[window.location.pathname.replace(".html","")].toString()
+    let thisPageViews = urlPageViewsMap[window.location.pathname.replace(".html","").replace("index","")].toString()
     $("#hitcounter-1").html("")
     for(let c of thisPageViews){
         $("#hitcounter-1").append(`<span>${c}</span> `)

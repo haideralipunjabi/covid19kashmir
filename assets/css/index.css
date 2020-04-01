@@ -20,6 +20,7 @@
 
 .footer {
   background: rgba(108, 117, 125, .0627451);
+  padding-bottom: 3rem !important;
 }
 
 .footer ul {
@@ -37,7 +38,6 @@
   transition: background .2s ease-in-out;
   background: rgba(0, 123, 255, .0627451);
 }
-
 .top-title {
 
   font-family: 'Montserrat', sans-serif;
