@@ -1,4 +1,4 @@
-const VERSION = "2"
+const VERSION = "4"
 var networkFirstFiles = [
   '/api/patients/',
   '/api/news'
@@ -114,8 +114,6 @@ self.addEventListener('fetch', function(event) {
     event.respondWith(
       caches.match(event.request)
         .then(function(response) {
-          // Cache hit - return response
-          
           if (!response) {
             return fetchAndUpdate();
           }
@@ -125,30 +123,24 @@ self.addEventListener('fetch', function(event) {
       );
   }
   else if(networkFirstFiles.includes(event.request.url)){
-    event.respondWith(fetch(event.request).then(function(response) {
-      if(!response || response.status !== 200 || response.type !== 'basic') {
-        return caches.match(event.request)
-        .then(function(response) {   
-          window.fails = {}
-          window.fails[event.request.url] = true
-          return response;        
-        })
-      }
-      var responseToCache = response.clone();
-    
-      caches.open(VERSION)
+    event.respondWith(
+      fetch(event.request).then(function(response){
+        caches.open(VERSION)
         .then(function(cache) {
           cache.put(event.request, responseToCache);
         });       
       return response;
-    }))
+      }).catch(function() {
+        fetchFails.push(event.request.url)
+        return caches.match(event.request);
+      })
+    );
   }
 });
 
 self.addEventListener('activate', function(event) {
-
   var cacheWhitelist = [VERSION];
-
+  window.fetchFails = []
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
       return Promise.all(
