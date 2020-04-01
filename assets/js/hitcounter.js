@@ -19,7 +19,7 @@ function loadCounter(){
         if(key.includes("?")){
             key = key.substring(0,key.indexOf("?"))
         }
-        key = key.replace(".html","")
+        key = key.replace(".html","").replace("index","")
         if(Object.keys(urlPageViewsMap).includes(key)){
             urlPageViewsMap[key] += value
         }
