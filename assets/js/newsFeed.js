@@ -27,4 +27,5 @@ fetch("https://covidkashmir.org/api/news/").then((response) => {
 }).then((data) => {
     loadNews(data.feed.entry)
 });
+
   
