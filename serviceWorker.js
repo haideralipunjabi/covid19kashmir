@@ -1,6 +1,7 @@
 const VERSION = "2"
 var networkFirstFiles = [
-  '/api/patients/'
+  '/api/patients/',
+  '/api/news'
 ]
 var cacheFirstFiles = [
 '/404.html',
@@ -93,41 +94,55 @@ self.addEventListener('install', function(event) {
   );
 });
 self.addEventListener('fetch', function(event) {
-  event.respondWith(
-    caches.match(event.request)
-      .then(function(response) {
-        // Cache hit - return response
-        function fetchAndUpdate(){
-          return fetch(event.request).then(
-            function(response) {
-              // Check if we received a valid response
-              if(!response || response.status !== 200 || response.type !== 'basic') {
-                return response;
-              }
-  
-              // IMPORTANT: Clone the response. A response is a stream
-              // and because we want the browser to consume the response
-              // as well as the cache consuming the response, we need
-              // to clone it so we have two streams.
-              var responseToCache = response.clone();
-            
-              caches.open(VERSION)
-                .then(function(cache) {
-                  cache.put(event.request, responseToCache);
-                });
-              
-              
-              return response;
-            }
-          );
+  function fetchAndUpdate(){
+    return fetch(event.request).then(
+      function(response) {
+        if(!response || response.status !== 200 || response.type !== 'basic') {
+          return response;
         }
-        if (!response) {
-          return fetchAndUpdate();
-        }
-        fetchAndUpdate();
-        return response;        
-      })
+        var responseToCache = response.clone();
+      
+        caches.open(VERSION)
+          .then(function(cache) {
+            cache.put(event.request, responseToCache);
+          });       
+        return response;
+      }
     );
+  }
+  if(cacheFirstFiles.includes(event.request.url)){
+    event.respondWith(
+      caches.match(event.request)
+        .then(function(response) {
+          // Cache hit - return response
+          
+          if (!response) {
+            return fetchAndUpdate();
+          }
+          fetchAndUpdate();
+          return response;        
+        })
+      );
+  }
+  else if(networkFirstFiles.includes(event.request.url)){
+    event.respondWith(fetch(event.request).then(function(response) {
+      if(!response || response.status !== 200 || response.type !== 'basic') {
+        return caches.match(event.request)
+        .then(function(response) {   
+          window.fails = {}
+          window.fails[event.request.url] = true
+          return response;        
+        })
+      }
+      var responseToCache = response.clone();
+    
+      caches.open(VERSION)
+        .then(function(cache) {
+          cache.put(event.request, responseToCache);
+        });       
+      return response;
+    }))
+  }
 });
 
 self.addEventListener('activate', function(event) {
