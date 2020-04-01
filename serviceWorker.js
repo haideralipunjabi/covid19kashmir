@@ -80,6 +80,10 @@ var cacheFirstFiles = [
 '/api/phones/',
 '/api/bulletin/',
 '/api/news/',
+'/datalab',
+'/assets/css/datalab.css',
+'/assets/js/datalab.js',
+'/assets/js/apexcharts.js'
 ];
                  
         
