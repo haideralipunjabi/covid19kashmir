@@ -12,25 +12,42 @@
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
       <a class="navbar-item" href="https://covidkashmir.org">
-        <b>Home</b>
+        <b><span class="icon"><i class="fas fa-virus"></i></span><span> Home</span></b>
       </a>
+      <a class="navbar-item" href="/datalab">
+        <b><span class="icon"><i class="fas fa-chart-bar"></i></span><span> DataLab</span></b>
+      </a>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          <span class="icon"><i class="fas fa-phone-alt"></i></span><span> Phones</span> </a>
 
-      <a class="navbar-item" href="/phones.html">
-        <span class="icon"><i class="fas fa-clinic-medical"></i></span><span> Important Numbers</span>
-      </a>
-      <a class="navbar-item" href="/gmc.html">
-        <span class="icon"><i class="fas fa-phone-alt"></i></span><span> On Call - GMC Consultants</span>
-      </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/phones.html">
+            <span class="icon"><i class="fas fa-clinic-medical"></i></span><span> Important Numbers</span>
+          </a>
+          <a class="navbar-item" href="/gmc.html">
+            <span class="icon"><i class="fas fa-phone-alt"></i></span><span> On Call - GMC Consultants</span>
+          </a>
+        </div>
+      </div>
+
       <a class="navbar-item" href="/statistics.html">
         <span class="icon"><i class="fas fa-table"></i></span><span> Govt. Statistics</span>
       </a>
-      <a class="navbar-item" href="/faq.html">
-        <span class="icon"><i class="fas fa-question"></i></span><span> COVID-19 F.A.Q (WHO)</span>
-      </a>
-      <a class="navbar-item" href="mythbuster.html">
-        <span class="icon"><i class="fas fa-question"></i></span><span>Myth Buster</span>
-      </a>
-      <a class="navbar-item" href="https://www.talaashsrinagar.in/" target="_blank">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          <span class="icon"><i class="fas fa-question"></i></span><span> FAQs</span> </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/faq.html">
+            <span class="icon"><i class="fas fa-question"></i></span><span> COVID-19 F.A.Q (WHO)</span>
+          </a>
+          <a class="navbar-item" href="mythbuster.html">
+            <span class="icon"><i class="fas fa-question"></i></span><span>Myth Buster</span>
+          </a>
+        </div>
+      </div>
+      <a class="navbar-item" href="https://www.talaashsrinagar.in/" rel="noreferrer" target="_blank">
         <span class="icon"><i class="fas fa-search"></i></span><span>Talaash - Report Travel History</span>
       </a>
     </div>

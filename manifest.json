@@ -1,12 +1,20 @@
 {
     "name": "CovidKashmir | Covid-19 J&K Tracker",
-    "short_name": "Demo App",
+    "short_name": "CovidKashmir",
     "start_url": "index.html",
     "display": "standalone",
     "background_color": "#fdfdfd",
-    "theme_color": "#007bff",
+    "theme_color": "#ff0b55",
     "orientation": "portrait-primary",
     "icons": [
+      {
+        "src": "/assets/favicons/icon-32x32.png",
+        "type": "image/png", "sizes": "32x32"
+      },
+      {
+        "src": "/assets/favicons/icon-70x70.png",
+        "type": "image/png", "sizes": "70x70"
+      },
       {
         "src": "/assets/favicons/icon-72x72.png",
         "type": "image/png", "sizes": "72x72"
@@ -24,12 +32,28 @@
         "type": "image/png", "sizes": "144x144"
       },
       {
+        "src": "/assets/favicons/icon-150x150.png",
+        "type": "image/png", "sizes": "150x150"
+      },
+      {
         "src": "/assets/favicons/icon-152x152.png",
         "type": "image/png", "sizes": "152x152"
       },
       {
+        "src": "/assets/favicons/icon-180x180.png",
+        "type": "image/png", "sizes": "180x180"
+      },
+      {
         "src": "/assets/favicons/icon-192x192.png",
         "type": "image/png", "sizes": "192x192"
+      },
+      {
+        "src": "/assets/favicons/icon-196x196.png",
+        "type": "image/png", "sizes": "196x196"
+      },
+      {
+        "src": "/assets/favicons/icon-310x310.png",
+        "type": "image/png", "sizes": "310x310"
       },
       {
         "src": "/assets/favicons/icon-384x384.png",

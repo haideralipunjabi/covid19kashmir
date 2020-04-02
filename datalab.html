@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DataLab | CovidKashmir</title>
+  {% include 'favicons.html' %}
+  <link rel="stylesheet" href="assets/css/bulma.min.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+  <script src="assets/js/jquery-3.4.1.min.js"></script>
+
+  <link rel="stylesheet" href="/assets/css/brands.min.css">
+  <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
+  <link rel="stylesheet" href="/assets/css/solid.min.css">
+  <link rel="stylesheet" href="/assets/css/datalab.css">
+  <script src="assets/js/utils.js"></script>
+<script src="assets/js/apexcharts.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700i,900&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+  <div id="include-header">
+    {% include 'header.html' %}
+  </div>
+  <div id="include-navbar">
+    {% include 'navbar.html' %}
+  </div>
+
+  <section class="section">
+
+    
+
+    <div class="container">
+      <div id="charts-container" class="columns is-multiline">
+        
+        
+      </div>
+
+    </div>
+
+
+
+  </section>
+  <div id="popup" class="modal">
+    <div class="modal-background"></div>
+    <div  class="modal-content">
+    </div>
+    <button onclick="javascript:closePopup()" class="modal-close is-large" aria-label="close"></button>
+  </div>
+  <div id="include-footer">
+    {% include 'footer.html' %}
+  </div>
+  <script src="assets/js/localDebug.js"></script>
+  <script src="assets/js/widgetFunction.js"></script>
+  <script src="assets/js/datalab.js"></script>
+</body>
+
+</html>
