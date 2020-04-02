@@ -1,4 +1,5 @@
 const API_URL = "https://covidkashmir.org/api/patients/"
+const LIVE_API_URL = "https://covidkashmir.org/api/live"
 let patientData, districtsMap, activeDistrictsMap, districtInformation,snap, countback;
 const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad"]
 const COLORS = {
@@ -67,17 +68,14 @@ function formatSources(patient) {
 }
 
 function loadStats() {
-    $("#cases_total").html(patientData.length);
-    $("#cases_active").html(patientData.filter((item) => {
-        return item["Status"] === "Hospitalized"
-    }).length)
-    $("#cases_deaths").html(patientData.filter((item) => {
-        return item["Status"] === "Deceased"
-    }).length)
-    $("#cases_recovered").html(patientData.filter((item) => {
-        return item["Status"] === "Recovered"
-    }).length)
-
+    fetch(LIVE_API_URL).then((response) => {
+        return response.json()
+    }).then((data) => {
+        $("#cases_total").html(data.Total);
+        $("#cases_active").html(data.Active);
+        $("#cases_deaths").html(data.Deceased);
+        $("#cases_recovered").html(data.Recovered);
+    });
 }
 
 function loadMap() {
