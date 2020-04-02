@@ -1,20 +1,27 @@
 const API_URL = "https://covidkashmir.org/api/patients/"
+const LIVE_API = "https://covidkashmir.org/api/live/"
 const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad", "Unknown"]
 const CHARTS = {
   "chartOne": "Chart1",
   "chartTwo": "Chart2",
   "chartThree": "Chart3",
-  "chartFour": "Chart4",
-  "chartFive":"Chart5"
+  "chartFour": "Chart4"
+  // "chartFive": "Chart5"
 }
-let patientData, districtMap, dateMap, activeDistricts;
+let patientData, districtMap, dateMap, activeDistricts, liveData;
 
 
 $(document).ready(() => {
-  fetch(API_URL).then((response) => {
+  let sheetPromise = fetch(API_URL).then((response) => {
     return response.text()
-  }).then((text) => {
-    patientData = ArraysToDict(CSVToArray(text));
+  })
+  let livePromise = fetch(LIVE_API,{'mode': 'cors'}).then((response) => {
+    return response.json()
+  })
+  
+  Promise.all([sheetPromise, livePromise]).then((values) => {
+    patientData = ArraysToDict(CSVToArray(values[0]));
+    liveData = values[1];
     createHolders();
     createUnknowns();
     createData();
@@ -89,6 +96,8 @@ function createData() {
     dateMap[date] = filterDataByDate(patientData, date).length
   }
   activeDistricts = Object.keys(districtMap).filter(key => (districtMap[key]["Total"] > 0))
+ 
+  
 }
 
 function filteredData(kind, key) {
@@ -270,9 +279,9 @@ function createCharts() {
   };
   chartOptions[3] = {
     series: [
-      (100 * filterDataByStatus(patientData, "Hospitalized").length / patientData.length).toPrecision(4),
-      (100 * filterDataByStatus(patientData, "Recovered").length / patientData.length).toPrecision(4),
-      (100 * filterDataByStatus(patientData, "Deceased").length / patientData.length).toPrecision(4)
+      (100 * liveData["Active"] / liveData["Total"]).toPrecision(4),
+      (100 * liveData["Recovered"] / liveData["Total"]).toPrecision(4),
+      (100 * liveData["Deceased"] / liveData["Total"]).toPrecision(4)
     ],
     chart: {
       height: 350,
@@ -319,44 +328,44 @@ function createCharts() {
     },
     labels: ["Active", "Recovered", "Deceased"],
   };
-  chartOptions[4] = {
-    series: [{
-        name: 'Active',
-        data: getUnique(patientData,"Date Announced").map(date=>filterDataByStatus(filterDataByDate(patientData,date),"Hospitalized").length)
-      }, {
-        name: 'Recovered',
-        data: getUnique(patientData,"Date Announced").map(date=>filterDataByStatus(filterDataByDate(patientData,date),"Recovered").length)
-      },
-      {
-        name: 'Deaths',
-        data: getUnique(patientData,"Date Announced").map(date=>filterDataByStatus(filterDataByDate(patientData,date),"Deceased").length)
-      }
-    ],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    dataLabels: {
-      enabled: false
-    },
-    title: {
-      text: "Daily Plot of Cases"
-    },
-    subtitle: {
-      text: "Source: covidkashmir.org"
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: getUnique(patientData,"Date Announced")
-    },
-    tooltip: {
-      x: {
-        format: 'dd/MM/yy'
-      },
-    },
-  };
+  // chartOptions[4] = {
+  //   series: [{
+  //       name: 'Active',
+  //       data: dailyData["Active"]
+  //     }, {
+  //       name: 'Recovered',
+  //       data: dailyData["Recovered"]
+  //     },
+  //     {
+  //       name: 'Deaths',
+  //       data: dailyData["Deceased"]
+  //     }
+  //   ],
+  //   chart: {
+  //     height: 350,
+  //     type: 'area'
+  //   },
+  //   dataLabels: {
+  //     enabled: false
+  //   },
+  //   title: {
+  //     text: "Daily Plot of Cases"
+  //   },
+  //   subtitle: {
+  //     text: "Source: covidkashmir.org"
+  //   },
+  //   stroke: {
+  //     curve: 'smooth'
+  //   },
+  //   xaxis: {
+  //     categories: dailyData["Dates"]
+  //   },
+  //   tooltip: {
+  //     x: {
+  //       format: 'dd/MM/yy'
+  //     },
+  //   },
+  // };
 
   let keys = Object.keys(CHARTS);
   for (let key of keys) {
@@ -366,13 +375,13 @@ function createCharts() {
   // chart.render();
 }
 
-function popup(el){
-  $("#popup .modal-content").html($("#"+el).parent().parent().parent().html())
+function popup(el) {
+  $("#popup .modal-content").html($("#" + el).parent().parent().parent().html())
   $("#popup").addClass("is-active")
 
 }
 
-function closePopup(){
+function closePopup() {
   $("#popup").removeClass("is-active")
   $("#popup .modal-content").html("")
 }
