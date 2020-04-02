@@ -11,6 +11,7 @@ const FILTERS = {
     "Status": ""
 }
 function loadData(first) {
+    
     if(first) progressBarVisible(true)
     if(!first){
         $("#cases_total").html("");
@@ -18,13 +19,14 @@ function loadData(first) {
     $("#cases_deaths").html("")
     $("#cases_recovered").html("")
     }
+    loadStats();
     fetch(API_URL).then((response) => {
         return response.text()
     }).then((text) => {
         patientData = ArraysToDict(CSVToArray(text));
         if(first)loadTable();
         if(first)loadFilters();
-        loadStats();
+        
         if(first)loadMap();
     });
 }
