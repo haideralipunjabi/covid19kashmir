@@ -277,6 +277,20 @@ function createCharts() {
     chart: {
       height: 350,
       type: 'radialBar',
+      toolbar: {
+        show: true,
+        offsetX: 0,
+        offsetY: 0,
+        tools: {
+          download: true,
+          selection: false,
+          zoom: false,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
+          reset: false
+        }
+      },
     },
     title: {
       text: "Overall Percentage of Cases"
