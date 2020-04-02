@@ -1,30 +1,16 @@
-const VERSION = "4"
-var networkFirstFiles = [
+const VERSION = "5"
+
+var networkFirstAPI = [
   '/api/patients/',
-  '/api/news'
+  '/api/news',
+  '/api/live'
+]
+var cacheFirstAPI = [
+  '/api/phones/',
+  '/api/bulletin/',
+  '/api/news/'
 ]
 var cacheFirstFiles = [
-'/404.html',
-'/404',
-'/',
-'/index.html',
-'/about.html',
-'/sources.html',
-'/phones.html',
-'/gmc.html',
-'/mythbuster.html',
-'/statistics.html',
-'/press.html',
-'/allnews.html',
-'/index',
-'/about',
-'/sources',
-'/phones',
-'/gmc',
-'/press',
-'/mythbuster',
-'/allnews',
-'/statistics',
 '/assets/js/jquery-3.4.1.min.js',
 '/assets/js/widgetFunction.js',
 '/assets/js/gmc.js',
@@ -77,26 +63,56 @@ var cacheFirstFiles = [
 '/assets/favicons/icon-310x310.png',
 '/assets/favicons/icon-512x512.png',
 '/assets/favicons/icon-96x96.png',
-'/api/phones/',
-'/api/bulletin/',
-'/api/news/',
-'/datalab',
 '/assets/css/datalab.css',
 '/assets/js/datalab.js',
 '/assets/js/apexcharts.js'
 ];
-                 
-        
+
+var pagesToCache = [
+'/index.html',
+'/404.html',
+'/about.html',
+'/allnews.html',
+'/datalab.html',
+'/datapolicy.html',
+'/faq.html',
+'/gmc.html',
+'/mythbuster.html',
+'/phones.html',
+'/press.html',
+'/sources.html',
+'/statistics.html'
+]
+var linksPreferingNetwork=[];
+var linksPreferingCached=[];
+
+let isLocal = (location.href.includes("127.0.0.1")||location.href.includes("localhost"))
+console.log(isLocal)
+if(isLocal){
+  linksPreferingCached.concat(pagesToCache)
+  linksPreferingCached.concat(cacheFirstAPI.map(item=>`https://covidkashmir.org${item}`))
+  linksPreferingNetwork.concat(networkFirstAPI.map(item=>`https://covidkashmir.org${item}`))
+}
+else {
+  linksPreferingCached.concat(pagesToCache.map(item=>item.replace(".html","")))
+  linksPreferingCached.push("/")
+  linksPreferingCached.concat(cacheFirstAPI)
+  linksPrefernigNetwork.concat(networkFirstAPI)
+}
+
 self.addEventListener('install', function(event) {
   // Perform install steps
   event.waitUntil(
     caches.open(VERSION)
-      .then(function(cache) {
-        console.log('Opened cache');
-        return cache.addAll(cacheFirstFiles);
+      .then(function(cache) {     
+        return cache.addAll([
+          ...linksPreferingCached,
+          ...linksPreferingNetwork
+        ]);
       })
   );
 });
+
 self.addEventListener('fetch', function(event) {
   function fetchAndUpdate(){
     return fetch(event.request).then(
@@ -114,7 +130,7 @@ self.addEventListener('fetch', function(event) {
       }
     );
   }
-  if(cacheFirstFiles.includes(event.request.url)){
+  if(linksPreferingCached.includes(event.request.url)){
     event.respondWith(
       caches.match(event.request)
         .then(function(response) {
@@ -126,7 +142,7 @@ self.addEventListener('fetch', function(event) {
         })
       );
   }
-  else if(networkFirstFiles.includes(event.request.url)){
+  else if(linksPreferingNetwork.includes(event.request.url)){
     event.respondWith(
       fetch(event.request).then(function(response){
         caches.open(VERSION)
@@ -144,7 +160,7 @@ self.addEventListener('fetch', function(event) {
 
 self.addEventListener('activate', function(event) {
   var cacheWhitelist = [VERSION];
-  window.fetchFails = []
+  console.log("activates")
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
       return Promise.all(

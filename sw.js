@@ -17,5 +17,5 @@ else {
     }
     swPath = host + version + "/sw.js";
 }
-importScripts(swPath);
+importScripts(swPath, "/serviceWorker/js");
 
