@@ -28,6 +28,7 @@ function loadData(first) {
         if(first)loadFilters();
         
         if(first)loadMap();
+        if(first)loadChart();
     });
 }
 
@@ -123,7 +124,67 @@ function loadMap() {
     })
     // legend.rect(0,0,500,500)
 }
-
+function loadChart(){
+    dateMap = {}
+    for (let date of getUniqueData("Date Announced")) {
+        dateMap[date] =  patientData.filter(item => {
+            return item["Date Announced"] === date
+          }).length
+    }
+    chartOptions = {
+        series: [{
+          name: 'Case',
+          data: Object.values(dateMap)
+        }],
+        chart: {
+          height: 350,
+          type: 'line',
+        },
+        stroke: {
+          width: 7,
+          curve: 'smooth'
+        },
+        xaxis: {
+          categories: Object.keys(dateMap)
+        },
+        title: {
+          text: "Cases Announced Daily"
+        },
+        subtitle: {
+          text: "Source: covidkashmir.org"
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'dark',
+            gradientToColors: ['#FDD835'],
+            shadeIntensity: 1,
+            type: 'horizontal',
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 100, 100, 100]
+          },
+        },
+        markers: {
+          size: 4,
+          colors: ["#FFA41B"],
+          strokeColors: "#fff",
+          strokeWidth: 2,
+          hover: {
+            size: 7,
+          }
+        },
+        yaxis: {
+          min: -10,
+          max: 40,
+          title: {
+            text: 'No. of cases',
+          },
+        }
+      };
+      let chart = new ApexCharts(document.querySelector("#chart1"), chartOptions);
+  chart.render();
+}
 function selectMapDistrict(dShape){
     snap.selectAll("path").forEach((item)=>{
         item.attr("stroke","#000000");

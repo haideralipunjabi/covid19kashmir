@@ -97,7 +97,7 @@ else {
   linksPreferingCached.concat(pagesToCache.map(item=>item.replace(".html","")))
   linksPreferingCached.push("/")
   linksPreferingCached.concat(cacheFirstAPI)
-  linksPrefernigNetwork.concat(networkFirstAPI)
+  linksPreferingNetwork.concat(networkFirstAPI)
 }
 
 self.addEventListener('install', function(event) {

@@ -15,14 +15,15 @@
   <link rel="stylesheet" href="assets/css/sortable-theme-minimal.css">
   <link rel="stylesheet" href="/assets/css/brands.min.css">
   <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
-  <link rel="stylesheet" href="/assets/css/solid.min.css">  
+  <link rel="stylesheet" href="/assets/css/solid.min.css">
+  <link rel="stylesheet" href="/assets/css/datalab.css">
   <script src="assets/js/jquery-3.4.1.min.js"></script>
   <script src="assets/js/html2canvas.min.js"></script>
   <script src="assets/js/canvas2image.js"></script>
   <script src="assets/js/sortable.min.js"></script>
   <script src="assets/js/snap.svg-min.js"></script>
   <script src="assets/js/utils.js"></script>
-
+  <script src="assets/js/apexcharts.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700i,900&display=swap" rel="stylesheet">
 
 </head>
@@ -40,13 +41,13 @@
         <div class="message-header">
           <p class="has-text-centered"><span class="icon"><i class="fas fa-table"></i></span><span>Statistics</span></p>
           <p>
-              <button onclick="javascript:loadData(false)" class="button">
-                  <span class="icon is-small">
-                    <i class="fas fa-sync"></i>
-                  </span>
-                  <span>Refresh</span>
-                </button>
-    
+            <button onclick="javascript:loadData(false)" class="button">
+              <span class="icon is-small">
+                <i class="fas fa-sync"></i>
+              </span>
+              <span>Refresh</span>
+            </button>
+
             <button onclick="javascript:shareStatsText()" class="button">
               <span class="icon is-small">
                 <i class="fas fa-share-alt"></i>
@@ -148,7 +149,7 @@
 
 
 
-<!-- <article>
+    <!-- <article>
 
       <div class="container">
 
@@ -175,7 +176,7 @@
     </article> -->
 
 
-<br/>
+    <br />
 
 
 
@@ -185,7 +186,7 @@
           <p><span class="icon"><i class="fas fa-virus"></i></span><span>Active Cases Heat Map</span></p>
         </div>
 
-        <div  class="legend is-mobile">
+        <div class="legend is-mobile">
           <svg width="100%" height="50px" id="legend">
 
           </svg>
@@ -225,21 +226,26 @@
         <div>
           <h3 class="has-text-centered">Map Source: <a href="https://pib.gov.in/PressReleasePage.aspx?PRID=1590112"
               target="_blank">Map of UTs - pib.gov.in</a> (Click on the district to view stats).</h3>
-              <h3 class="has-text-centered"><i><b>Note: </b></i>This includes information of only those patients whose district was confirmed</h3>
+          <h3 class="has-text-centered"><i><b>Note: </b></i>This includes information of only those patients whose
+            district was confirmed</h3>
         </div>
       </div>
     </article>
     <br>
     <article>
       <div class="container">
-          <div class="message-header">
-              <p><span>Visualisations</span></p>
-              
-            </div>
-            <div style="overflow-x: auto;">
-                <iframe style="display: block; margin: auto;" width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSg-doiJ59mWF5UiJP-tCB6XCqahr9YaXe6eHiyWFyjylHtGRuy5yZrw1ZNWq3etbbyU8Gqz0i5gANp/pubchart?oid=590371414&amp;format=interactive"></iframe>
+        <div class="message-header">
+          <p><span>Visualisations</span></p>
 
+        </div>
+        <div class="message-body">
+          <div class="card">
+            <div class="card-content">
+              <div id="chart1">
+              </div>
             </div>
+          </div>
+        </div>
       </div>
     </article>
     <br>
@@ -251,58 +257,59 @@
                   class="fas fa-hospital-user"></i></span><span>Add/Update Information</span></a></p>
         </div>
         <div class="message-body">
-            <div id="data-table">
-                <progress class="progress is-hidden is-small is-primary" max="100">75%</progress>
-                <h1 id="nodata-error" class="subtitle is-1 has-text-centered is-hidden">NO DATA FOUND</h1>
-                <div class="columns is-mobile is-multiline" id="data-filters">
-                  <div class="column is-full-mobile">
-                    <h1 class="subtitle">Filters:</h1>
-                  </div>
-                  <div class="control column is-one-third-mobile">
-                    <div class="select is-loading">
-                      <select id="filter-date-announced">
-                        <option>Date: All</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="control column is-one-third-mobile">
-                    <div class="select is-loading">
-                      <select id="filter-district">
-                        <option>District: All</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="control column is-one-third-mobile">
-                    <div class="select is-loading">
-                      <select id="filter-status">
-                        <option>Status: All</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <table class="table sortable sortable-theme-minimal is-fullwidth is-bordered is-striped" data-sortable
-                  style="overflow-x:auto;">
-                  <thead>
-                    <tr>
-                      <th data-sortable="false">Id</th>
-                      <th data-sortable-type="numeric">Date Announced</th>
-                      <th>District</th>
-                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Locality</th>
-                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Age</th>
-                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Gender</th>
-                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">History</th>
-                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Notes</th>
-                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Sources</th>
-                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Status</th>
-                      <th data-sortable="false">Details</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-      
-                  </tbody>
-                </table>
-                <h3 class="has-text-centered"><i><b>Note: </b></i>This includes information of only those patients whose district was confirmed</h3>
+          <div id="data-table">
+            <progress class="progress is-hidden is-small is-primary" max="100">75%</progress>
+            <h1 id="nodata-error" class="subtitle is-1 has-text-centered is-hidden">NO DATA FOUND</h1>
+            <div class="columns is-mobile is-multiline" id="data-filters">
+              <div class="column is-full-mobile">
+                <h1 class="subtitle">Filters:</h1>
               </div>
+              <div class="control column is-one-third-mobile">
+                <div class="select is-loading">
+                  <select id="filter-date-announced">
+                    <option>Date: All</option>
+                  </select>
+                </div>
+              </div>
+              <div class="control column is-one-third-mobile">
+                <div class="select is-loading">
+                  <select id="filter-district">
+                    <option>District: All</option>
+                  </select>
+                </div>
+              </div>
+              <div class="control column is-one-third-mobile">
+                <div class="select is-loading">
+                  <select id="filter-status">
+                    <option>Status: All</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <table class="table sortable sortable-theme-minimal is-fullwidth is-bordered is-striped" data-sortable
+              style="overflow-x:auto;">
+              <thead>
+                <tr>
+                  <th data-sortable="false">Id</th>
+                  <th data-sortable-type="numeric">Date Announced</th>
+                  <th>District</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Locality</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Age</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Gender</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">History</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Notes</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Sources</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Status</th>
+                  <th data-sortable="false">Details</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+            <h3 class="has-text-centered"><i><b>Note: </b></i>This includes information of only those patients whose
+              district was confirmed</h3>
+          </div>
         </div>
       </div>
     </article>
@@ -311,7 +318,7 @@
       <a href="statistics.html" class="button is-primary is-rounded">View Detailed Statistics (Govt)</a>
     </div>
     <br />
-  
+
 
     </div>
   </section>
