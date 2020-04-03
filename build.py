@@ -10,7 +10,9 @@ API_ENDPOINTS = {
     "API_PATIENTS": "/api/patients/",
     "API_BULLETIN": "/api/bulletin/",
     "API_PHONES": "/api/phones/",
-    "API_NEWS":"/api/news/"
+    "API_NEWS":"/api/news/",
+    "API_LIVE": "/api/live",
+    "API_ANALYTICS":"/api/analytics/"
 }
 onlyfiles = [f for f in listdir() if splitext(f)[1]==".html"]
 templateLoader = jinja2.FileSystemLoader(searchpath="./")

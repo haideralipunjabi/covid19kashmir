@@ -1,4 +1,5 @@
 const API_URL = "https://covidkashmir.org/api/patients/"
+const LIVE_API_URL = "https://covidkashmir.org/api/live"
 let patientData, districtsMap, activeDistrictsMap, districtInformation,snap, countback;
 const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad"]
 const COLORS = {
@@ -10,6 +11,7 @@ const FILTERS = {
     "Status": ""
 }
 function loadData(first) {
+    
     if(first) progressBarVisible(true)
     if(!first){
         $("#cases_total").html("");
@@ -17,14 +19,16 @@ function loadData(first) {
     $("#cases_deaths").html("")
     $("#cases_recovered").html("")
     }
+    loadStats();
     fetch(API_URL).then((response) => {
         return response.text()
     }).then((text) => {
         patientData = ArraysToDict(CSVToArray(text));
         if(first)loadTable();
         if(first)loadFilters();
-        loadStats();
+        
         if(first)loadMap();
+        if(first)loadChart();
     });
 }
 
@@ -67,17 +71,14 @@ function formatSources(patient) {
 }
 
 function loadStats() {
-    $("#cases_total").html(patientData.length);
-    $("#cases_active").html(patientData.filter((item) => {
-        return item["Status"] === "Hospitalized"
-    }).length)
-    $("#cases_deaths").html(patientData.filter((item) => {
-        return item["Status"] === "Deceased"
-    }).length)
-    $("#cases_recovered").html(patientData.filter((item) => {
-        return item["Status"] === "Recovered"
-    }).length)
-
+    fetch(LIVE_API_URL).then((response) => {
+        return response.json()
+    }).then((data) => {
+        $("#cases_total").html(data.Total);
+        $("#cases_active").html(data.Active);
+        $("#cases_deaths").html(data.Deceased);
+        $("#cases_recovered").html(data.Recovered);
+    });
 }
 
 function loadMap() {
@@ -123,7 +124,67 @@ function loadMap() {
     })
     // legend.rect(0,0,500,500)
 }
-
+function loadChart(){
+    dateMap = {}
+    for (let date of getUniqueData("Date Announced")) {
+        dateMap[date] =  patientData.filter(item => {
+            return item["Date Announced"] === date
+          }).length
+    }
+    chartOptions = {
+        series: [{
+          name: 'Case',
+          data: Object.values(dateMap)
+        }],
+        chart: {
+          height: 350,
+          type: 'line',
+        },
+        stroke: {
+          width: 7,
+          curve: 'smooth'
+        },
+        xaxis: {
+          categories: Object.keys(dateMap)
+        },
+        title: {
+          text: "Cases Announced Daily"
+        },
+        subtitle: {
+          text: "Source: covidkashmir.org"
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'dark',
+            gradientToColors: ['#FDD835'],
+            shadeIntensity: 1,
+            type: 'horizontal',
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 100, 100, 100]
+          },
+        },
+        markers: {
+          size: 4,
+          colors: ["#FFA41B"],
+          strokeColors: "#fff",
+          strokeWidth: 2,
+          hover: {
+            size: 7,
+          }
+        },
+        yaxis: {
+          min: -10,
+          max: 40,
+          title: {
+            text: 'No. of cases',
+          },
+        }
+      };
+      let chart = new ApexCharts(document.querySelector("#chart1"), chartOptions);
+  chart.render();
+}
 function selectMapDistrict(dShape){
     snap.selectAll("path").forEach((item)=>{
         item.attr("stroke","#000000");

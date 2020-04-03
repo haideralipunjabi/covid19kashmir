@@ -1,4 +1,4 @@
-const API_URL_ANALYTICS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQDDYzV5ur3z4rzAkcFH9BMqM60wwniEIblLyk_ZY3R3Ye1HkLUbDIs803C-jhfXbqAwJW7f1P7Oq79/pub?gid=292216360&single=true&output=csv"
+const API_URL_ANALYTICS = "https://covidkashmir.org/api/analytics/"
 let rawAnalyticsData
 function loadAnalyticsData() {
 

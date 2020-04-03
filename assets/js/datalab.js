@@ -1,20 +1,37 @@
 const API_URL = "https://covidkashmir.org/api/patients/"
+const LIVE_API = "https://covidkashmir.org/api/live/"
+const STATS_API = "https://covidkashmir.org/api/bulletin"
 const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad", "Unknown"]
 const CHARTS = {
   "chartOne": "Chart1",
   "chartTwo": "Chart2",
   "chartThree": "Chart3",
   "chartFour": "Chart4",
-  "chartFive":"Chart5"
+  "chartFive": "Chart5"
 }
-let patientData, districtMap, dateMap, activeDistricts;
+let patientData, districtMap, dateMap, activeDistricts, liveData, statsData,dailyData;
 
 
 $(document).ready(() => {
-  fetch(API_URL).then((response) => {
+  let sheetPromise = fetch(API_URL).then((response) => {
     return response.text()
-  }).then((text) => {
-    patientData = ArraysToDict(CSVToArray(text));
+  })
+  let statsPromise = fetch(STATS_API).then((response) => {
+    return response.text()
+  })
+  let livePromise = fetch(LIVE_API, {
+    'mode': 'cors',
+    headers : { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+     }
+  }).then((response) => {
+    return response.json()
+  })
+  Promise.all([sheetPromise, livePromise,statsPromise]).then((values) => {
+    patientData = ArraysToDict(CSVToArray(values[0]));
+    liveData = values[1];
+    statsData = ArraysToDict(CSVToArray(values[2])).reverse();
     createHolders();
     createUnknowns();
     createData();
@@ -89,6 +106,16 @@ function createData() {
     dateMap[date] = filterDataByDate(patientData, date).length
   }
   activeDistricts = Object.keys(districtMap).filter(key => (districtMap[key]["Total"] > 0))
+  dailyData = {
+    "Dates": statsData.map(item => parseIntOpt(item["Date"])),
+    "Total": statsData.map(item => parseIntOpt(item["Samples Positive"])),
+    "Active": statsData.map(item=>{
+      return parseIntOpt(item["Samples Positive"]) - (parseIntOpt(item["Cases Recovered"])+parseIntOpt(item["No. of Deaths"]))
+    }),
+    "Recovered": statsData.map(item => parseIntOpt(item["Cases Recovered"])),
+    "Deceased":statsData.map(item => parseIntOpt(item["No. of Deaths"]))
+  }
+
 }
 
 function filteredData(kind, key) {
@@ -270,13 +297,27 @@ function createCharts() {
   };
   chartOptions[3] = {
     series: [
-      (100 * filterDataByStatus(patientData, "Hospitalized").length / patientData.length).toPrecision(4),
-      (100 * filterDataByStatus(patientData, "Recovered").length / patientData.length).toPrecision(4),
-      (100 * filterDataByStatus(patientData, "Deceased").length / patientData.length).toPrecision(4)
+      (100 * liveData["Active"] / liveData["Total"]).toPrecision(4),
+      (100 * liveData["Recovered"] / liveData["Total"]).toPrecision(4),
+      (100 * liveData["Deceased"] / liveData["Total"]).toPrecision(4)
     ],
     chart: {
       height: 350,
       type: 'radialBar',
+      toolbar: {
+        show: true,
+        offsetX: 0,
+        offsetY: 0,
+        tools: {
+          download: true,
+          selection: false,
+          zoom: false,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
+          reset: false
+        }
+      },
     },
     title: {
       text: "Overall Percentage of Cases"
@@ -284,13 +325,18 @@ function createCharts() {
     subtitle: {
       text: "Source: covidkashmir.org"
     },
+    legend:{
+      show:true,
+    },
     plotOptions: {
       radialBar: {
         dataLabels: {
           name: {
+            show:true,
             fontSize: '22px',
           },
           value: {
+            show:true,
             fontSize: '16px',
           },
           total: {
@@ -308,14 +354,14 @@ function createCharts() {
   chartOptions[4] = {
     series: [{
         name: 'Active',
-        data: getUnique(patientData,"Date Announced").map(date=>filterDataByStatus(filterDataByDate(patientData,date),"Hospitalized").length)
+        data: dailyData["Active"]
       }, {
         name: 'Recovered',
-        data: getUnique(patientData,"Date Announced").map(date=>filterDataByStatus(filterDataByDate(patientData,date),"Recovered").length)
+        data: dailyData["Recovered"]
       },
       {
-        name: 'Deaths',
-        data: getUnique(patientData,"Date Announced").map(date=>filterDataByStatus(filterDataByDate(patientData,date),"Deceased").length)
+        name: 'Deceased',
+        data: dailyData["Deceased"]
       }
     ],
     chart: {
@@ -335,7 +381,7 @@ function createCharts() {
       curve: 'smooth'
     },
     xaxis: {
-      categories: getUnique(patientData,"Date Announced")
+      categories: dailyData["Dates"]
     },
     tooltip: {
       x: {
@@ -352,13 +398,13 @@ function createCharts() {
   // chart.render();
 }
 
-function popup(el){
-  $("#popup .modal-content").html($("#"+el).parent().parent().parent().html())
+function popup(el) {
+  $("#popup .modal-content").html($("#" + el).parent().parent().parent().html())
   $("#popup").addClass("is-active")
 
 }
 
-function closePopup(){
+function closePopup() {
   $("#popup").removeClass("is-active")
   $("#popup .modal-content").html("")
 }

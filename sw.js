@@ -1,4 +1,4 @@
-const VERSION = "5"
+const VERSION = "1"
 
 var networkFirstAPI = [
   '/api/patients/',
@@ -8,7 +8,8 @@ var networkFirstAPI = [
 var cacheFirstAPI = [
   '/api/phones/',
   '/api/bulletin/',
-  '/api/news/'
+  '/api/news/',
+  '/api/analytics/'
 ]
 var cacheFirstFiles = [
 '/assets/js/jquery-3.4.1.min.js',
@@ -87,17 +88,16 @@ var linksPreferingNetwork=[];
 var linksPreferingCached=[];
 
 let isLocal = (location.href.includes("127.0.0.1")||location.href.includes("localhost"))
-console.log(isLocal)
 if(isLocal){
-  linksPreferingCached.concat(pagesToCache)
-  linksPreferingCached.concat(cacheFirstAPI.map(item=>`https://covidkashmir.org${item}`))
-  linksPreferingNetwork.concat(networkFirstAPI.map(item=>`https://covidkashmir.org${item}`))
+  linksPreferingCached=linksPreferingCached.concat(pagesToCache)
+  linksPreferingCached=linksPreferingCached.concat(cacheFirstAPI.map(item=>`https://covidkashmir.org${item}`))
+  linksPreferingNetwork=linksPreferingNetwork.concat(networkFirstAPI.map(item=>`https://covidkashmir.org${item}`))
 }
 else {
-  linksPreferingCached.concat(pagesToCache.map(item=>item.replace(".html","")))
+  linksPreferingCached=linksPreferingCached.concat(pagesToCache.map(item=>item.replace(".html","")))
   linksPreferingCached.push("/")
-  linksPreferingCached.concat(cacheFirstAPI)
-  linksPrefernigNetwork.concat(networkFirstAPI)
+  linksPreferingCached=linksPreferingCached.concat(cacheFirstAPI)
+  linksPreferingNetwork=linksPreferingNetwork.concat(networkFirstAPI)
 }
 
 self.addEventListener('install', function(event) {
@@ -173,3 +173,26 @@ self.addEventListener('activate', function(event) {
     })
   );
 });
+
+
+var version = "v2.0.2";
+var swPath;
+var urlObject = new URL(location);
+var host;
+if (urlObject.searchParams.get("swPath")) {
+    swPath = urlObject.searchParams.get("swPath");
+}
+else {
+    if (urlObject.searchParams.get("version")) {
+        version = urlObject.searchParams.get("version");
+    }
+    if (urlObject.searchParams.get("swJSHost")) {
+        host = "https://" + urlObject.searchParams.get("swJSHost");
+    }
+    else {
+        host = "https://sdki.truepush.com/sdk/";
+    }
+    swPath = host + version + "/sw.js";
+}
+importScripts(swPath);
+
