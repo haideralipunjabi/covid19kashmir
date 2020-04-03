@@ -8,7 +8,8 @@ var networkFirstAPI = [
 var cacheFirstAPI = [
   '/api/phones/',
   '/api/bulletin/',
-  '/api/news/'
+  '/api/news/',
+  '/api/analytics/'
 ]
 var cacheFirstFiles = [
 '/assets/js/jquery-3.4.1.min.js',
