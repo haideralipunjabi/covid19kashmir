@@ -70,7 +70,12 @@ var cacheFirstFiles = [
 '/assets/js/apexcharts.js',
 '/assets/js/leaflet.js',
 '/assets/css/leaflet.css',
-'/assets/css/montserrat.css'
+'/assets/css/montserrat.css',
+'/assets/css/images/layers-2x.png',
+'/assets/css/images/layers.png',
+'/assets/css/images/marker-icon-2x.png',
+'/assets/css/images/marker-icon.png',
+'/assets/css/images/marker-shadow.png',
 ];
 
 var pagesToCache = [
