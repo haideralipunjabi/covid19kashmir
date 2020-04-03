@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CovidKashmir</title>
+  {% include 'favicons.html' %}
+
+  <link rel="manifest" href="manifest.json" />
+
+  <link rel="stylesheet" href="assets/css/bulma.min.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+  <link rel="stylesheet" href="assets/css/sortable-theme-minimal.css">
+  <link rel="stylesheet" href="/assets/css/brands.min.css">
+  <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
+  <link rel="stylesheet" href="/assets/css/solid.min.css">
+  <link rel="stylesheet" href="/assets/css/datalab.css">
+  <link rel="stylesheet" href="/assets/css/stores.css">
+  <script src="assets/js/jquery-3.4.1.min.js"></script>
+  <script src="assets/js/sortable.min.js"></script>
+  <script src="assets/js/utils.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700i,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+</head>
+
+<body>
+  <div id="include-header">
+    {% include 'header.html' %}
+  </div>
+  <div id="include-navbar">
+    {% include 'navbar.html' %}
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="message-header">
+        <p><span class="icon"><i class="fas fa-map"></i></span><span>Map View</span></p>
+
+      </div>
+      <div class="message-body">
+
+        <div id="mapid">
+
+        </div>
+        <h3 class="has-text-centered">All stores aren't located on this map due to their absence on Google Maps. Below
+          table contains details of all stores. </h3>
+        <h3 class="has-text-centered"><a href="mailto:contact@covidkashmir.org">Inform us about missing locations</a>
+        </h3>
+      </div>
+    
+
+
+    <div class="message-header">
+      <p><span class="icon"><i class="fas fa-store"></i></span><span>List of Stores</span></p>
+      <p><a class="has-text-white"  href="https://twitter.com/srinagaradmin/status/1245979874327584768?s=19">View Source</a></p>
+    </div>
+    <div class="message-body">
+      <div id="data-table">
+        <progress class="progress is-hidden is-small is-primary" max="100">75%</progress>
+        <h1 id="nodata-error" class="subtitle is-1 has-text-centered is-hidden">NO DATA FOUND</h1>
+        <div class="table-container">
+          <table class="table is-fullwidth is-bordered is-striped" style="overflow-x:auto;">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Area</th>
+                <th>Contact No.</th>
+                <th>Designated Official</th>
+                <th>Contact No.</th>
+                <th>View on Google Maps</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  </section>
+  <div id="include-footer">
+    {% include 'footer.html' %}
+  </div>
+  <script src="assets/js/stores.js"></script>
+  <script src="assets/js/localDebug.js"></script>
+  <script src="assets/js/widgetFunction.js"></script>
+
+  <!-- <script src="assets/js/newsFeed.js"></script> -->
+</body>
+
+</html>

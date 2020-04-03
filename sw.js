@@ -85,7 +85,7 @@ var pagesToCache = [
 '/statistics.html'
 ]
 var linksPreferingNetwork=[];
-var linksPreferingCached=[];
+var linksPreferingCached=[...cacheFirstFiles];
 
 let isLocal = (location.href.includes("127.0.0.1")||location.href.includes("localhost"))
 if(isLocal){
