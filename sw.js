@@ -1,4 +1,4 @@
-const VERSION = "5"
+const VERSION = "1"
 
 var networkFirstAPI = [
   '/api/patients/',
@@ -88,17 +88,16 @@ var linksPreferingNetwork=[];
 var linksPreferingCached=[];
 
 let isLocal = (location.href.includes("127.0.0.1")||location.href.includes("localhost"))
-console.log(isLocal)
 if(isLocal){
-  linksPreferingCached.concat(pagesToCache)
-  linksPreferingCached.concat(cacheFirstAPI.map(item=>`https://covidkashmir.org${item}`))
-  linksPreferingNetwork.concat(networkFirstAPI.map(item=>`https://covidkashmir.org${item}`))
+  linksPreferingCached=linksPreferingCached.concat(pagesToCache)
+  linksPreferingCached=linksPreferingCached.concat(cacheFirstAPI.map(item=>`https://covidkashmir.org${item}`))
+  linksPreferingNetwork=linksPreferingNetwork.concat(networkFirstAPI.map(item=>`https://covidkashmir.org${item}`))
 }
 else {
-  linksPreferingCached.concat(pagesToCache.map(item=>item.replace(".html","")))
+  linksPreferingCached=linksPreferingCached.concat(pagesToCache.map(item=>item.replace(".html","")))
   linksPreferingCached.push("/")
-  linksPreferingCached.concat(cacheFirstAPI)
-  linksPreferingNetwork.concat(networkFirstAPI)
+  linksPreferingCached=linksPreferingCached.concat(cacheFirstAPI)
+  linksPreferingNetwork=linksPreferingNetwork.concat(networkFirstAPI)
 }
 
 self.addEventListener('install', function(event) {
