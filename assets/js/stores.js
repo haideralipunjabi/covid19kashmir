@@ -1,4 +1,4 @@
-const API_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSg-doiJ59mWF5UiJP-tCB6XCqahr9YaXe6eHiyWFyjylHtGRuy5yZrw1ZNWq3etbbyU8Gqz0i5gANp/pub?gid=270417263&single=true&output=csv"
+const API_URL = "https://covidkashmir.org/api/stores/"
 let myMap, storesData;
 
 let sheetPromise = fetch(API_URL).then((response) => {
