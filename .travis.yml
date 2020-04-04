@@ -1,10 +1,12 @@
 language: python
 python:
   - "3.6"
-
+node_js:
+  - 7
 # command to install dependencies
 install:
   - pip install -r .travis/requirements.txt
+  - npm install
 # command to run tests
 script: python .travis/build.py
 
