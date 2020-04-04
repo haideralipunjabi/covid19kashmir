@@ -234,6 +234,12 @@
   text-transform: uppercase;
   font-weight: 700;
 }
+.count-head-daily {
+  font-family: 'Roboto Condensed', sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-left: 20px;
+}
 
 .tile-total {
   background: rgba(255, 7, 58, .12549);

@@ -67,7 +67,7 @@ var cacheFirstFiles = [
 '/assets/favicons/icon-96x96.png',
 '/assets/css/datalab.css',
 '/assets/js/datalab.js',
-'/assets/js/apexcharts.js',
+'/assets/js/apexcharts.min.js',
 '/assets/js/leaflet.js',
 '/assets/css/leaflet.css',
 '/assets/css/montserrat.css',
