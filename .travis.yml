@@ -9,7 +9,7 @@ install:
   - npm i -g purgecss
 # command to run tests
 script: python .travis/build.py
-after_script: purgecss -c ./purgecss.config.js --output assets/css/
+before_deploy: purgecss -c ./purgecss.config.js --output assets/css/
 
 deploy:
   provider: netlify
