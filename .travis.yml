@@ -1,24 +1,17 @@
 language: python
 python:
   - "3.6"
-node_js:
-  - 7
 # command to install dependencies
 install:
   - pip install -r .travis/requirements.txt
-  - nvm install 0.10
-  - npm install
-  - npm install -g npm@latest
+
 # command to run tests
 script: python .travis/build.py
 
-before_deploy:
-  - npm install netlify-cli -g
 
 deploy:
-  provider: script
-  script: netlify deploy -s $NETLIFY_SITE_ID -t $NETLIFY_ACCESS_TOKEN -p .f
-  skip_cleanup: true
-  on:
-    branch: master
+  provider: netlify
+  site: $NETLIFY_SITE
+  auth: $NETLIFY_AUTH
+  edge: true # opt in to dpl v2
  
