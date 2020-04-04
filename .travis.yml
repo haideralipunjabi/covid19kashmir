@@ -4,10 +4,12 @@ python:
 # command to install dependencies
 install:
   - pip install -r .travis/requirements.txt
-
+  - nvm install 0.10
+  - npm install
+  - npm i -g purgecss
 # command to run tests
 script: python .travis/build.py
-
+after_script: purgecss -c ./purgecss.config.js --output assets/css/
 
 deploy:
   provider: netlify
