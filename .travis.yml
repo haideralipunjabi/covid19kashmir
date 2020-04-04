@@ -4,7 +4,7 @@ python:
 # command to install dependencies
 install:
   - pip install -r .travis/requirements.txt
-  - nvm install 0.10
+  - nvm install v12.16.1
   - npm install
   - npm i -g purgecss
 # command to run tests
