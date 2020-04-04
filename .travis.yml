@@ -13,5 +13,6 @@ deploy:
   provider: netlify
   site: $NETLIFY_SITE
   auth: $NETLIFY_AUTH
+  dir: .
   edge: true # opt in to dpl v2
  
