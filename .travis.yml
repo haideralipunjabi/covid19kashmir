@@ -6,6 +6,7 @@ node_js:
 # command to install dependencies
 install:
   - pip install -r .travis/requirements.txt
+  - nvm install 0.10
   - npm install
 # command to run tests
 script: python .travis/build.py
