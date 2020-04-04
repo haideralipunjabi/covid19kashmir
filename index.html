@@ -23,7 +23,7 @@
   <script src="assets/js/sortable.min.js"></script>
   <script src="assets/js/snap.svg-min.js"></script>
   <script src="assets/js/utils.js"></script>
-  <script src="assets/js/apexcharts.js"></script>
+  <script src="assets/js/apexcharts.min.js"></script>
   <link href="/assets/css/montserrat.css" rel="stylesheet">
 
 </head>
@@ -84,12 +84,12 @@
                   <div class="container-stat">
 
                     <p><i class="fas fa-users"></i>
-
                       <span class="count-head">TOTAL</span>
-
-                      <span id="cases_total" class="count-num">xxx</span>
-
-
+                      <span id="cases_total" class="count-num">92</span>
+                    </p>
+                    <p>
+                      <span class="count-head-daily">New: </span>
+                      <span id="cases_total_today" class="count-num-daily"></span>
                     </p>
                   </div>
 
@@ -110,6 +110,10 @@
 
 
                     </p>
+                    <p>
+                      <span class="count-head-daily">New: </span>
+                      <span id="cases_recovered_today" class="count-num-daily"></span>
+                    </p>
                   </div>
 
                 </article>
@@ -129,6 +133,10 @@
 
 
                     </p>
+                    <p>
+                      <span class="count-head-daily">New: </span>
+                      <span id="cases_active_today" class="count-num-daily"></span>
+                    </p>
                   </div>
 
                 </article>
@@ -147,6 +155,10 @@
                       <span id="cases_deaths" class="count-num">xxx</span>
 
 
+                    </p>
+                    <p>
+                      <span class="count-head-daily">New: </span>
+                      <span id="cases_deaths_today" class="count-num-daily"></span>
                     </p>
                   </div>
                 </article>
