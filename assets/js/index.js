@@ -81,7 +81,7 @@ function loadStats() {
         $("#cases_total_today").html(data.Total - data.TotalYesterday);
         $("#cases_active_today").html(data.Active - data.ActiveYesterday);
         $("#cases_deaths_today").html(data.Deceased - data.DeceasedYesterday);
-        $("#cases_recovered_today").html(data.Recovered - data.RecoveredToday);
+        $("#cases_recovered_today").html(data.Recovered - data.RecoveredYesterday);
         
     });
 }
