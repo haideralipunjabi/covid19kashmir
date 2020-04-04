@@ -94,7 +94,7 @@
   }
 
   .count-num {
-    bottom: 10px;
+    /* bottom: 10px; */
     position: relative;
   }
 
@@ -237,8 +237,12 @@
 .count-head-daily {
   font-family: 'Roboto Condensed', sans-serif;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: bold;
   margin-left: 20px;
+  font-size: .9rem;
+}
+.count-num-daily {
+  font-weight: bold;
 }
 
 .tile-total {
