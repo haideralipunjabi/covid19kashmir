@@ -9,7 +9,8 @@ var cacheFirstAPI = [
   '/api/phones/',
   '/api/bulletin/',
   '/api/news/',
-  '/api/analytics/'
+  '/api/analytics/',
+  '/api/stores/'
 ]
 var cacheFirstFiles = [
 '/assets/js/jquery-3.4.1.min.js',
@@ -66,7 +67,15 @@ var cacheFirstFiles = [
 '/assets/favicons/icon-96x96.png',
 '/assets/css/datalab.css',
 '/assets/js/datalab.js',
-'/assets/js/apexcharts.js'
+'/assets/js/apexcharts.js',
+'/assets/js/leaflet.js',
+'/assets/css/leaflet.css',
+'/assets/css/montserrat.css',
+'/assets/css/images/layers-2x.png',
+'/assets/css/images/layers.png',
+'/assets/css/images/marker-icon-2x.png',
+'/assets/css/images/marker-icon.png',
+'/assets/css/images/marker-shadow.png',
 ];
 
 var pagesToCache = [
@@ -82,10 +91,11 @@ var pagesToCache = [
 '/phones.html',
 '/press.html',
 '/sources.html',
-'/statistics.html'
+'/statistics.html',
+'/stores.html'
 ]
 var linksPreferingNetwork=[];
-var linksPreferingCached=[];
+var linksPreferingCached=[...cacheFirstFiles];
 
 let isLocal = (location.href.includes("127.0.0.1")||location.href.includes("localhost"))
 if(isLocal){
