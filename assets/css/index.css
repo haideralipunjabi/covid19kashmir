@@ -239,6 +239,7 @@
   text-transform: uppercase;
   font-weight: bold;
   margin-left: 20px;
+  font-size: .9rem;
 }
 .count-num-daily {
   font-weight: bold;
