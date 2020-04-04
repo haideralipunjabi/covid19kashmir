@@ -7,5 +7,14 @@ install:
   - pip install -r .travis/requirements.txt
 # command to run tests
 script: python .travis/build.py
-after_script:
-  - bash .travis/push.sh
+
+before_deploy:
+  - npm install netlity-cli -g
+
+deploy:
+  provider: script
+  script: netlify deploy -s $NETLIFY_SITE_ID -t $NETLIFY_ACCESS_TOKEN -p .f
+  skip_cleanup: true
+  on:
+    branch: master
+ 
