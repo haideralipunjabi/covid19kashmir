@@ -1,7 +1,6 @@
 .heading {
   font-size: 14px;
 }
-
 .brand {
   text-transform: uppercase;
   font-size: 20px;
@@ -22,7 +21,6 @@
   background: rgba(108, 117, 125, .0627451);
   padding-bottom: 3rem !important;
 }
-
 .footer ul {
   list-style: none;
   text-align: left;
@@ -225,9 +223,6 @@
 
 }
 
-.container-stat i {
-  /* float: right;*/
-}
 
 .count-head {
   font-family: 'Roboto Condensed', sans-serif;
@@ -364,4 +359,36 @@
   background-color: #fc1744;
   color: white;
   padding: 2px;
+}
+
+/* News */
+twitter-widget {
+  width: 300px !important;
+  float: left;
+}
+#news-parent {
+  padding:3px;
+
+  overflow:hidden;
+}
+.marquee{
+  display:block;
+position:relative;
+width:800px;
+animation:scroll 20s linear infinite;
+padding:3px;
+}
+
+.marquee:hover {
+    animation-play-state: paused
+}
+#news-container .column {
+  padding: .75rem !important;
+}
+
+
+/* Make it move */
+@keyframes scroll{
+0% {left:800px;}
+100% {left:-800px;}
 }

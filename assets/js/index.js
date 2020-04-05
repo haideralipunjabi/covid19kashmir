@@ -1,5 +1,6 @@
 const API_URL = "https://covidkashmir.org/api/patients/"
 const LIVE_API_URL = "https://covidkashmir.org/api/live"
+const NEWS_API_URL = "https://covidkashmir.org/api/news/"
 let patientData, districtsMap, activeDistrictsMap, districtInformation,snap, countback;
 const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad"]
 const COLORS = {
@@ -10,26 +11,48 @@ const FILTERS = {
     "District": "",
     "Status": ""
 }
+
+ const API_PROMISE = fetch(API_URL).then((response) => {
+        return response.text()
+    })
+ const STATS_PROMISE = fetch(LIVE_API_URL).then((response) => {
+        return response.json()
+    })
+const NEWS_PROMISE = fetch(NEWS_API_URL).then((response)=>{
+        return response.json()
+    })
+    
+
+$(document).ready(()=>{
+    API_PROMISE.then((data)=>{
+        patientData = ArraysToDict(CSVToArray(data));
+        loadData(true);
+    })
+    STATS_PROMISE.then((data)=>{
+        loadStats(data);
+    })
+    NEWS_PROMISE.then((data)=>{
+        loadNews(data);
+    })
+    $(".dropdown-trigger").click(function () {
+        $(".dropdown").toggleClass("is-active");
+    })
+})
+
+
 function loadData(first) {
     
     if(first) progressBarVisible(true)
     if(!first){
         $("#cases_total").html("");
-    $("#cases_active").html("")
-    $("#cases_deaths").html("")
-    $("#cases_recovered").html("")
+        $("#cases_active").html("")
+        $("#cases_deaths").html("")
+        $("#cases_recovered").html("")
     }
-    loadStats();
-    fetch(API_URL).then((response) => {
-        return response.text()
-    }).then((text) => {
-        patientData = ArraysToDict(CSVToArray(text));
-        if(first)loadTable();
-        if(first)loadFilters();
-        
-        if(first)loadMap();
-        if(first)loadChart();
-    });
+    if(first)loadTable();
+    if(first)loadFilters();
+    if(first)loadMap();
+    if(first)loadChart();
 }
 
 function loadTable() {
@@ -58,7 +81,6 @@ function loadTable() {
     `)
     }
     $("#data-table th")[1].click()
-    // $("#data-table th")[1].click()
 }
 
 function formatSources(patient) {
@@ -70,22 +92,33 @@ function formatSources(patient) {
     return sources.join(" ")
 }
 
-function loadStats() {
-    fetch(LIVE_API_URL).then((response) => {
-        return response.json()
-    }).then((data) => {
-        $("#cases_total").html(data.Total);
-        $("#cases_active").html(data.Active);
-        $("#cases_deaths").html(data.Deceased);
-        $("#cases_recovered").html(data.Recovered);
-        $("#cases_total_today").html(data.Total - data.TotalYesterday);
-        $("#cases_active_today").html(data.Active - data.ActiveYesterday);
-        $("#cases_deaths_today").html(data.Deceased - data.DeceasedYesterday);
-        $("#cases_recovered_today").html(data.Recovered - data.RecoveredYesterday);
+function loadStats(data) {
+    $("#cases_total").html(data.Total);
+    $("#cases_active").html(data.Active);
+    $("#cases_deaths").html(data.Deceased);
+    $("#cases_recovered").html(data.Recovered);
+    $("#cases_total_today").html(data.Total - data.TotalYesterday);
+    $("#cases_active_today").html(data.Active - data.ActiveYesterday);
+    $("#cases_deaths_today").html(data.Deceased - data.DeceasedYesterday);
+    $("#cases_recovered_today").html(data.Recovered - data.RecoveredYesterday);
         
-    });
-}
 
+}
+function loadNews(data){
+    let $container = $("#news-container")
+    let columns = data.map(item=>$(`<div class="column">${item["html"]}</div>`))
+    for(let column of columns){
+        for(let item of column){
+            twttr.widgets.load(item)
+        }
+    }
+    for(let column of columns){
+        for(let item of column){
+            
+            $container.append(item)
+        }
+    }
+}
 function loadMap() {
     let activeDistricts = patientData.map((item) => {
         return (item["Status"] === "Hospitalized") ? item["District"] : ""
@@ -367,10 +400,3 @@ function matchesFilters(patient){
 }
 
 
-$(document).ready(function () {
-    loadData(true);
-    
-    $(".dropdown-trigger").click(function () {
-        $(".dropdown").toggleClass("is-active");
-    })
-})
