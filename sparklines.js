@@ -18,6 +18,7 @@ $.ajax({
         const groupedByDate = groupBy(dataArray, 'Date Announced');
         let days = splitData(getDailyData(dataArray),0);
         let totalCases = splitData(getDailyData(dataArray),1);
+        console.log("Total",totalCases)
         const dailyActive = days.map((each) => {
             return groupBy(groupedByDate[each],'Status')['Hospitalized'] ? groupBy(groupedByDate[each],'Status')['Hospitalized'].length : 0;
         });

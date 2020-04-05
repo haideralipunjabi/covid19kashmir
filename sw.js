@@ -79,7 +79,12 @@ var cacheFirstFiles = [
 '/assets/js/leaflet.awesome-markers.js',
 '/assets/css/images/markers-soft.png',
 'assets/css/images/markers-shadow.png',
-'assets/css/leaflet.awesome-markers.css'
+'assets/css/leaflet.awesome-markers.css',
+'assets/css/images/markers-matte.png',
+'assets/css/images/markers-matte@2x.png',
+'assets/css/images/markers-plain.png',
+'assets/css/images/markers-shadow@2x.png',
+'assets/css/images/markers-soft@2x.png'
 ];
 
 var pagesToCache = [
