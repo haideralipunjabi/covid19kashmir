@@ -22,6 +22,10 @@
   #map {
     height: 100%;
   }
+  .mapcontainer { 
+    height: 400px;
+    margin-top: 30px;
+  }
 </style>
 
 
@@ -36,17 +40,14 @@
   </div>
 
   <section class="section">
-
     <div class="container">
-      <div id="map">
+      <div id="charts-container" class="columns is-multiline">
         
       </div>
 
     </div>
-
-    <div class="container">
-      <div id="charts-container" class="columns is-multiline">
-        
+    <div class="container mapcontainer">
+      <div id="map">
         
       </div>
 
@@ -67,7 +68,7 @@
   <script src="assets/js/localDebug.js"></script>
   <script src="assets/js/widgetFunction.js"></script>
   <script src="assets/js/datalab.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUkiu_BrvXQ7S09VNxnvzaXFva-RZZBWw&libraries=visualization&callback=initMap"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKw_-WyLx2dLh-LbiXXwOVPgGL7T8AtW4&libraries=visualization&callback=initMap"></script>
   <script>
     var map, heatmap;
 
