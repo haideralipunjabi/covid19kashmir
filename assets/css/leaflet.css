@@ -1,4 +1,5 @@
 /* required styles */
+/* purgecss start ignore */
 
 .leaflet-pane,
 .leaflet-tile,
@@ -638,3 +639,4 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	margin-left: -12px;
 	border-right-color: #fff;
 	}
+/* purgecss end ignore */
