@@ -4,7 +4,13 @@ let sheetPromise = fetch(API_URL).then((response) => {
     return response.text()
 })
 
+const SOURCES = {
+    "grocery":"https://twitter.com/srinagaradmin/status/1245979874327584768?s=19",
+    "medical":"https://twitter.com/parsa_javid/status/1246731507562975232?s=19"
+}
+
 let typeDefined = getUrlParameter("type")
+
 if(typeDefined!==undefined && typeDefined !=="" && typeDefined!=="undefined"){
     if(typeDefined.toLowerCase()==="medical"){
         switchType(1)
@@ -147,12 +153,15 @@ function switchType(type){
             $(tabs[1]).removeClass("is-active")
             $("#table-grocery").removeClass("is-hidden")
             $("#table-medical").addClass("is-hidden")
+            $("#sourcelink").attr("href",SOURCES["grocery"])
             break;
         case 1:
                 $(tabs[1]).addClass("is-active")
                 $(tabs[0]).removeClass("is-active")
                 $("#table-grocery").addClass("is-hidden")
                 $("#table-medical").removeClass("is-hidden")
+                $("#sourcelink").attr("href",SOURCES["medical"])
+
                 break
         default:
             break;

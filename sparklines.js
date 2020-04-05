@@ -27,6 +27,7 @@ $.ajax({
         const dailyDead = days.map((each) => {
             return groupBy(groupedByDate[each],'Status')['Deceased'] ? groupBy(groupedByDate[each],'Status')['Deceased'].length : 0;
         });
+        console.log(dailyRecovered,dailyDead)
         var options1 = {
                 series: [{
                 data: dailyActive
