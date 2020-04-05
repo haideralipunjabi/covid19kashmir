@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="/assets/css/animate.css">
   <link rel="stylesheet" href="/assets/css/datalab.css">
   <script src="assets/js/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.3/jquery.csv.min.js"></script>
   <script src="assets/js/html2canvas.min.js"></script>
   <script src="assets/js/canvas2image.js"></script>
   <script src="assets/js/sortable.min.js"></script>
@@ -93,6 +94,7 @@
                       <span class="count-head-daily">New: </span>
                       <span id="cases_total_today" class="count-num-daily"></span>
                     </p>
+                    <div id="totalCases" class="sparkline"></div>
                   </div>
 
                 </article>
@@ -116,6 +118,7 @@
                       <span class="count-head-daily">New: </span>
                       <span id="cases_recovered_today" class="count-num-daily"></span>
                     </p>
+                    <div id="dailyRecovered" class="sparkline"></div>
                   </div>
 
                 </article>
@@ -139,6 +142,7 @@
                       <span class="count-head-daily">New: </span>
                       <span id="cases_active_today" class="count-num-daily"></span>
                     </p>
+                    <div id="dailyActive" class="sparkline"></div>
                   </div>
 
                 </article>
@@ -162,6 +166,7 @@
                       <span class="count-head-daily">New: </span>
                       <span id="cases_deaths_today" class="count-num-daily"></span>
                     </p>
+                    <div id="dailyDead" class="sparkline"></div>
                   </div>
                 </article>
               </div>
@@ -514,6 +519,7 @@
   <script src="assets/js/index.js"></script>
   <script src="assets/js/localDebug.js"></script>
   <script src="assets/js/widgetFunction.js"></script>
+  <script src="sparklines.js"></script>
 
   <!-- <script src="assets/js/newsFeed.js"></script> -->
 </body>
