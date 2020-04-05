@@ -4,7 +4,7 @@ let sheetPromise = fetch(API_URL).then((response) => {
     return response.text()
 })
 
-let tyfpeDefined = getUrlParameter("type")
+let typeDefined = getUrlParameter("type")
 if(typeDefined!==undefined && typeDefined !=="" && type!=="undefined"){
     if(typeDefined.toLowerCase()==="medical"){
         switchType(1)
