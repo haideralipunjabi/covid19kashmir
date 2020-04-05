@@ -181,15 +181,7 @@ function groupBy(objectArray, property) {
       return acc
     }, {})
   }
-const getStatus = (data) => {
-    const arr = data.map((each) => {
-        return each['Status'];
-    });
-    const map = arr.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
-    const status = Array.from(map.entries());
-    return status;
-
-}
+  
 const getDailyData = (data) => {
     const arr = data.map((each) => {
         return each['Date Announced'];
@@ -203,13 +195,5 @@ const splitData = (arr,index) => {
         return each[index];
 });
   return data;
-};
-const getDistrictData = (data) => {
-    const arr = data.map((each) => {
-        return each['District'];
-    });
-    const map = arr.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
-    const districts = Array.from(map.entries());
-    return districts;
 };
       
