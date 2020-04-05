@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="/assets/css/brands.min.css">
   <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
   <link rel="stylesheet" href="/assets/css/solid.min.css">
+  <link rel="stylesheet" href="/assets/css/animate.css">
   <link rel="stylesheet" href="/assets/css/datalab.css">
   <script src="assets/js/jquery-3.4.1.min.js"></script>
   <script src="assets/js/html2canvas.min.js"></script>
@@ -24,6 +25,7 @@
   <script src="assets/js/snap.svg-min.js"></script>
   <script src="assets/js/utils.js"></script>
   <script src="assets/js/apexcharts.min.js"></script>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <link href="/assets/css/montserrat.css" rel="stylesheet">
 
 </head>
@@ -35,16 +37,19 @@
   <div id="include-navbar">
     {% include 'navbar.html' %}
   </div>
-<br/>
+  <br />
   <div class="container">
 
     <article class="message">
       <div class="message-body">
-        <p style="font-family: 'Montserrat', sans-serif; font-size: 14px; padding:10px; text-align: justify;"><span class="has-text-danger"><i class="fa fa-exclamation-circle"></i></span> Dear Users, our website is <span class="has-text-info">Non-Profit, We do not collect any donations. </span> Our Website is funded by
-          contributing Developers. Please do not fall for any scam and contact us if anyone approaches. <a href="about.html">Contact Us</a>
-              
+        <p style="font-family: 'Montserrat', sans-serif; font-size: 14px; padding:10px; text-align: justify;"><span
+            class="has-text-danger"><i class="fa fa-exclamation-circle"></i></span> Dear Users, our website is <span
+            class="has-text-info">Non-Profit, We do not collect any donations. </span> Our Website is funded by
+          contributing Developers. Please do not fall for any scam and contact us if anyone approaches. <a
+            href="about.html">Contact Us</a>
+
         </p>
-        
+
       </div>
     </article>
 
@@ -85,7 +90,7 @@
 
                     <p><i class="fas fa-users"></i>
                       <span class="count-head">TOTAL</span>
-                      <span id="cases_total" class="count-num">92</span>
+                      <span id="cases_total" class="count-num">xxx</span>
                     </p>
                     <p>
                       <span class="count-head-daily">New: </span>
@@ -176,31 +181,24 @@
 
 
 
-    <!-- <article>
-
+    <article>
       <div class="container">
-
-        <nav class="panel is-dark">
-          <p class="panel-heading">
-           NEWSFEED <span class="blink live-back">LIVE</span>
+        <div class="message-header">
+          <p>
+            NEWSFEED <span class="blink live-back">LIVE</span>
           </p>
+        </div>
+        <div class="message-body">
+          <div id="news-parent">
 
-          <div id="news-container">
-
+            <div id="news-container" class="marquee columns is-mobile">
+              
+            </div>
           </div>
-          
-         
-          <div class="panel-block">
-            <a id="LoadMore" href="allnews.html" class="button is-link is-outlined is-fullwidth">
-             View More
-            </a>
-          </div>
-        </nav>
-
-
+        </div>
       </div>
 
-    </article> -->
+    </article>
 
 
     <br />
@@ -273,9 +271,10 @@
             </div>
           </div>
         </div>
-            <div class="container has-text-centered ">
-              <a href="datalab.html" class="button is-primary is-rounded"><span class="icon"><i class="fas fa-chart-bar"></i></span><span>See more Visualisations</span></a>
-            </div>
+        <div class="container has-text-centered ">
+          <a href="datalab.html" class="button is-primary is-rounded"><span class="icon"><i
+                class="fas fa-chart-bar"></i></span><span>See more Visualisations</span></a>
+        </div>
       </div>
     </article>
     <br>
