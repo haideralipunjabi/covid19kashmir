@@ -24,7 +24,10 @@
 
   <link href="/assets/css/montserrat.css" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/leaflet.css"/>
+  <link rel="stylesheet" href="/assets/css/leaflet.awesome-markers.css">
   <script src="assets/js/leaflet.js"></script>
+  <script src="assets/js/leaflet.awesome-markers.js"></script>
+
 </head>
 
 <body>
@@ -61,8 +64,15 @@
       <div id="data-table">
         <progress class="progress is-hidden is-small is-primary" max="100">75%</progress>
         <h1 id="nodata-error" class="subtitle is-1 has-text-centered is-hidden">NO DATA FOUND</h1>
+        <div id="store-tabs" class="tabs is-fullwidth is-boxed">
+          <ul>
+            <li class="is-active"><a href="javascript:switchType(0)">Grocery</a></li>
+            <li><a href="javascript:switchType(1)">Medical</a></li>
+          </ul>
+        </div>
+        
         <div class="table-container">
-          <table class="table is-fullwidth is-bordered is-striped" style="overflow-x:auto;">
+          <table id="table-grocery" class="table is-fullwidth is-bordered is-striped" style="overflow-x:auto;">
             <thead>
               <tr>
                 <th>Id</th>
@@ -75,7 +85,19 @@
               </tr>
             </thead>
             <tbody>
-
+            </tbody>
+          </table>
+          <table id="table-medical" class="table is-fullwidth is-bordered is-striped is-hidden" style="overflow-x:auto;">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Area</th>
+                <th>Contact No.</th>
+                <th>View on Google Maps</th>
+              </tr>
+            </thead>
+            <tbody>
             </tbody>
           </table>
         </div>

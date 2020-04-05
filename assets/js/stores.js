@@ -1,6 +1,5 @@
 const API_URL = "https://covidkashmir.org/api/stores/"
 let myMap, storesData;
-
 let sheetPromise = fetch(API_URL).then((response) => {
     return response.text()
 })
@@ -10,6 +9,19 @@ $(document).ready(()=>{
         makeMap();
         createTable();
     })
+})
+
+let medicalIcon = L.AwesomeMarkers.icon({
+    icon: "clinic-medical",
+    markerColor: 'red',
+    extraClasses: 'fas',
+    prefix: 'fa',
+})
+let storeIcon = L.AwesomeMarkers.icon({
+    icon: "store",
+    markerColor: 'blue',
+    extraClasses: 'fas',
+    prefix: 'fa',
 })
 function makeMap(){
     myMap = L.map('mapid').setView([34.0837, 74.7973], 11);
@@ -25,17 +37,21 @@ function makeMap(){
     }).addTo(myMap);
     myMap.setMaxBounds(myMap.getBounds());
     myMap.setZoom(12)
-    
+    console.log(storesData)
     for(let store of storesData){
+        let markerIcon;
+        markerIcon = (store["Type"]==="Grocery") ? storeIcon:medicalIcon
+        
         if(store["Coords"]!==""){
-            let marker = L.marker(store["Coords"].split(",")).addTo(myMap);
+            let marker = L.marker(store["Coords"].split(","), {icon:markerIcon}).addTo(myMap);
             marker.bindPopup(getHTML(store))
         }
     }
 }
 
 function getHTML(store){
-    return `
+    if(store["Type"==="Grocery"]){
+        return `
         <h1 class="title is-6">${store["Name"]}</h1>
         <h2 class="subtitle is-6">${store["Area"]}</h2>
         ${
@@ -49,14 +65,29 @@ function getHTML(store){
         <hr>
         ${ (store["Google Maps Link"]!=="")?(`<a class="button is-info" href="${store["Google Maps Link"]}"><span style="margin-right: 15px"><i class="icon fas fa-map"></i></span><span>Google Maps</span></a>`):""}
     `
+    }
+    else{
+        return `
+        <h1 class="title is-6">${store["Name"]}</h1>
+        <h2 class="subtitle is-6">${store["Area"]}</h2>
+        ${
+            store["Contact No."].split(",").map(item=>`<a style="margin-left: 5px; margin-bottom:5px;" class="button is-success" href="tel:+91${item}"><span style="margin-right: 5px"><i class="icon fas fa-phone-volume"></i></span><span>${item}</span></a>`)
+        }
+        <hr>
+        ${ (store["Google Maps Link"]!=="")?(`<a class="button is-info" href="${store["Google Maps Link"]}"><span style="margin-right: 15px"><i class="icon fas fa-map"></i></span><span>Google Maps</span></a>`):""}
+    `
+    }
+    
 }
 
 function createTable(){
-    for(let store of storesData){
-        $("#data-table tbody").append(
-            `
+    let groceryStores = storesData.filter(item=>(item["Type"]==="Grocery"));
+    let medicalStores = storesData.filter(item=>(item["Type"]==="Medical"));
+    for(let store of groceryStores){
+            $("#table-grocery tbody").append(
+                `
                 <tr>
-                    <td>${storesData.indexOf(store)+1}</td>
+                    <td>${groceryStores.indexOf(store)+1}</td>
                     <td>${store["Name"]}</td>
                     <td>${store["Area"]}</td>
                     <td style="vertical-align: middle" class="has-text-centered">${
@@ -69,8 +100,45 @@ function createTable(){
                     }</td>
                     <td class="has-text-centered" style="vertical-align: middle">${ (store["Google Maps Link"]!=="")?(`<a class="button is-info" href="${store["Google Maps Link"]}"><span style="margin-right: 5px"><i class="icon fas fa-map"></i></span></a>`):""}</td>
                 </tr>
+                    
+                `
+    
+            )     
+    }
+    for(let store of medicalStores){
+        $("#table-medical tbody").append(
+            `
+            <tr>
+            <td>${medicalStores.indexOf(store)+1}</td>
+            <td>${store["Name"]}</td>
+            <td>${store["Area"]}</td>
+            <td style="vertical-align: middle" class="has-text-centered">${
+                store["Contact No."].split(",").map(item=>`<a class="button is-success" style="margin-left: 5px; margin-bottom:5px;" href="tel:+91${item}"><span style="margin-right: 5px"><i class="icon fas fa-phone-volume"></i></span><span>${item}</span></a>`)
+            }</td>
+            <td class="has-text-centered" style="vertical-align: middle">${ (store["Google Maps Link"]!=="")?(`<a class="button is-info" href="${store["Google Maps Link"]}"><span style="margin-right: 5px"><i class="icon fas fa-map"></i></span></a>`):""}</td>
+                </tr>
             `
 
-        )
+        )     
+}
+}
+
+function switchType(type){
+    let tabs = $("#store-tabs li")
+    switch (type) {
+        case 0:
+            $(tabs[0]).addClass("is-active")
+            $(tabs[1]).removeClass("is-active")
+            $("#table-grocery").removeClass("is-hidden")
+            $("#table-medical").addClass("is-hidden")
+            break;
+        case 1:
+                $(tabs[1]).addClass("is-active")
+                $(tabs[0]).removeClass("is-active")
+                $("#table-grocery").addClass("is-hidden")
+                $("#table-medical").removeClass("is-hidden")
+                break
+        default:
+            break;
     }
 }
