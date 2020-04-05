@@ -394,8 +394,6 @@ function createCharts() {
   for (let key of keys) {
     new ApexCharts(document.querySelector("#" + key), chartOptions[keys.indexOf(key)]).render()
   }
-  // var chart = new ApexCharts(document.querySelector("#chart"), options);
-  // chart.render();
 }
 
 function popup(el) {

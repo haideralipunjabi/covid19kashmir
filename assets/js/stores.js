@@ -3,6 +3,17 @@ let myMap, storesData;
 let sheetPromise = fetch(API_URL).then((response) => {
     return response.text()
 })
+
+let typeDefined = getUrlParameter("type")
+if(typeDefined!==undefined || typeDefined !==""){
+    if(typeDefined.toLowerCase()==="medical"){
+        switchType(1)
+    }
+    else if(typeDefined.toLowerCase()==="grocery"){
+        switchType(0)
+    }
+}
+
 $(document).ready(()=>{
     sheetPromise.then(response=>{
         storesData = ArraysToDict(CSVToArray(response))

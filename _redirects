@@ -1,2 +1,3 @@
 http://covid19kashmir.hackesta.org/* https://covidkashmir.org/:splat 301!
 https://covid19kashmir.hackesta.org/* https://covidkashmir.org/:splat 301!
+/medicalstores /stores?type=medical 301
