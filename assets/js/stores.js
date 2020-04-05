@@ -5,7 +5,7 @@ let sheetPromise = fetch(API_URL).then((response) => {
 })
 
 let typeDefined = getUrlParameter("type")
-if(typeDefined!==undefined && typeDefined !=="" && type!=="undefined"){
+if(typeDefined!==undefined && typeDefined !=="" && typeDefined!=="undefined"){
     if(typeDefined.toLowerCase()==="medical"){
         switchType(1)
     }
@@ -51,7 +51,12 @@ function makeMap(){
     console.log(storesData)
     for(let store of storesData){
         let markerIcon;
-        markerIcon = (store["Type"]==="Grocery") ? storeIcon:medicalIcon
+        if(store["Type"]==="Grocery"){
+            markerIcon = storeIcon
+        }
+        else if(store["Type"]==="Medical"){
+            markerIcon = medicalIcon
+        }
         
         if(store["Coords"]!==""){
             let marker = L.marker(store["Coords"].split(","), {icon:markerIcon}).addTo(myMap);

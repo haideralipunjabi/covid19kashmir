@@ -5,6 +5,7 @@ Version: 1.0
 */
 
 /* Marker setup */
+/* purgecss start ignore */
 .awesome-marker {
   background: url('images/markers-soft.png') no-repeat 0 0;
   width: 35px;
@@ -122,3 +123,4 @@ Version: 1.0
 .awesome-marker-icon-black {
   background-position: -682px 0;
 }
+/* purgecss end ignore */
