@@ -1,6 +1,8 @@
 const API_URL = "https://covidkashmir.org/api/patients/"
 const LIVE_API_URL = "https://covidkashmir.org/api/live"
 const NEWS_API_URL = "https://covidkashmir.org/api/news/"
+const BULLETIN_API_URL = "https://covidkashmir.org/api/bulletin/"
+
 let patientData, districtsMap, activeDistrictsMap, districtInformation, snap, countback;
 const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad"]
 const COLORS = {
@@ -26,7 +28,7 @@ const STATS_PROMISE = fetch(LIVE_API_URL).then((response) => {
 const NEWS_PROMISE = fetch(NEWS_API_URL).then((response) => {
     return response.json()
 })
-
+const BULLETIN_PROMISE = fetch(BULLETIN_API_URL).then(response=>response.text())
 
 $(document).ready(() => {
     API_PROMISE.then((data) => {
@@ -38,6 +40,34 @@ $(document).ready(() => {
     })
     NEWS_PROMISE.then((data) => {
         // loadNews(data);
+    })
+    BULLETIN_PROMISE.then(data=>{
+        let bulletinData = ArraysToDict(CSVToArray(data)).reverse();
+        spData = {
+            "total":[0],
+            "active":[0],
+            "recovered":[0],
+            "deceased":[0]
+        }
+        for(let day of bulletinData){
+            let tTotal = parseIntOpt(day["Samples Positive"])
+            let tRecovered = parseIntOpt(day["Cases Recovered"].split("(")[0])
+            let tDeceased = parseIntOpt(day["No. of Deaths"].split("(")[0]) 
+            let tActive = tTotal - (tRecovered + tDeceased)
+            let pTotal = spData["total"].reduce((x,y)=>{return(x+y)})
+            let pRecovered = spData["recovered"].reduce((x,y)=>{return(x+y)})
+            let pDeceased = spData["deceased"].reduce((x,y)=>{return(x+y)})
+            let pActive = spData["active"].reduce((x,y)=>{return(x+y)})
+            spData["total"].push(tTotal - pTotal)
+            spData["recovered"].push(tRecovered - pRecovered)
+            spData["deceased"].push(tDeceased - pDeceased)
+            spData["active"].push(tActive - pActive)        
+        }
+        spData["total"].splice(0,1)
+        spData["recovered"].splice(0,1)
+        spData["deceased"].splice(0,1)
+        spData["active"].splice(0,1) 
+        loadSparklines(spData)
     })
     $(".dropdown-trigger").click(function () {
         $(".dropdown").toggleClass("is-active");
@@ -168,6 +198,75 @@ function loadMap() {
         selectMapDistrict(snap.select("#srinagar"))
     })
     // legend.rect(0,0,500,500)
+}
+
+function loadSparklines(data) {
+    const config = {
+        "total" : {
+            "color":"#FF073A",
+            "data":data["total"],
+            "element":"#slTotal"
+        },
+        "active":{
+            "color":"#007bff",
+            "data":data["active"],
+            "element":"#slActive"
+        },
+        "recovered":{
+            "color":"#28a745",
+            "data":data["recovered"],
+            "element":"#slRecovered"
+        },
+        "deceased":{
+            "color":"#6c757d",
+            "data":data["deceased"],
+            "element":"#slDeceased"
+        },
+    }
+    const baseOptions = {
+        chart: {
+            type: 'line',
+            // width: 100,
+            height: 35,
+            sparkline: {
+                enabled: true
+            }
+        },
+        stroke:{
+            curve:"stepline",
+            lineCap: "round",
+            width: 3
+        },
+        tooltip: {
+            fixed: {
+                enabled: false
+            },
+            x: {
+                show: false
+            },
+            y: {
+                title: {
+                    formatter: function (seriesName) {
+                        return ''
+                    }
+                }
+            },
+            marker: {
+                show: false
+            }
+        }
+    };
+    for(let value of Object.values(config)){
+        let options = baseOptions;
+        options["series"] = [
+            {
+                data: value["data"]
+            }
+        ]
+        options["colors"]=[value["color"]]
+        new ApexCharts($(value["element"])[0],options).render();
+    }
+
 }
 
 function loadChart() {
