@@ -376,7 +376,7 @@ twitter-widget {
 .marquee{
   display:block;
 position:relative;
-animation:scroll 70s linear infinite;
+animation:scroll 120s linear infinite;
 padding:3px;
 }
 
