@@ -93,7 +93,11 @@ function getHTML(store){
         <h1 class="title is-6">${store["Name"]}</h1>
         <h2 class="subtitle is-6">${store["Area"]}</h2>
         ${
-            store["Contact No."].split(",").map(item=>`<a style="margin-left: 5px; margin-bottom:5px;" class="button is-success" href="tel:+91${item}"><span style="margin-right: 5px"><i class="icon fas fa-phone-volume"></i></span><span>${item}</span></a>`)
+            store["Contact No."].split(",").map(item=>`<a style="margin-left: 5px; margin-bottom:5px;" class="button is-info" href="tel:${(item[0]==="0")?item:"91"+item}"><span style="margin-right: 5px"><i class="icon fas fa-phone-volume"></i></span><span>${item}</span></a>`)
+        }
+        <hr>
+        ${
+            (store["Whatsapp"]!=="")?(store["Whatsapp"].split(",").map(item=>`<a style="margin-left: 5px; margin-bottom:5px;" class="button is-success" href="https://wa.me/91${item}"><span style="margin-right: 5px"><i class="icon fab fa-whatsapp"></i></span><span>${item}</span></a>`)):""
         }
         <hr>
         ${ (store["Google Maps Link"]!=="")?(`<a class="button is-info" href="${store["Google Maps Link"]}"><span style="margin-right: 15px"><i class="icon fas fa-map"></i></span><span>Google Maps</span></a>`):""}
@@ -135,8 +139,13 @@ function createTable(){
             <td>${store["Name"]}</td>
             <td>${store["Area"]}</td>
             <td style="vertical-align: middle" class="has-text-centered">${
-                store["Contact No."].split(",").map(item=>`<a class="button is-success" style="margin-left: 5px; margin-bottom:5px;" href="tel:+91${item}"><span style="margin-right: 5px"><i class="icon fas fa-phone-volume"></i></span><span>${item}</span></a>`)
-            }</td>
+                store["Contact No."].split(",").map(item=>`<a class="button is-info" style="margin-left: 5px; margin-bottom:5px;" href="tel:${(item[0]==="0")?item:"91"+item}"><span style="margin-right: 5px"><i class="icon fas fa-phone-volume"></i></span><span>${item}</span></a>`)
+            }
+            ${
+                (store["Whatsapp"]!=="")?(store["Whatsapp"].split(",").map(item=>`<a style="margin-left: 5px; margin-bottom:5px;" class="button is-success" href="https://wa.me/91${item}"><span style="margin-right: 5px"><i class="icon fab fa-whatsapp"></i></span><span>${item}</span></a>`)):""
+            }
+            
+            </td>
             <td class="has-text-centered" style="vertical-align: middle">${ (store["Google Maps Link"]!=="")?(`<a class="button is-info" href="${store["Google Maps Link"]}"><span style="margin-right: 5px"><i class="icon fas fa-map"></i></span></a>`):""}</td>
                 </tr>
             `
