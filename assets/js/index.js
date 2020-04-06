@@ -39,7 +39,7 @@ $(document).ready(() => {
         loadStats(data);
     })
     NEWS_PROMISE.then((data) => {
-        // loadNews(data);
+        loadNews(data);
     })
     BULLETIN_PROMISE.then(data=>{
         let bulletinData = ArraysToDict(CSVToArray(data)).reverse();
