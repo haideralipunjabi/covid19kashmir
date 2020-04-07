@@ -133,7 +133,7 @@ function loadStats(data) {
     $("#cases_deaths").html(data.Deceased);
     $("#cases_recovered").html(data.Recovered);
     $("#cases_total_today").html(data.Total - data.TotalYesterday);
-    $("#cases_active_today").html(data.Active - data.ActiveYesterday);
+    $("#cases_active_today").html((data.Active - data.ActiveYesterday) + (data.Deceased - data.DeceasedYesterday) + (data.Recovered - data.RecoveredYesterday));
     $("#cases_deaths_today").html(data.Deceased - data.DeceasedYesterday);
     $("#cases_recovered_today").html(data.Recovered - data.RecoveredYesterday);
 
