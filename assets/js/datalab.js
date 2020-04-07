@@ -229,7 +229,7 @@ function createCharts() {
       }
     },
     yaxis: {
-      min: -10,
+      min: 0,
       max: 40,
       title: {
         text: 'No. of cases',
@@ -350,6 +350,16 @@ function createCharts() {
       }
     },
     labels: ["Active", "Recovered", "Deceased"],
+    responsive: [
+      {
+        breakpoint: 500,
+        options: {
+          legend: {
+            position: "bottom"
+          }
+        }
+      }
+    ]
   };
   chartOptions[4] = {
     series: [{
