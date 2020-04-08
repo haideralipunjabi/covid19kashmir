@@ -87,11 +87,12 @@ def gen_redirects():
     toml = open("netlify.toml","w")
     toml.write('''[[redirects]]
     from = "/api/live"
-    to = "12"
+    to = "%s"
     status = 200
     force = true
     headers = {Access-Control-Allow-Origin = "*"}
     '''%(os.getenv("API_LIVE")))
+    toml.close()
 
 gen_favicons()
 gen_static_pages()
