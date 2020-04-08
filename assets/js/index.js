@@ -1,10 +1,17 @@
 const API_URL = "https://covidkashmir.org/api/patients/"
 const LIVE_API_URL = "https://covidkashmir.org/api/live"
 const NEWS_API_URL = "https://covidkashmir.org/api/news/"
-let patientData, districtsMap, activeDistrictsMap, districtInformation,snap, countback;
+const BULLETIN_API_URL = "https://covidkashmir.org/api/bulletin/"
+
+let patientData, districtsMap, activeDistrictsMap, districtInformation, snap, countback;
 const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad"]
 const COLORS = {
-    "PRIMARY": {"TOTAL": "#f14668","ACTIVE":"#3298dc", "RECOVERED":"#48c774", "DECEASED":"#4a4a4a"},
+    "PRIMARY": {
+        "TOTAL": "#f14668",
+        "ACTIVE": "#3298dc",
+        "RECOVERED": "#48c774",
+        "DECEASED": "#4a4a4a"
+    },
 }
 const FILTERS = {
     "Date Announced": "",
@@ -12,27 +19,55 @@ const FILTERS = {
     "Status": ""
 }
 
- const API_PROMISE = fetch(API_URL).then((response) => {
-        return response.text()
-    })
- const STATS_PROMISE = fetch(LIVE_API_URL).then((response) => {
-        return response.json()
-    })
-const NEWS_PROMISE = fetch(NEWS_API_URL).then((response)=>{
-        return response.json()
-    })
-    
+const API_PROMISE = fetch(API_URL).then((response) => {
+    return response.text()
+})
+const STATS_PROMISE = fetch(LIVE_API_URL).then((response) => {
+    return response.json()
+})
+const NEWS_PROMISE = fetch(NEWS_API_URL).then((response) => {
+    return response.json()
+})
+const BULLETIN_PROMISE = fetch(BULLETIN_API_URL).then(response=>response.text())
 
-$(document).ready(()=>{
-    API_PROMISE.then((data)=>{
+$(document).ready(() => {
+    API_PROMISE.then((data) => {
         patientData = ArraysToDict(CSVToArray(data));
         loadData(true);
     })
-    STATS_PROMISE.then((data)=>{
+    STATS_PROMISE.then((data) => {
         loadStats(data);
     })
-    NEWS_PROMISE.then((data)=>{
+    NEWS_PROMISE.then((data) => {
         loadNews(data);
+    })
+    BULLETIN_PROMISE.then(data=>{
+        let bulletinData = ArraysToDict(CSVToArray(data)).reverse();
+        spData = {
+            "total":[0],
+            "active":[0],
+            "recovered":[0],
+            "deceased":[0]
+        }
+        for(let day of bulletinData){
+            let tTotal = parseIntOpt(day["Samples Positive"])
+            let tRecovered = parseIntOpt(day["Cases Recovered"].split("(")[0])
+            let tDeceased = parseIntOpt(day["No. of Deaths"].split("(")[0]) 
+            let tActive = tTotal - (tRecovered + tDeceased)
+            let pTotal = spData["total"].reduce((x,y)=>{return(x+y)})
+            let pRecovered = spData["recovered"].reduce((x,y)=>{return(x+y)})
+            let pDeceased = spData["deceased"].reduce((x,y)=>{return(x+y)})
+            let pActive = spData["active"].reduce((x,y)=>{return(x+y)})
+            spData["total"].push(tTotal - pTotal)
+            spData["recovered"].push(tRecovered - pRecovered)
+            spData["deceased"].push(tDeceased - pDeceased)
+            spData["active"].push(tActive - pActive)        
+        }
+        spData["total"].splice(0,1)
+        spData["recovered"].splice(0,1)
+        spData["deceased"].splice(0,1)
+        spData["active"].splice(0,1) 
+        loadSparklines(spData)
     })
     $(".dropdown-trigger").click(function () {
         $(".dropdown").toggleClass("is-active");
@@ -41,25 +76,25 @@ $(document).ready(()=>{
 
 
 function loadData(first) {
-    
-    if(first) progressBarVisible(true)
-    if(!first){
+
+    if (first) progressBarVisible(true)
+    if (!first) {
         $("#cases_total").html("");
         $("#cases_active").html("")
         $("#cases_deaths").html("")
         $("#cases_recovered").html("")
     }
-    if(first)loadTable();
-    if(first)loadFilters();
-    if(first)loadMap();
-    if(first)loadChart();
+    if (first) loadTable();
+    if (first) loadFilters();
+    if (first) loadMap();
+    if (first) loadChart();
 }
 
 function loadTable() {
     progressBarVisible(false);
     $("#data-table tbody").html("")
     for (let patient of patientData) {
-        if(!matchesFilters(patient)) continue;
+        if (!matchesFilters(patient)) continue;
         $("#data-table tbody").append(`
         <tr ${(patient["Status"]=="Recovered") ? `style="background-color: #ebfffc"`:""} 
         ${(patient["Status"]=="Deceased") ? `style="background-color: #feecf0"`:""}
@@ -98,27 +133,29 @@ function loadStats(data) {
     $("#cases_deaths").html(data.Deceased);
     $("#cases_recovered").html(data.Recovered);
     $("#cases_total_today").html(data.Total - data.TotalYesterday);
-    $("#cases_active_today").html(data.Active - data.ActiveYesterday);
+    $("#cases_active_today").html((data.Active - data.ActiveYesterday) + (data.Deceased - data.DeceasedYesterday) + (data.Recovered - data.RecoveredYesterday));
     $("#cases_deaths_today").html(data.Deceased - data.DeceasedYesterday);
     $("#cases_recovered_today").html(data.Recovered - data.RecoveredYesterday);
-        
+
 
 }
-function loadNews(data){
+
+function loadNews(data) {
     let $container = $("#news-container")
-    let columns = data.map(item=>$(`<div class="column">${item["html"]}</div>`))
-    for(let column of columns){
-        for(let item of column){
+    let columns = data.map(item => $(`<div class="column">${$(item["html"]).attr("data-width","220")[0].outerHTML}</div>`))
+    for (let column of columns) {
+        for (let item of column) {
             twttr.widgets.load(item)
         }
     }
-    for(let column of columns){
-        for(let item of column){
-            
+    for (let column of columns) {
+        for (let item of column) {
+
             $container.append(item)
         }
     }
 }
+
 function loadMap() {
     let activeDistricts = patientData.map((item) => {
         return (item["Status"] === "Hospitalized") ? item["District"] : ""
@@ -154,7 +191,7 @@ function loadMap() {
         districtShapes.forEach((districtShape) => {
             districtShape.attr("fill", getFillColor(districtShape.node.id.toTitleCase()))
             districtShape.click((event) => {
-               selectMapDistrict(districtShape)
+                selectMapDistrict(districtShape)
             })
         })
         makeLegend()
@@ -162,78 +199,150 @@ function loadMap() {
     })
     // legend.rect(0,0,500,500)
 }
-function loadChart(){
+
+function loadSparklines(data) {
+    const config = {
+        "total" : {
+            "color":"#FF073A",
+            "data":data["total"],
+            "element":"#slTotal"
+        },
+        "active":{
+            "color":"#007bff",
+            "data":data["active"],
+            "element":"#slActive"
+        },
+        "recovered":{
+            "color":"#28a745",
+            "data":data["recovered"],
+            "element":"#slRecovered"
+        },
+        "deceased":{
+            "color":"#6c757d",
+            "data":data["deceased"],
+            "element":"#slDeceased"
+        },
+    }
+    const baseOptions = {
+        chart: {
+            type: 'line',
+            // width: 100,
+            height: 35,
+            sparkline: {
+                enabled: true
+            }
+        },
+        stroke:{
+            curve:"stepline",
+            lineCap: "round",
+            width: 3
+        },
+        tooltip: {
+            fixed: {
+                enabled: false
+            },
+            x: {
+                show: false
+            },
+            y: {
+                title: {
+                    formatter: function (seriesName) {
+                        return ''
+                    }
+                }
+            },
+            marker: {
+                show: false
+            }
+        }
+    };
+    for(let value of Object.values(config)){
+        let options = baseOptions;
+        options["series"] = [
+            {
+                data: value["data"]
+            }
+        ]
+        options["colors"]=[value["color"]]
+        new ApexCharts($(value["element"])[0],options).render();
+    }
+
+}
+
+function loadChart() {
     dateMap = {}
     for (let date of getUniqueData("Date Announced")) {
-        dateMap[date] =  patientData.filter(item => {
+        dateMap[date] = patientData.filter(item => {
             return item["Date Announced"] === date
-          }).length
+        }).length
     }
     chartOptions = {
         series: [{
-          name: 'Case',
-          data: Object.values(dateMap)
+            name: 'Case',
+            data: Object.values(dateMap)
         }],
         chart: {
-          height: 350,
-          type: 'line',
+            height: 350,
+            type: 'line',
         },
         stroke: {
-          width: 7,
-          curve: 'smooth'
+            width: 7,
+            curve: 'smooth'
         },
         xaxis: {
-          categories: Object.keys(dateMap)
+            categories: Object.keys(dateMap)
         },
         title: {
-          text: "Cases Announced Daily"
+            text: "Cases Announced Daily"
         },
         subtitle: {
-          text: "Source: covidkashmir.org"
+            text: "Source: covidkashmir.org"
         },
         fill: {
-          type: 'gradient',
-          gradient: {
-            shade: 'dark',
-            gradientToColors: ['#FDD835'],
-            shadeIntensity: 1,
-            type: 'horizontal',
-            opacityFrom: 1,
-            opacityTo: 1,
-            stops: [0, 100, 100, 100]
-          },
+            type: 'gradient',
+            gradient: {
+                shade: 'dark',
+                gradientToColors: ['#FDD835'],
+                shadeIntensity: 1,
+                type: 'horizontal',
+                opacityFrom: 1,
+                opacityTo: 1,
+                stops: [0, 100, 100, 100]
+            },
         },
         markers: {
-          size: 4,
-          colors: ["#FFA41B"],
-          strokeColors: "#fff",
-          strokeWidth: 2,
-          hover: {
-            size: 7,
-          }
+            size: 4,
+            colors: ["#FFA41B"],
+            strokeColors: "#fff",
+            strokeWidth: 2,
+            hover: {
+                size: 7,
+            }
         },
         yaxis: {
-          min: -10,
-          max: 40,
-          title: {
-            text: 'No. of cases',
-          },
+            min: 0,
+            max: 40,
+            title: {
+                text: 'No. of cases',
+            },
         }
-      };
-      let chart = new ApexCharts(document.querySelector("#chart1"), chartOptions);
-  chart.render();
+    };
+    let chart = new ApexCharts(document.querySelector("#chart1"), chartOptions);
+    chart.render();
 }
-function selectMapDistrict(dShape){
-    snap.selectAll("path").forEach((item)=>{
-        item.attr("stroke","#000000");
-        item.attr("strokeWidth","1");
+
+function selectMapDistrict(dShape) {
+    snap.selectAll("path").forEach((item) => {
+        item.attr("stroke", "#000000");
+        item.attr("strokeWidth", "1");
     })
     dShape.paper.node.removeChild(dShape.node)
     dShape.paper.node.insertBefore(dShape.node, dShape.paper.node.firstChild)
     dShape.attr("stroke", COLORS.PRIMARY.RECOVERED)
-    dShape.attr("strokeWidth","3px")
+    dShape.attr("strokeWidth", "3px")
     activateDistrict(dShape.node.id.toTitleCase())
 }
+
 function patientModal(id) {
     let patient = patientData[id];
     $("#modal-details-id").html(id + 1);
@@ -322,35 +431,36 @@ function activateDistrict(district) {
         $("#map-cases_" + c.toLowerCase()).html(districtsMap[district][c])
     }
 }
-$(window).resize(function(){
-    if($("#legend").children().length){
+$(window).resize(function () {
+    if ($("#legend").children().length) {
         $("#legend").html("");
         makeLegend();
     }
 })
+
 function makeLegend() {
     legend = Snap("#legend")
-    
+
     let svgWidth = snap.node.offsetWidth;
     let min = Math.min(...Object.values(activeDistrictsMap))
     let max = Math.max(...Object.values(activeDistrictsMap))
     let range = (max - min) / 3
-    let stops = [svgWidth/3,4*svgWidth/9, 5*svgWidth/9, 2*svgWidth/3]
+    let stops = [svgWidth / 3, 4 * svgWidth / 9, 5 * svgWidth / 9, 2 * svgWidth / 3]
     // let stops = [0, svgWidth/3, 2*svgWidth/3, svgWidth]
-    let barWidth = svgWidth/9;
+    let barWidth = svgWidth / 9;
     let barHeight = 10;
-    legend.rect(stops[0],0,barWidth,barHeight).attr("fill","#fee8c8")
-    legend.rect(stops[1],0,barWidth,barHeight).attr("fill","#fdbb84")
-    legend.rect(stops[2],0,barWidth,barHeight).attr("fill","#e34a33")
-    legend.text(stops[0]-5,2.5*barHeight,"1").attr("fill","#000")
-    legend.text(stops[1]-5,2.5*barHeight,`${Math.floor(min + range)}`).attr("fill","#000")
-    legend.text(stops[2]-5,2.5*barHeight,`${Math.floor(min + (range * 2))}`).attr("fill","#000")
-    legend.text(stops[3]-5,2.5*barHeight,max).attr("fill","#000")
+    legend.rect(stops[0], 0, barWidth, barHeight).attr("fill", "#fee8c8")
+    legend.rect(stops[1], 0, barWidth, barHeight).attr("fill", "#fdbb84")
+    legend.rect(stops[2], 0, barWidth, barHeight).attr("fill", "#e34a33")
+    legend.text(stops[0] - 5, 2.5 * barHeight, "1").attr("fill", "#000")
+    legend.text(stops[1] - 5, 2.5 * barHeight, `${Math.floor(min + range)}`).attr("fill", "#000")
+    legend.text(stops[2] - 5, 2.5 * barHeight, `${Math.floor(min + (range * 2))}`).attr("fill", "#000")
+    legend.text(stops[3] - 5, 2.5 * barHeight, max).attr("fill", "#000")
 
 }
 
 function getFillColor(district) {
-    if(!Object.keys(activeDistrictsMap).includes(district)) return "#ffffff"
+    if (!Object.keys(activeDistrictsMap).includes(district)) return "#ffffff"
     let min = Math.min(...Object.values(activeDistrictsMap))
     let max = Math.max(...Object.values(activeDistrictsMap))
     let range = (max - min) / 3
@@ -360,43 +470,43 @@ function getFillColor(district) {
     else if (number <= max) return "#e34a33"
 }
 
-function loadFilters(){
+function loadFilters() {
     let districts = getUniqueData("District")
     let dates = getUniqueData("Date Announced")
     let statuses = getUniqueData("Status")
-    for(let district of districts) $("#filter-district").append(`<option>${district}</option>`)
-    for(let date of dates) $("#filter-date-announced").append(`<option>${date}</option>`)
-    for(let status of statuses) $("#filter-status").append(`<option>${status}</option>`)
+    for (let district of districts) $("#filter-district").append(`<option>${district}</option>`)
+    for (let date of dates) $("#filter-date-announced").append(`<option>${date}</option>`)
+    for (let status of statuses) $("#filter-status").append(`<option>${status}</option>`)
     $("#data-filters .select").removeClass("is-loading")
-    $("#filter-district").change(()=>{
-        if($("#filter-district")[0].selectedIndex!==0) FILTERS["District"]=$("#filter-district").val()
-        else FILTERS["District"]=""
+    $("#filter-district").change(() => {
+        if ($("#filter-district")[0].selectedIndex !== 0) FILTERS["District"] = $("#filter-district").val()
+        else FILTERS["District"] = ""
         loadTable()
     })
-    $("#filter-date-announced").change(()=>{
-        if($("#filter-date-announced")[0].selectedIndex!==0) FILTERS["Date Announced"]=$("#filter-date-announced").val()
-        else FILTERS["Date Announced"]=""
+    $("#filter-date-announced").change(() => {
+        if ($("#filter-date-announced")[0].selectedIndex !== 0) FILTERS["Date Announced"] = $("#filter-date-announced").val()
+        else FILTERS["Date Announced"] = ""
         loadTable()
     })
-    $("#filter-status").change(()=>{
-        if($("#filter-status")[0].selectedIndex!==0) FILTERS["Status"]=$("#filter-status").val()
-        else FILTERS["Status"]=""
+    $("#filter-status").change(() => {
+        if ($("#filter-status")[0].selectedIndex !== 0) FILTERS["Status"] = $("#filter-status").val()
+        else FILTERS["Status"] = ""
         loadTable()
     })
 }
-function getUniqueData(key){
+
+function getUniqueData(key) {
     return patientData.map((item) => {
         return item[key]
     }).filter((value, index, self) => {
         return self.indexOf(value) === index
     });
 }
-function matchesFilters(patient){
-    for(let key of Object.keys(FILTERS)){
-        if(FILTERS[key] === "") continue;
-        if(patient[key] !== FILTERS[key]) return false;
+
+function matchesFilters(patient) {
+    for (let key of Object.keys(FILTERS)) {
+        if (FILTERS[key] === "") continue;
+        if (patient[key] !== FILTERS[key]) return false;
     }
     return true;
 }
-
-

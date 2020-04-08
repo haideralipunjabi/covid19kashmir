@@ -16,7 +16,6 @@
   <link rel="stylesheet" href="/assets/css/brands.min.css">
   <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
   <link rel="stylesheet" href="/assets/css/solid.min.css">
-  <link rel="stylesheet" href="/assets/css/animate.css">
   <link rel="stylesheet" href="/assets/css/datalab.css">
   <script src="assets/js/jquery-3.4.1.min.js"></script>
   <script src="assets/js/jquery.csv.min.js"></script>
@@ -26,7 +25,7 @@
   <script src="assets/js/snap.svg-min.js"></script>
   <script src="assets/js/utils.js"></script>
   <script src="assets/js/apexcharts.min.js"></script>
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <script src="/assets/js/twitter.js" charset="utf-8"></script>
   <link href="/assets/css/montserrat.css" rel="stylesheet">
 
 </head>
@@ -94,7 +93,7 @@
                       <span class="count-head-daily">New: </span>
                       <span id="cases_total_today" class="count-num-daily"></span>
                     </p>
-                    <div id="totalCases" class="sparkline"></div>
+                    <div id="slTotal" class="sparkline"></div>
                   </div>
 
                 </article>
@@ -118,7 +117,7 @@
                       <span class="count-head-daily">New: </span>
                       <span id="cases_recovered_today" class="count-num-daily"></span>
                     </p>
-                    <div id="dailyRecovered" class="sparkline"></div>
+                    <div id="slRecovered" class="sparkline"></div>
                   </div>
 
                 </article>
@@ -142,7 +141,7 @@
                       <span class="count-head-daily">New: </span>
                       <span id="cases_active_today" class="count-num-daily"></span>
                     </p>
-                    <div id="dailyActive" class="sparkline"></div>
+                    <div id="slActive" class="sparkline"></div>
                   </div>
 
                 </article>
@@ -166,7 +165,7 @@
                       <span class="count-head-daily">New: </span>
                       <span id="cases_deaths_today" class="count-num-daily"></span>
                     </p>
-                    <div id="dailyDead" class="sparkline"></div>
+                    <div id="slDeceased" class="sparkline"></div>
                   </div>
                 </article>
               </div>
@@ -180,32 +179,6 @@
     </div>
     </article>
     <br>
-
-
-
-    <article>
-      <div class="container">
-        <div class="message-header">
-          <p>
-            NEWSFEED <span class="blink live-back">LIVE</span>
-          </p>
-        </div>
-        <div class="message-body">
-          <div id="news-parent">
-
-            <div id="news-container" class="marquee columns is-mobile">
-              
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </article>
-
-
-    <br />
-
-
 
     <article>
       <div class="container" id="mapContainer">
@@ -280,6 +253,31 @@
       </div>
     </article>
     <br>
+
+
+
+
+    <article>
+      <div class="container">
+        <div class="message-header">
+          <p>
+            NEWSFEED <span class="blink live-back">LIVE</span>
+          </p>
+        </div>
+        <div class="message-body">
+          <div id="news-parent">
+
+            <div id="news-container" class="marquee columns is-mobile">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </article>
+
+
+    <br />
     <article>
       <div class="container">
         <div class="message-header">
@@ -519,7 +517,6 @@
   <script src="assets/js/index.js"></script>
   <script src="assets/js/localDebug.js"></script>
   <script src="assets/js/widgetFunction.js"></script>
-  <script src="sparklines.js"></script>
 
   <!-- <script src="assets/js/newsFeed.js"></script> -->
 </body>

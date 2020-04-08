@@ -366,7 +366,6 @@
 
 /* News */
 twitter-widget {
-  width: 300px !important;
   float: left;
 }
 #news-parent {
@@ -377,8 +376,7 @@ twitter-widget {
 .marquee{
   display:block;
 position:relative;
-width:800px;
-animation:scroll 20s linear infinite;
+animation:scroll 120s linear infinite;
 padding:3px;
 }
 
@@ -393,5 +391,5 @@ padding:3px;
 /* Make it move */
 @keyframes scroll{
 0% {left:800px;}
-100% {left:-800px;}
+100% {left:-7260px;}
 }
