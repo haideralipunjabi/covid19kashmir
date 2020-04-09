@@ -11,7 +11,7 @@ install:
 script: python .travis/build.py
 before_deploy: 
   - purgecss -c ./purgecss.config.js --output assets/css/
-  - cd functions && npm install
+  - cd functions && npm install && cd ../
 
 deploy:
   provider: netlify
