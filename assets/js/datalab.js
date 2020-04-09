@@ -1,23 +1,19 @@
-const API_URL = "https://covidkashmir.org/api/patients/"
+const API_URL = "/.netlify/functions/api"
 const LIVE_API = "https://covidkashmir.org/api/live/"
-const STATS_API = "https://covidkashmir.org/api/bulletin"
 const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad", "Unknown"]
 const CHARTS = {
   "chartOne": "Chart1",
   "chartTwo": "Chart2",
   "chartThree": "Chart3",
   "chartFour": "Chart4",
-  "chartFive": "Chart5"
+  // "chartFive": "Chart5"
 }
-let patientData, districtMap, dateMap, activeDistricts, liveData, statsData,dailyData;
+let  districtMap, dateMap, activeDistricts, liveData,dailyData;
 
 
 $(document).ready(() => {
-  let sheetPromise = fetch(API_URL).then((response) => {
-    return response.text()
-  })
-  let statsPromise = fetch(STATS_API).then((response) => {
-    return response.text()
+  let sheetPromise = fetch(API_URL+"?fields=districtMap,dailyMap").then((response) => {
+    return response.json()
   })
   let livePromise = fetch(LIVE_API, {
     'mode': 'cors',
@@ -28,13 +24,12 @@ $(document).ready(() => {
   }).then((response) => {
     return response.json()
   })
-  Promise.all([sheetPromise, livePromise,statsPromise]).then((values) => {
-    patientData = ArraysToDict(CSVToArray(values[0]));
+  Promise.all([sheetPromise, livePromise]).then((values) => {
+    data = values[0]
+    districtMap = data["districtMap"]
+    dateMap = data["dailyMap"]
     liveData = values[1];
-    statsData = ArraysToDict(CSVToArray(values[2])).reverse();
     createHolders();
-    createUnknowns();
-    createData();
     createCharts()
   });
 })
@@ -57,89 +52,18 @@ function createHolders() {
   }
 }
 
-function createUnknowns() {
-  patitentData = patientData.map(item => {
-    if (item["District"] === "") item["District"] = "Unknown"
-    return item;
-  })
-}
-
-function filterDataByDistrict(data, district) {
-  return data.filter(item => {
-    return item["District"] === district
-  })
-}
-
-function filterDataByStatus(data, status) {
-  return data.filter(item => {
-    return item["Status"] === status
-  })
-}
-
-function filterDataByDate(data, date) {
-  return data.filter(item => {
-    return item["Date Announced"] === date
-  })
-}
-
-function getUnique(data, key) {
-  return data.map((item) => {
-    return item[key]
-  }).filter((value, index, self) => {
-    return self.indexOf(value) === index
-  });
-}
-
-function createData() {
-  districtMap = {}
-  for (let district of DISTRICTS) {
-    let districtData = filterDataByDistrict(patientData, district);
-    districtMap[district] = {
-      "Total": districtData.length,
-      "Active": filterDataByStatus(districtData, "Hospitalized").length,
-      "Recovered": filterDataByStatus(districtData, "Recovered").length,
-      "Deceased": filterDataByStatus(districtData, "Deceased").length
-    }
-  }
-  dateMap = {}
-  for (let date of getUnique(patientData, "Date Announced")) {
-    dateMap[date] = filterDataByDate(patientData, date).length
-  }
-  activeDistricts = Object.keys(districtMap).filter(key => (districtMap[key]["Total"] > 0))
-  dailyData = {
-    "Dates": statsData.map(item => parseIntOpt(item["Date"])),
-    "Total": statsData.map(item => parseIntOpt(item["Samples Positive"])),
-    "Active": statsData.map(item=>{
-      return parseIntOpt(item["Samples Positive"]) - (parseIntOpt(item["Cases Recovered"])+parseIntOpt(item["No. of Deaths"]))
-    }),
-    "Recovered": statsData.map(item => parseIntOpt(item["Cases Recovered"])),
-    "Deceased":statsData.map(item => parseIntOpt(item["No. of Deaths"]))
-  }
-
-}
-
-function filteredData(kind, key) {
-  data = {}
-  if (kind = "status") {
-    for (let district of DISTRICTS) {
-      data[district] = districtMap[district][key]
-    }
-  }
-  return data
-}
-
 function createCharts() {
   let chartOptions = []
   chartOptions[0] = {
     series: [{
       name: 'Active',
-      data: Object.values(districtMap).filter(item => item["Total"] > 0).map(item => item["Active"])
+      data: Object.values(districtMap).map(item => item["Active"])
     }, {
       name: 'Recovered',
-      data: Object.values(districtMap).filter(item => item["Total"] > 0).map(item => item["Recovered"])
+      data: Object.values(districtMap).map(item => item["Recovered"])
     }, {
       name: 'Deaths',
-      data: Object.values(districtMap).filter(item => item["Total"] > 0).map(item => item["Deceased"])
+      data: Object.values(districtMap).map(item => item["Deceased"])
     }],
     chart: {
       type: 'bar',
@@ -161,7 +85,7 @@ function createCharts() {
       colors: ['transparent']
     },
     xaxis: {
-      categories: activeDistricts,
+      categories: Object.keys(districtMap),
     },
     yaxis: {
       title: {
@@ -239,7 +163,7 @@ function createCharts() {
   chartOptions[2] = {
     series: [{
       name: 'Cases',
-      data: Object.values(filteredData("status", "Total")).filter(count => (count > 0))
+      data: Object.values(districtMap).map(item=>item["Total"])
     }],
     chart: {
       height: 350,
@@ -280,7 +204,7 @@ function createCharts() {
       }
     },
     xaxis: {
-      categories: activeDistricts
+      categories: Object.keys(districtMap)
     },
     yaxis: {
       tickAmount: 7,
@@ -343,7 +267,7 @@ function createCharts() {
             show: true,
             label: 'Total',
             formatter: function (w) {
-              return patientData.length
+              return liveData["Total"]
             }
           }
         }
@@ -361,44 +285,44 @@ function createCharts() {
       }
     ]
   };
-  chartOptions[4] = {
-    series: [{
-        name: 'Active',
-        data: dailyData["Active"]
-      }, {
-        name: 'Recovered',
-        data: dailyData["Recovered"]
-      },
-      {
-        name: 'Deceased',
-        data: dailyData["Deceased"]
-      }
-    ],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    dataLabels: {
-      enabled: false
-    },
-    title: {
-      text: "Daily Plot of Cases"
-    },
-    subtitle: {
-      text: "Source: covidkashmir.org"
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: dailyData["Dates"]
-    },
-    tooltip: {
-      x: {
-        format: 'dd/MM/yy'
-      },
-    },
-  };
+  // chartOptions[4] = {
+  //   series: [{
+  //       name: 'Active',
+  //       data: dailyData["active"]
+  //     }, {
+  //       name: 'Recovered',
+  //       data: dailyData["recovered"]
+  //     },
+  //     {
+  //       name: 'Deceased',
+  //       data: dailyData["deceased"]
+  //     }
+  //   ],
+  //   chart: {
+  //     height: 350,
+  //     type: 'area'
+  //   },
+  //   dataLabels: {
+  //     enabled: false
+  //   },
+  //   title: {
+  //     text: "Daily Plot of Cases"
+  //   },
+  //   subtitle: {
+  //     text: "Source: covidkashmir.org"
+  //   },
+  //   stroke: {
+  //     curve: 'smooth'
+  //   },
+  //   xaxis: {
+  //     categories: dailyData["Dates"]
+  //   },
+  //   tooltip: {
+  //     x: {
+  //       format: 'dd/MM/yy'
+  //     },
+  //   },
+  // };
 
   let keys = Object.keys(CHARTS);
   for (let key of keys) {
