@@ -61,11 +61,26 @@ function loadData(first) {
         $("#cases_recovered").html("")
     }
     if (first) loadTable();
+    if (first) loadDistricts();
     if (first) loadFilters();
     if (first) loadMap();
     if (first) loadChart();
 }
-
+function loadDistricts(){
+    $("#district-table tbody").html("")
+    for(let dis of Object.entries(districtsMap)){
+        if(dis[0]==="Unknown") continue;
+        $("#district-table tbody").append(`
+            <tr>
+                <td>${dis[0]}</td>
+                <td>${dis[1]["Total"]}</td>
+                <td>${dis[1]["Active"]}</td>
+                <td>${dis[1]["Recovered"]}</td>
+                <td>${dis[1]["Deceased"]}</td>
+            </tr>
+        `)
+    }
+}
 function loadTable() {
     progressBarVisible(false);
     $("#data-table tbody").html("")
