@@ -4,6 +4,7 @@ const NEWS_API_URL = "https://covidkashmir.org/api/news/"
 const BULLETIN_API_URL = "https://covidkashmir.org/api/bulletin/"
 
 let patientData, districtsMap, activeDistrictsMap, districtInformation, snap, countback;
+let tableLimit =50, tablePage =1;
 const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad"]
 const COLORS = {
     "PRIMARY": {
@@ -93,7 +94,9 @@ function loadData(first) {
 function loadTable() {
     progressBarVisible(false);
     $("#data-table tbody").html("")
-    for (let patient of patientData) {
+    for (let i =(patientData.length - 1) - tableLimit*(tablePage-1); i > (patientData.length - 1) - (tableLimit*tablePage); i--) {
+        if(i<0) break;
+        patient = patientData[i]
         if (!matchesFilters(patient)) continue;
         $("#data-table tbody").append(`
         <tr ${(patient["Status"]=="Recovered") ? `style="background-color: #ebfffc"`:""} 
@@ -115,9 +118,25 @@ function loadTable() {
         </tr>
     `)
     }
-    $("#data-table th")[1].click()
+    // $("#data-table th")[1].click()
 }
 
+function changePage(c){
+    
+    $(".pagination-previous").removeClass("is-invisible")
+    $(".pagination-next").removeClass("is-invisible")
+
+    tablePage += c;
+    if(tablePage === 1){
+        $(".pagination-previous").addClass("is-invisible")
+    }
+    if(tablePage*tableLimit>patientData.length){
+        $(".pagination-next").addClass("is-invisible")
+
+    }
+    loadTable();
+    $("#data-table")[0].scrollIntoView()
+}
 function formatSources(patient) {
     let links = patient["Sources"].split(",")
     let sources = []
