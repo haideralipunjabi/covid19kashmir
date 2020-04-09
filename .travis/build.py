@@ -14,7 +14,6 @@ API_ENDPOINTS = {
     "API_BULLETIN": "/api/bulletin/",
     "API_PHONES": "/api/phones/",
     "API_NEWS":"/api/news/",
-    "API_LIVE": "/api/live",
     "API_ANALYTICS":"/api/analytics/",
     "API_STORES":"/api/stores/"
 }
@@ -85,6 +84,16 @@ def gen_redirects():
     for k,v in API_ENDPOINTS.items():
         redirects_file.write("\n%s %s 200"%(v, os.getenv(k)))
     redirects_file.close()
+    toml = open("netlify.toml","a")
+    toml.write('''
+[[redirects]]
+    from = "/api/live"
+    to = "%s"
+    status = 200
+    force = true
+    headers = {Access-Control-Allow-Origin = "*"}
+    '''%(os.getenv("API_LIVE")))
+    toml.close()
 
 gen_favicons()
 gen_static_pages()
