@@ -1,2 +1,3 @@
 [build] # Make sure you don't have a duplicate [build] context!
+  command = "cd functions && npm install"
   functions = "functions/"
