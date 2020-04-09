@@ -85,7 +85,8 @@ def gen_redirects():
         redirects_file.write("\n%s %s 200"%(v, os.getenv(k)))
     redirects_file.close()
     toml = open("netlify.toml","a")
-    toml.write('''[[redirects]]
+    toml.write('''
+[[redirects]]
     from = "/api/live"
     to = "%s"
     status = 200
