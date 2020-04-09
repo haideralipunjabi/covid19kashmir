@@ -1,10 +1,11 @@
 import fetch from "node-fetch";
-const url = "https://covidkashmir.org/api/patients"
-const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad", "Unknown"]
+
 
 
 exports.handler = async (event, context) => {
-  return fetch(API_ENDPOINT)
+  const url = "https://covidkashmir.org/api/patients";
+  const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad", "Unknown"]
+  return fetch(url)
     .then(response => response.json())
     .then(data => {
       districtMap = {}
