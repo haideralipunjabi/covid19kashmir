@@ -2,7 +2,8 @@ const fetch = require("node-fetch");
 
 const Utils = require("./utils")
 const Stats = require("./stats")
-const Urls = require("./urls")
+const { URL_BULLETIN, URL_PATIENTS } = process.env;
+
 exports.handler = async (event, context) => {
   let fields = event.queryStringParameters.fields;
   if(!fields){
@@ -14,10 +15,10 @@ exports.handler = async (event, context) => {
   fields = fields.split(",")
   console.log(fields)
   let promises = [
-    fetch(Urls.PATIENTS).then(response=>response.text())
+    fetch(URL_PATIENTS).then(response=>response.text())
   ]
   if(fields.includes("variance")){
-    promises.push(fetch(Urls.BULLETIN).then(response=>response.text()))
+    promises.push(fetch(URL_BULLETIN).then(response=>response.text()))
   }
   return Promise.all(promises).then(values=>{
     patientData = Utils.ArraysToDict(Utils.CSVToArray(values[0]))
