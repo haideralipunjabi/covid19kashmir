@@ -119,7 +119,7 @@
 
   .table td,
   .table th {
-    padding: .5em .3em;
+    padding: 5px 0px!important;
 
   }
 
