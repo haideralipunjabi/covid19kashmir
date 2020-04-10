@@ -106,6 +106,10 @@
   .level {
     margin: 0 20%;
   }
+  table[data-sortable] td, table[data-sortable] th {
+    text-align: left;
+    padding: 5px 0px!important;
+}
 }
 
 @media only screen and (max-width: 440px) {
@@ -115,7 +119,7 @@
 
   .table td,
   .table th {
-    padding: .5em .3em;
+    padding: 5px 0px!important;
 
   }
 
@@ -133,12 +137,6 @@
 
   .button {
     font-size: 12px;
-  }
-
-  table[data-sortable] td,
-  table[data-sortable] th {
-    text-align: left;
-    padding: 5px !important;
   }
    .message-body {
     padding: 25px 0px;
@@ -288,16 +286,18 @@
   color: #ff073a;
   margin: 2px;
   padding: 4px;
-    border-radius: 15px;
+  border-radius: 6px;
+  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
  
 }
 
 .map-death {
   background: rgba(108, 117, 125, .12549);
   color: rgba(108, 117, 125, 1);
-   margin: 2px;
+  margin: 2px;
   padding: 4px;
-    border-radius: 15px;
+  border-radius: 6px;
+  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
 }
 
 .map-recovered {
@@ -305,15 +305,17 @@
   color: #28a745;
   margin: 2px;
   padding: 4px;
-    border-radius: 15px;
+  border-radius: 6px;
+  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
 }
 
 .map-active {
   background: rgba(0, 123, 255, .12549);
   color: rgba(0, 123, 255, 1);
   margin: 2px;
-   padding: 4px;
-    border-radius: 15px;
+  padding: 4px;
+  border-radius: 6px;
+  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
   
 }
 
