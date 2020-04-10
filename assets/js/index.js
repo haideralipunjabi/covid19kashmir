@@ -1,9 +1,9 @@
-const API_URL = "https://covidkashmir.org/api/patients/"
+const API_URL = "/.netlify/functions/api"
 const LIVE_API_URL = "https://covidkashmir.org/api/live"
 const NEWS_API_URL = "https://covidkashmir.org/api/news/"
 const BULLETIN_API_URL = "https://covidkashmir.org/api/bulletin/"
 
-let patientData, districtsMap, activeDistrictsMap, districtInformation, snap, countback;
+let patientData, districtsMap, snap, countback;
 let tableLimit =50, tablePage =1;
 const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad"]
 const COLORS = {
@@ -20,8 +20,9 @@ const FILTERS = {
     "Status": ""
 }
 
-const API_PROMISE = fetch(API_URL).then((response) => {
-    return response.text()
+
+const API_PROMISE = fetch(API_URL+"?fields=patientData,variance,districtMap,dailyMap").then((response) => {
+    return response.json()
 })
 const STATS_PROMISE = fetch(LIVE_API_URL).then((response) => {
     return response.json()
@@ -29,11 +30,13 @@ const STATS_PROMISE = fetch(LIVE_API_URL).then((response) => {
 const NEWS_PROMISE = fetch(NEWS_API_URL).then((response) => {
     return response.json()
 })
-const BULLETIN_PROMISE = fetch(BULLETIN_API_URL).then(response=>response.text())
 
 $(document).ready(() => {
     API_PROMISE.then((data) => {
-        patientData = ArraysToDict(CSVToArray(data));
+        patientData = data["patientData"];
+        districtsMap = data["districtMap"];
+        dailyMap = data["dailyMap"]
+        loadSparklines(data["variance"]);
         loadData(true);
     })
     STATS_PROMISE.then((data) => {
@@ -41,34 +44,6 @@ $(document).ready(() => {
     })
     NEWS_PROMISE.then((data) => {
         loadNews(data);
-    })
-    BULLETIN_PROMISE.then(data=>{
-        let bulletinData = ArraysToDict(CSVToArray(data)).reverse();
-        spData = {
-            "total":[0],
-            "active":[0],
-            "recovered":[0],
-            "deceased":[0]
-        }
-        for(let day of bulletinData){
-            let tTotal = parseIntOpt(day["Samples Positive"])
-            let tRecovered = parseIntOpt(day["Cases Recovered"].split("(")[0])
-            let tDeceased = parseIntOpt(day["No. of Deaths"].split("(")[0]) 
-            let tActive = tTotal - (tRecovered + tDeceased)
-            let pTotal = spData["total"].reduce((x,y)=>{return(x+y)})
-            let pRecovered = spData["recovered"].reduce((x,y)=>{return(x+y)})
-            let pDeceased = spData["deceased"].reduce((x,y)=>{return(x+y)})
-            let pActive = spData["active"].reduce((x,y)=>{return(x+y)})
-            spData["total"].push(tTotal - pTotal)
-            spData["recovered"].push(tRecovered - pRecovered)
-            spData["deceased"].push(tDeceased - pDeceased)
-            spData["active"].push(tActive - pActive)        
-        }
-        spData["total"].splice(0,1)
-        spData["recovered"].splice(0,1)
-        spData["deceased"].splice(0,1)
-        spData["active"].splice(0,1) 
-        loadSparklines(spData)
     })
     $(".dropdown-trigger").click(function () {
         $(".dropdown").toggleClass("is-active");
@@ -86,11 +61,26 @@ function loadData(first) {
         $("#cases_recovered").html("")
     }
     if (first) loadTable();
+    if (first) loadDistricts();
     if (first) loadFilters();
     if (first) loadMap();
     if (first) loadChart();
 }
-
+function loadDistricts(){
+    $("#district-table tbody").html("")
+    for(let dis of Object.entries(districtsMap)){
+        if(dis[0]==="Unknown") continue;
+        $("#district-table tbody").append(`
+            <tr>
+                <td>${dis[0]}</td>
+                <td>${dis[1]["Total"]}</td>
+                <td>${dis[1]["Active"]}</td>
+                <td>${dis[1]["Recovered"]}</td>
+                <td>${dis[1]["Deceased"]}</td>
+            </tr>
+        `)
+    }
+}
 function loadTable() {
     progressBarVisible(false);
     $("#data-table tbody").html("")
@@ -176,33 +166,7 @@ function loadNews(data) {
 }
 
 function loadMap() {
-    let activeDistricts = patientData.map((item) => {
-        return (item["Status"] === "Hospitalized") ? item["District"] : ""
-    })
-    activeDistrictsMap = {}
-    districtsMap = {}
-    for (let district of activeDistricts) {
-        if (district === "") continue
-        activeDistrictsMap[district] = activeDistricts.filter((item) => {
-            return item === district
-        }).length
-    }
-    for (let district of DISTRICTS) {
-        let districtData = patientData.filter((item) => {
-            return item["District"] === district
-        });
-        districtsMap[district] = {}
-        districtsMap[district]["Total"] = districtData.length;
-        districtsMap[district]["Active"] = districtData.filter((item) => {
-            return item["Status"] === "Hospitalized"
-        }).length;
-        districtsMap[district]["Deceased"] = districtData.filter((item) => {
-            return item["Status"] === "Deceased"
-        }).length;
-        districtsMap[district]["Recovered"] = districtData.filter((item) => {
-            return item["Status"] === "Recovered"
-        }).length
-    }
+    
     snap = Snap("#map")
     Snap.load("assets/media/jk_districts_1.svg", (data) => {
         snap.append(data)
@@ -289,16 +253,11 @@ function loadSparklines(data) {
 }
 
 function loadChart() {
-    dateMap = {}
-    for (let date of getUniqueData("Date Announced")) {
-        dateMap[date] = patientData.filter(item => {
-            return item["Date Announced"] === date
-        }).length
-    }
+    
     chartOptions = {
         series: [{
             name: 'Case',
-            data: Object.values(dateMap)
+            data: Object.values(dailyMap)
         }],
         chart: {
             height: 350,
@@ -309,7 +268,7 @@ function loadChart() {
             curve: 'smooth'
         },
         xaxis: {
-            categories: Object.keys(dateMap)
+            categories: Object.keys(dailyMap)
         },
         title: {
             text: "Cases Announced Daily"
@@ -459,7 +418,10 @@ $(window).resize(function () {
 
 function makeLegend() {
     legend = Snap("#legend")
-
+    let activeDistrictsMap = {}
+    for(let k of Object.keys(districtsMap)){
+        activeDistrictsMap[k] = districtsMap[k]["Active"]
+    }
     let svgWidth = snap.node.offsetWidth;
     let min = Math.min(...Object.values(activeDistrictsMap))
     let max = Math.max(...Object.values(activeDistrictsMap))
@@ -479,7 +441,10 @@ function makeLegend() {
 }
 
 function getFillColor(district) {
-    if (!Object.keys(activeDistrictsMap).includes(district)) return "#ffffff"
+    let activeDistrictsMap = {}
+    for(let k of Object.keys(districtsMap)){
+        activeDistrictsMap[k] = districtsMap[k]["Active"]
+    }    if (!Object.keys(activeDistrictsMap).includes(district)) return "#ffffff"
     let min = Math.min(...Object.values(activeDistrictsMap))
     let max = Math.max(...Object.values(activeDistrictsMap))
     let range = (max - min) / 3
