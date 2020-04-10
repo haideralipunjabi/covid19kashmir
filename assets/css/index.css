@@ -106,6 +106,10 @@
   .level {
     margin: 0 20%;
   }
+  table[data-sortable] td, table[data-sortable] th {
+    text-align: left;
+    padding: 5px !important;
+}
 }
 
 @media only screen and (max-width: 440px) {
@@ -133,12 +137,6 @@
 
   .button {
     font-size: 12px;
-  }
-
-  table[data-sortable] td,
-  table[data-sortable] th {
-    text-align: left;
-    padding: 5px !important;
   }
    .message-body {
     padding: 25px 0px;
