@@ -151,17 +151,24 @@ function loadStats(data) {
 
 function loadNews(data) {
     let $container = $("#news-container")
-    let columns = data.map(item => $(`<div class="column">${$(item["html"]).attr("data-width","220")[0].outerHTML}</div>`))
-    for (let column of columns) {
-        for (let item of column) {
-            twttr.widgets.load(item)
-        }
-    }
-    for (let column of columns) {
-        for (let item of column) {
+    // let columns = data.map(item => $(`<div class="column">${$(item["html"]).attr("data-width","220")[0].outerHTML}</div>`))
+    // for (let column of columns) {
+    //     for (let item of column) {
+    //         twttr.widgets.load(item)
+    //     }
+    // }
+    // for (let column of columns) {
+    //     for (let item of column) {
 
-            $container.append(item)
-        }
+    //         $container.append(item)
+    //     }
+    // }
+    for(let item of data){
+        let div = $("<div class='column'></div>")[0]
+        twttr.widgets.createTweet(item["url"].split("/").slice(-1)[0], div, {
+            width: 220
+        })
+        $container.append(div)
     }
 }
 
