@@ -61,7 +61,7 @@ function loadData(first) {
         $("#cases_recovered").html("")
     }
     if (first) loadTable();
-    // if (first) loadDistricts();
+    if (first) loadDistricts();
     if (first) loadFilters();
     if (first) loadMap();
     if (first) loadChart();

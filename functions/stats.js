@@ -1,19 +1,14 @@
 const Utils = require("./utils")
 
-const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad", "Unknown"]
 
 exports.DistrictMap = function (data) {
-  data = Utils.createUnknownDistrict(data);
+  console.log(data)
   let districtMap = {}
-  for (let district of DISTRICTS) {
-    let districtData = Utils.filterDataByDistrict(data, district)
-    if (districtData.length === 0) continue;
-    districtMap[district] = {
-      "Total": districtData.length,
-      "Active": Utils.filterDataByStatus(districtData, "Hospitalized").length,
-      "Recovered": Utils.filterDataByStatus(districtData, "Recovered").length,
-      "Deceased": Utils.filterDataByStatus(districtData, "Deceased").length
-    }
+  for(let entry of data){
+    let district = entry["District"];
+    delete entry["District"]
+    districtMap[district] = entry;
+    console.log(districtMap[district])
   }
   return districtMap
 }
