@@ -72,11 +72,11 @@ function loadDistricts(){
         if(dis[0]==="Unknown") continue;
         $("#district-table tbody").append(`
             <tr>
-                <td>${dis[0]}</td>
-                <td>${dis[1]["Total"]}</td>
-                <td>${dis[1]["Active"]}</td>
-                <td>${dis[1]["Recovered"]}</td>
-                <td>${dis[1]["Deceased"]}</td>
+                <td class="has-text-centered">${dis[0]}</td>
+                <td class="has-text-centered">${dis[1]["Total"]}</td>
+                <td class="has-text-centered">${dis[1]["Active"]}</td>
+                <td class="has-text-centered">${dis[1]["Recovered"]}</td>
+                <td class="has-text-centered">${dis[1]["Deceased"]}</td>
             </tr>
         `)
     }
@@ -151,18 +151,6 @@ function loadStats(data) {
 
 function loadNews(data) {
     let $container = $("#news-container")
-    // let columns = data.map(item => $(`<div class="column">${$(item["html"]).attr("data-width","220")[0].outerHTML}</div>`))
-    // for (let column of columns) {
-    //     for (let item of column) {
-    //         twttr.widgets.load(item)
-    //     }
-    // }
-    // for (let column of columns) {
-    //     for (let item of column) {
-
-    //         $container.append(item)
-    //     }
-    // }
     for(let item of data){
         let div = $("<div class='column'></div>")[0]
         twttr.widgets.createTweet(item["url"].split("/").slice(-1)[0], div, {
@@ -412,8 +400,14 @@ function copyStatsText() {
 
 function activateDistrict(district) {
     $("#map-district_name").html(district);
-    for (let c of Object.keys(districtsMap[district])) {
-        $("#map-cases_" + c.toLowerCase()).html(districtsMap[district][c])
+    $("#map-cases_total").html("0")
+    $("#map-cases_active").html("0")
+    $("#map-cases_recovered").html("0")
+    $("#map-cases_deceased").html("0")
+    if(Object.keys(districtsMap).includes(district)){
+        for (let c of Object.keys(districtsMap[district])) {
+            $("#map-cases_" + c.toLowerCase()).html(districtsMap[district][c])
+        }
     }
 }
 $(window).resize(function () {
