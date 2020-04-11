@@ -412,6 +412,10 @@ function copyStatsText() {
 
 function activateDistrict(district) {
     $("#map-district_name").html(district);
+$("#map-district_total").html("0")
+$("#map-district_active").html("0")
+$("#map-district_recovered").html("0")
+$("#map-district_deceased").html("0")
     for (let c of Object.keys(districtsMap[district])) {
         $("#map-cases_" + c.toLowerCase()).html(districtsMap[district][c])
     }
