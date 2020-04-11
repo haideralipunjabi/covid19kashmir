@@ -39,9 +39,9 @@
 .ease-up {
     position: relative;
     -webkit-animation-name: animatebottom;
-    -webkit-animation-duration: 1s;
+    -webkit-animation-duration: 0.8s;
     animation-name: animatebottom;
-    animation-duration: 1s
+    animation-duration: 0.8s
 }
 
 @-webkit-keyframes animatebottom {
