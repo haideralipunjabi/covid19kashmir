@@ -12,13 +12,13 @@ function loadAnalyticsData() {
 
 function loadCounter(){
     
-    let thisPageViews = data["pageMap"][window.location.pathname.replace(".html","").replace("index","")].toString()
+    let thisPageViews = rawAnalyticsData["pageMap"][window.location.pathname.replace(".html","").replace("index","")].toString()
     $("#hitcounter-1").html("")
     for(let c of thisPageViews){
         $("#hitcounter-1").append(`<span>${c}</span> `)
     }
     $("#hitcounter-2").html("")
-    for(let c of data["total"]){
+    for(let c of rawAnalyticsData["total"]){
         $("#hitcounter-2").append(`<span>${c}</span> `)
     }
 }
