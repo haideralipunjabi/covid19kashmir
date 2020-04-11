@@ -11,18 +11,7 @@
     border-top: 16px solid #00d1b2;
     width: 120px;
     height: 120px;
-    -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
-}
-
-@-webkit-keyframes spin {
-    0% {
-        -webkit-transform: rotate(0deg);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-    }
 }
 
 @keyframes spin {
@@ -42,18 +31,6 @@
     -webkit-animation-duration: 0.8s;
     animation-name: animatebottom;
     animation-duration: 0.8s
-}
-
-@-webkit-keyframes animatebottom {
-    from {
-        bottom: -100px;
-        opacity: 0
-    }
-
-    to {
-        bottom: 0px;
-        opacity: 1
-    }
 }
 
 @keyframes animatebottom {
