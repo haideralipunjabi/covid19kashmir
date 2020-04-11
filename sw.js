@@ -1,20 +1,35 @@
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
 
+workbox.google-analytics.initialize()
 workbox.routing.registerRoute(
   /assets/,
   new workbox.strategies.StaleWhileRevalidate({
-    cacheName: 'static-files'
+    cacheName: 'static-files',
+    plugins: [
+      new workbox.expiration.ExpirationPlugin({
+        purgeOnQuotaError: true,
+      })
+    ]
   })
 )
 workbox.routing.registerRoute(
   /\.html$/,
   new workbox.strategies.StaleWhileRevalidate({
-    cacheName: 'webpages'
+    cacheName: 'webpages',
+    plugins: [
+      new workbox.expiration.ExpirationPlugin({
+        purgeOnQuotaError: true,
+      })
+    ]
   })
 )
 workbox.routing.registerRoute(
-  /api/,
+  /api\/live/,
   new workbox.strategies.NetworkOnly()
+)
+workbox.routing.registerRoute(
+  /api/,
+  new workbox.strategies.NetworkFirst()
 )
 
 var version = "v2.0.2";
