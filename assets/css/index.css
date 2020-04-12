@@ -265,6 +265,24 @@
   padding: 16px;
 }
 
+.tile-samples {
+  background: rgba(37,3,57, .12549);
+  color: rgba(37,3,57, 1);
+  padding: 16px;
+}
+
+.tile-negper {
+  background: rgba(72, 199, 116, .12849);
+  color: #28a745;
+  padding: 16px;
+}
+.tile-posper {
+  background: rgba(255, 7, 58, .12549);
+  color: #ff073a;
+  padding: 16px;
+}
+
+
 .count-num {
   font-size: 30px;
   font-family: 'Montserrat', sans-serif;

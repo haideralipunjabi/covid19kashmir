@@ -21,7 +21,7 @@ const FILTERS = {
 }
 
 
-const API_PROMISE = fetch(API_URL+"?fields=patientData,variance,districtMap,dailyMap").then((response) => {
+const API_PROMISE = fetch(API_URL+"?fields=patientData,variance,districtMap,dailyMap,samples").then((response) => {
     return response.json()
 })
 const STATS_PROMISE = fetch(LIVE_API_URL).then((response) => {
@@ -31,12 +31,46 @@ const NEWS_PROMISE = fetch(NEWS_API_URL).then((response) => {
     return response.json()
 })
 
+const slBaseOptions = {
+    chart: {
+        type: 'line',
+        // width: 100,
+        height: 35,
+        sparkline: {
+            enabled: true
+        }
+    },
+    stroke:{
+        curve:"stepline",
+        lineCap: "round",
+        width: 3
+    },
+    tooltip: {
+        fixed: {
+            enabled: false
+        },
+        x: {
+            show: false
+        },
+        y: {
+            title: {
+                formatter: function (seriesName) {
+                    return ''
+                }
+            }
+        },
+        marker: {
+            show: false
+        }
+    }
+};
 $(document).ready(() => {
     API_PROMISE.then((data) => {
         patientData = data["patientData"];
         districtsMap = data["districtMap"];
         dailyMap = data["dailyMap"]
         loadSparklines(data["variance"]);
+        loadSamplesData(data["samples"])
         loadData(true);
     })
     STATS_PROMISE.then((data) => {
@@ -213,41 +247,9 @@ function loadSparklines(data) {
             "element":"#slDeceased"
         },
     }
-    const baseOptions = {
-        chart: {
-            type: 'line',
-            // width: 100,
-            height: 35,
-            sparkline: {
-                enabled: true
-            }
-        },
-        stroke:{
-            curve:"stepline",
-            lineCap: "round",
-            width: 3
-        },
-        tooltip: {
-            fixed: {
-                enabled: false
-            },
-            x: {
-                show: false
-            },
-            y: {
-                title: {
-                    formatter: function (seriesName) {
-                        return ''
-                    }
-                }
-            },
-            marker: {
-                show: false
-            }
-        }
-    };
+    
     for(let value of Object.values(config)){
-        let options = baseOptions;
+        let options = slBaseOptions;
         options["series"] = [
             {
                 data: value["data"]
@@ -259,6 +261,40 @@ function loadSparklines(data) {
 
 }
 
+function loadSamplesData(data){
+    $("#stats_date").html(data["date"])
+    $("#stats_samples").html(data["stats"]["total"])
+    $("#stats_posper").html(data["stats"]["posper"].toFixed(2))
+    $("#stats_negper").html(data["stats"]["negper"].toFixed(2))
+    const config = {
+        "total" : {
+            "color":"#250339",
+            "data":data["variance"]["total"],
+            "element":"#slSamples"
+        },
+        "posper":{
+            "color":"#FF073A",
+            "data":data["variance"]["posper"],
+            "element":"#slPositivePercentage"
+        },
+        "negper":{
+            "color":"#28a745",
+            "data":data["variance"]["negper"],
+            "element":"#slNegativePercentage"
+        },
+    }
+    for(let value of Object.values(config)){
+        let options = slBaseOptions;
+        options["series"] = [
+            {
+                data: value["data"]
+            }
+        ]
+        options["colors"]=[value["color"]]
+        new ApexCharts($(value["element"])[0],options).render();
+    }
+
+}
 function loadChart() {
     
     chartOptions = {

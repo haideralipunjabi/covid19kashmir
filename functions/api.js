@@ -3,6 +3,7 @@ const fetch = require("node-fetch");
 const Utils = require("./utils")
 const Stats = require("./stats")
 const { URL_BULLETIN, URL_PATIENTS, URL_DISTRICTS } = process.env;
+
 exports.handler = async (event, context) => {
   let fields = event.queryStringParameters.fields;
   if(!fields){
@@ -16,7 +17,7 @@ exports.handler = async (event, context) => {
   let promises = [
     fetch(URL_PATIENTS).then(response=>response.text())
   ]
-  if(fields.includes("variance")){
+  if(fields.includes("variance") || fields.includes("samples")){
     promises.push(fetch(URL_BULLETIN).then(response=>response.text()))
   }
   if(fields.includes("districtMap")){
@@ -43,6 +44,10 @@ exports.handler = async (event, context) => {
     if(fields.includes("variance")){
       bulletinData = Utils.ArraysToDict(Utils.CSVToArray(values[1]))
       data["variance"] = Stats.VarianceMap(bulletinData)
+    }
+    if(fields.includes("samples")){
+      bulletinData = Utils.ArraysToDict(Utils.CSVToArray(values[1]))
+      data["samples"] = Stats.Samples(bulletinData)
     }
     
     return {

@@ -58,6 +58,39 @@ exports.VarianceMap = function (data) {
   return spData
 }
 
+exports.Samples = function(data){
+  let samData = {}
+  samData["date"] = data[0]["Date"]
+  samData["stats"] ={
+    "total": data[0]["Samples Collected"],
+    "posper": data[0]["Samples Positive"] *100 / data[0]["Samples Collected"],
+    "negper": data[0]["Samples Negative"] *100 / data[0]["Samples Collected"]
+  }
+
+  samData["variance"] = {
+    "total": [0],
+    "posper": [0],
+    "negper": [0]
+  }
+  data.reverse()
+  for(let day of data){
+    let tTotal = Utils.parseIntOpt(day["Samples Collected"])
+    let tPosper = Utils.parseIntOpt(day["Samples Positive"])*100 / Utils.parseIntOpt(day["Samples Collected"])
+    let tNegper = Utils.parseIntOpt(day["Samples Negative"])*100 / Utils.parseIntOpt(day["Samples Collected"])
+    let pTotal = samData["variance"]["total"].reduce((x,y)=>(x+y))
+    let pPosper = samData["variance"]["posper"].reduce((x,y)=>(x+y))
+    let pNegper = samData["variance"]["negper"].reduce((x,y)=>(x+y))
+    samData["variance"]["total"].push(tTotal - pTotal)
+    samData["variance"]["posper"].push(tPosper - pPosper)
+    samData["variance"]["negper"].push(tNegper - pNegper)
+  }
+  samData["variance"]["total"].splice(0,1)
+  samData["variance"]["posper"].splice(0,1)
+  samData["variance"]["negper"].splice(0,1)
+  return samData;
+
+}
+
 exports.totalMap = function(data){
   return {
     "Total": data.length,
