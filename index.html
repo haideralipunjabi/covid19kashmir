@@ -2,567 +2,574 @@
 <html lang="en">
 
 <head>
+
+  <!-- Meta Tags -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>CovidKashmir</title>
+  <meta name="title" content="Covid Kashmir Tracker">
+  <meta name="description"
+    content="Cornona virus tracker for Jammu & Kashmir. Our website is completely non-profit and free for everyone">
+  <meta name="keywords"
+    content="covid kashmir, corona kasmir, corona tracker, corona cases in kashmir, covid jammu, corona jammu, corona cases in jammu, corona updates, covid updates">
+  <meta name="robots" content="index, follow">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="English">
+  <meta name="revisit-after" content="1 days">
+  <title>🦠 Covid Kashmir Tracker</title>
+  <link rel="manifest" href="manifest.json" />
   {% include 'favicons.html' %}
 
-  <link rel="manifest" href="manifest.json" />
-
+  <!-- CSS files -->
+  <link rel="stylesheet" href="assets/css/loader.css">
   <link rel="stylesheet" href="assets/css/bulma.min.css">
   <link rel="stylesheet" href="assets/css/index.css">
   <link rel="stylesheet" href="assets/css/sortable-theme-minimal.css">
-  <link rel="stylesheet" href="/assets/css/brands.min.css">
+  <link rel="stylesheet" href="/assets/css/datalab.css">
+
+  <!-- Script files -->
+  <script>
+    // loader
+    let timer;
+    loader = () => timer = setTimeout(showPage, 3000);
+
+    function showPage() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("main").style.display = "block";
+    }
+  </script>
+  <script async defer src="assets/js/jquery.csv.min.js"></script>
+  <script async defer src="assets/js/jquery-3.4.1.min.js"></script>
+  <script async defer src="assets/js/html2canvas.min.js"></script>
+  <script async defer src="assets/js/canvas2image.js"></script>
+  <script async defer src="assets/js/sortable.min.js"></script>
+  <script async defer src="assets/js/snap.svg-min.js"></script>
+  <script async defer src="assets/js/utils.js"></script>
+  <script async defer src="assets/js/apexcharts.min.js"></script>
+  <script async defer src="/assets/js/twitter.js" charset="utf-8"></script>
+
+  <!-- Font css -->
+  <link href="/assets/css/montserrat.css" rel="stylesheet">
+
   <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
   <link rel="stylesheet" href="/assets/css/solid.min.css">
-  <link rel="stylesheet" href="/assets/css/datalab.css">
-  <script src="assets/js/jquery-3.4.1.min.js"></script>
-  <script src="assets/js/jquery.csv.min.js"></script>
-  <script src="assets/js/html2canvas.min.js"></script>
-  <script src="assets/js/canvas2image.js"></script>
-  <script src="assets/js/sortable.min.js"></script>
-  <script src="assets/js/snap.svg-min.js"></script>
-  <script src="assets/js/utils.js"></script>
-  <script src="assets/js/apexcharts.min.js"></script>
-  <script src="/assets/js/twitter.js" charset="utf-8"></script>
-  <link href="/assets/css/montserrat.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/brands.min.css">
 
 </head>
 
-<body>
-  <div id="include-header">
-    {% include 'header.html' %}
-  </div>
-  <div id="include-navbar">
-    {% include 'navbar.html' %}
-  </div>
-  <br />
-  <div class="container">
+<body onload="loader()">
+  <!-- Loader -->
+  <div id="loader"></div>
 
-    <article class="message">
-      <div class="message-body">
-        <p style="font-family: 'Montserrat', sans-serif; font-size: 14px; padding:10px; text-align: justify;"><span
-            class="has-text-danger"><i class="fa fa-exclamation-circle"></i></span> Dear users, our website is <span
-            class="has-text-info">completely non-profit & independent. We do not collect any donations. </span> All
-          technological costs are covered by the
-          contributing developers. Please do not fall for any scam and let us know if anyone approaches you and asks you
-          to donate to this website. <a href="about.html">Contact Us</a>
+  <!-- body -->
+  <main id="main" class="ease-up">
 
-        </p>
+    <!-- Includes -->
+    <header id="include-header">
+      {% include 'header.html' %}
+    </header>
+    <nav id="include-navbar">
+      {% include 'navbar.html' %}
+    </nav>
+    <br />
 
-      </div>
-    </article>
-
-  </div>
-
-  <section class="section">
+    <!-- Body container -->
     <div class="container">
-      <article id="stats" class="message is-primary">
-        <div class="message-header">
-          <p class="has-text-centered"><span class="icon"><i class="fas fa-table"></i></span><span>Statistics</span></p>
-          <p>
-            <button onclick="javascript:loadData(false)" class="button">
-              <span class="icon is-small">
-                <i class="fas fa-sync"></i>
-              </span>
-              <span>Refresh</span>
-            </button>
-
-            <button onclick="javascript:shareStatsText()" class="button">
-              <span class="icon is-small">
-                <i class="fas fa-share-alt"></i>
-              </span>
-              <span>Share</span>
-            </button>
-
-
-        </div>
-
-
+      <article class="message">
         <div class="message-body">
+          <p style="font-family: 'Montserrat', sans-serif; font-size: 14px; padding:10px; text-align: justify;"><span
+              class="has-text-danger"><i class="fa fa-exclamation-circle"></i></span> Dear users, our website is <span
+              class="has-text-info">completely non-profit & independent. We do not collect any donations. </span> All
+            technological costs are covered by the
+            contributing developers. Please do not fall for any scam and let us know if anyone approaches you and asks
+            you to donate to this website. <a href="about.html">Contact Us</a>
+          </p>
+        </div>
+      </article>
+    </div>
 
-          <div class="columns is-multiline">
-            <div class="column is-half-tablet is-one-quarter-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-total is-child box">
+    <!-- Counter -->
+    <section class="section">
+      <div class="container">
+        <article id="stats" class="message is-primary">
+          <div class="message-header">
+            <p class="has-text-centered"><span class="icon"><i class="fas fa-table"></i></span><span>Statistics</span>
+            </p>
+            <p>
+              <button onclick="javascript:loadData(false)" class="button">
+                <span class="icon is-small">
+                  <i class="fas fa-sync"></i>
+                </span>
+                <span>Refresh</span>
+              </button>
+              <button onclick="javascript:shareStatsText()" class="button">
+                <span class="icon is-small">
+                  <i class="fas fa-share-alt"></i>
+                </span>
+                <span>Share</span>
+              </button>
+          </div>
+          <div class="message-body">
+            <div class="columns is-multiline">
+              <div class="column is-half-tablet is-one-quarter-desktop">
+                <div class="tile is-parent">
+                  <article class="tile tile-total is-child box">
 
-                  <div class="container-stat">
+                    <!-- Num Counter -->
+                    <div class="container-stat">
+                      <p><i class="fas fa-users"></i>
+                        <span class="count-head">TOTAL</span>
+                        <span id="cases_total" class="count-num">xxx</span>
+                      </p>
+                      <p>
+                        <span class="count-head-daily">New: </span>
+                        <span id="cases_total_today" class="count-num-daily"></span>
+                      </p>
+                      <div id="slTotal" class="sparkline"></div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="column is-half-tablet is-one-quarter-desktop">
+                <div class="tile is-parent">
+                  <article class="tile tile-recovered is-child box">
+                    <div class="container-stat">
+                      <p>
+                        <i class="fas fa-heart"></i>
+                        <span class="count-head">Recovered</span>
+                        <span id="cases_recovered" class="count-num">xxx</span>
+                      </p>
+                      <p>
+                        <span class="count-head-daily">New: </span>
+                        <span id="cases_recovered_today" class="count-num-daily"></span>
+                      </p>
+                      <div id="slRecovered" class="sparkline"></div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="column is-half-tablet is-one-quarter-desktop">
+                <div class="tile is-parent">
+                  <article class="tile tile-active is-child box">
+                    <div class="container-stat">
+                      <p>
+                        <i class="fas fa-bed"></i>
+                        <span class="count-head">Active</span>
+                        <span id="cases_active" class="count-num">xxx</span>
+                      </p>
+                      <p>
+                        <span class="count-head-daily">New: </span>
+                        <span id="cases_active_today" class="count-num-daily"></span>
+                      </p>
+                      <div id="slActive" class="sparkline"></div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="column is-half-tablet is-one-quarter-desktop">
+                <div class="tile is-parent">
+                  <article class="tile tile-death is-child box">
 
-                    <p><i class="fas fa-users"></i>
-                      <span class="count-head">TOTAL</span>
-                      <span id="cases_total" class="count-num">xxx</span>
-                    </p>
-                    <p>
-                      <span class="count-head-daily">New: </span>
-                      <span id="cases_total_today" class="count-num-daily"></span>
-                    </p>
-                    <div id="slTotal" class="sparkline"></div>
-                  </div>
-
-                </article>
+                    <div class="container-stat">
+                      <p>
+                        <i class="fas fa-ambulance"></i>
+                        <span class="count-head">Death</span>
+                        <span id="cases_deaths" class="count-num">xxx</span>
+                      </p>
+                      <p>
+                        <span class="count-head-daily">New: </span>
+                        <span id="cases_deaths_today" class="count-num-daily"></span>
+                      </p>
+                      <div id="slDeceased" class="sparkline"></div>
+                    </div>
+                  </article>
+                </div>
               </div>
             </div>
-
-            <div class="column is-half-tablet is-one-quarter-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-recovered is-child box">
-
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-heart"></i>
-                      <span class="count-head">Recovered</span>
-
-                      <span id="cases_recovered" class="count-num">xxx</span>
-
-
-                    </p>
-                    <p>
-                      <span class="count-head-daily">New: </span>
-                      <span id="cases_recovered_today" class="count-num-daily"></span>
-                    </p>
-                    <div id="slRecovered" class="sparkline"></div>
-                  </div>
-
-                </article>
-              </div>
-            </div>
-
-            <div class="column is-half-tablet is-one-quarter-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-active is-child box">
-
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-bed"></i>
-                      <span class="count-head">Active</span>
-
-                      <span id="cases_active" class="count-num">xxx</span>
-
-
-                    </p>
-                    <p>
-                      <span class="count-head-daily">New: </span>
-                      <span id="cases_active_today" class="count-num-daily"></span>
-                    </p>
-                    <div id="slActive" class="sparkline"></div>
-                  </div>
-
-                </article>
-              </div>
-            </div>
-
-            <div class="column is-half-tablet is-one-quarter-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-death is-child box">
-
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-ambulance"></i>
-                      <span class="count-head">Death</span>
-
-                      <span id="cases_deaths" class="count-num">xxx</span>
-
-
-                    </p>
-                    <p>
-                      <span class="count-head-daily">New: </span>
-                      <span id="cases_deaths_today" class="count-num-daily"></span>
-                    </p>
-                    <div id="slDeceased" class="sparkline"></div>
-                  </div>
-                </article>
-              </div>
-            </div>
+            <br />
+            <p class="source-message">www.covidkashmir.org
+              <br />#StayHomeStaySafe
+            </p>
+          </div>
+      </div>
+      </article>
+      <br>
+      <article>
+        <div class="container" id="mapContainer">
+          <div class="message-header">
+            <p><span class="icon"><i class="fas fa-virus"></i></span><span>Active Cases Heat Map</span></p>
+          </div>
+          <div class="legend is-mobile">
+            <svg width="100%" height="50px" id="legend">
+            </svg>
+          </div>
+          <br>
+          <div style="display: block;margin: auto;" id="map">
           </div>
           <br />
-          <p class="source-message">www.covidkashmir.org
-            <br />#StayHomeStaySafe
-          </p>
-        </div>
-    </div>
-    </article>
-    <br>
-
-    <article>
-        <div class="container">
-            <div class="message-header">
-                <p><span class="icon"><i class="fas fa-virus"></i></span><span>Active Cases Heat Map</span></p>
-              </div>
-              <div class="message-body">
-                  <div class="columns">
-                      <div class=" column is-half">
-                        <div id="map-container">
-    
-                        </div>
-                        <div class="legend is-mobile">
-                          <svg width="100%" height="50px" id="legend">
-                          </svg>
-                        </div>
-                        <br>
-                        <div style="display: block;margin: auto;" id="map">
-                        </div>
-                        <br />
-                        <div class="columns is-mobile is-multiline">
-                          <div class="column is-full">
-                            <h1 id="map-district_name" class="has-text-centered title is-size-3 is-size-4-mobile has-text-black">
-                              Total</h1>
-                          </div><br /><br /><br />
-                          <div class="column map-total">
-                            <h1 id="map-cases_total" class="has-text-centered has-text-danger">
-                              XXX</h1>
-                            <h1 class="has-text-centered title has-text-danger map-count-text">Total</h1>
-                          </div>
-                          <div class="column map-active">
-                            <h1 id="map-cases_active" class="has-text-centered has-text-info">
-                              XXX</h1>
-                            <h1 class="has-text-centered title map-count-text has-text-info">Active</h1>
-                          </div>
-                          <div class="column map-recovered">
-                            <h1 id="map-cases_recovered" class="has-text-centered has-text-success">XXX</h1>
-                            <h1 class="has-text-centered title map-count-text has-text-success">Recovered</h1>
-                          </div>
-                          <div class="column map-death">
-                            <h1 id="map-cases_deceased" class="has-text-centered has-text-grey-dark">XXX</h1>
-                            <h1 class="has-text-centered title map-count-text has-text-grey-dark">Deceased</h1>
-                          </div>
-              
-                        </div>
-                        <div>
-                          <h3 class="has-text-centered">Map Source: <a href="https://pib.gov.in/PressReleasePage.aspx?PRID=1590112"
-                              target="_blank">Map of UTs - pib.gov.in</a> (Click on the district to view stats).</h3>
-                          <h3 class="has-text-centered"><i><b>Note: </b></i>This includes information of only those patients whose
-                            district was confirmed</h3>
-                        </div>
-                      </div>
-                      <br>
-                        <div class="column is-half">
-                        <article>
-                          <div class="message-header">
-                            <p>District Data</p>
-                          </div>
-                          <div class="messasge-body">
-                              <div id="district-table">
-                                  <table class="table is-fullwidth is-bordered is-striped" data-sortable style="overflow-x:auto;">
-                                    <thead>
-                                      <tr>
-                                        <th>District</th>
-                                        <th>Total</th>
-                                        <th>Active</th>
-                                        <th>Recovered</th>
-                                        <th>Deceased</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                  </table>
-                                </div>
-                          </div>
-                        </article>
-                        </div>
-                  </div>
-        </div>
-    </article>
-    <br>
-    <article>
-      <div class="container">
-        <div class="message-header">
-          <p><span>Visualisations</span></p>
-
-        </div>
-        <div class="message-body">
-          <div class="card">
-            <div class="card-content">
-              <div id="chart1">
-              </div>
+          <div class="columns is-mobile is-multiline">
+            <div class="column is-full">
+              <h1 id="map-district_name" class="has-text-centered title is-size-3 is-size-4-mobile has-text-black">
+                Total</h1>
+            </div><br /><br /><br />
+            <div class="column map-total">
+              <h1 id="map-cases_total" class="has-text-centered has-text-danger">
+                XXX</h1>
+              <h1 class="has-text-centered title has-text-danger map-count-text">Total</h1>
+            </div>
+            <div class="column map-active">
+              <h1 id="map-cases_active" class="has-text-centered has-text-info">
+                XXX</h1>
+              <h1 class="has-text-centered title map-count-text has-text-info">Active</h1>
+            </div>
+            <div class="column map-recovered">
+              <h1 id="map-cases_recovered" class="has-text-centered has-text-success">XXX</h1>
+              <h1 class="has-text-centered title map-count-text has-text-success">Recovered</h1>
+            </div>
+            <div class="column map-death">
+              <h1 id="map-cases_deceased" class="has-text-centered has-text-grey-dark">XXX</h1>
+              <h1 class="has-text-centered title map-count-text has-text-grey-dark">Deceased</h1>
             </div>
           </div>
-        </div>
-        <div class="container has-text-centered ">
-          <a href="datalab.html" class="button is-primary is-rounded"><span class="icon"><i
-                class="fas fa-chart-bar"></i></span><span>See more Visualisations</span></a>
-        </div>
-      </div>
-    </article>
-    <br>
-
-
-
-
-    <article>
-      <div class="container">
-        <div class="message-header">
-          <p>
-            NEWSFEED <span class="blink live-back">LIVE</span>
-          </p>
-        </div>
-        <div class="message-body">
-          <div id="news-parent">
-
-            <div id="news-container" class="marquee columns is-mobile">
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </article>
-    <br />
-    <article>
-
-    </article>
-
-    <br />
-    <article>
-      <div class="container">
-        <div class="message-header">
-          <p><span class="icon"><i class="fas fa-virus"></i></span><span>Detailed Data</span></p>
-          <p><a class="button" href="https://forms.gle/DNF58AXM25QKup3k8"><span class="icon"><i
-                  class="fas fa-hospital-user"></i></span><span>Add/Update Information</span></a></p>
-        </div>
-        <div class="message-body">
-          <div id="data-table">
-            <progress class="progress is-hidden is-small is-primary" max="100">75%</progress>
-            <h1 id="nodata-error" class="subtitle is-1 has-text-centered is-hidden">NO DATA FOUND</h1>
-            <div class="columns is-mobile is-multiline" id="data-filters">
-              <div class="column is-full-mobile">
-                <h1 class="subtitle">Filters:</h1>
-              </div>
-              <div class="control column is-one-third-mobile">
-                <div class="select is-loading">
-                  <select id="filter-date-announced">
-                    <option>Date: All</option>
-                  </select>
-                </div>
-              </div>
-              <div class="control column is-one-third-mobile">
-                <div class="select is-loading">
-                  <select id="filter-district">
-                    <option>District: All</option>
-                  </select>
-                </div>
-              </div>
-              <div class="control column is-one-third-mobile">
-                <div class="select is-loading">
-                  <select id="filter-status">
-                    <option>Status: All</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <nav class="pagination" role="navigation" aria-label="pagination">
-              <a onclick="javascript:changePage(-1);" class="pagination-previous is-invisible">Previous</a>
-              <a onclick="javascript:changePage(1);" class="pagination-next">Next</a>
-            </nav>
-            <table class="table sortable sortable-theme-minimal is-fullwidth is-bordered is-striped" data-sortable
-              style="overflow-x:auto;">
-              <thead>
-                <tr>
-                  <th data-sortable="false">Id</th>
-                  <th data-sortable-type="numeric">Date Announced</th>
-                  <th>Reported District</th>
-                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Reported Locality</th>
-                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Age</th>
-                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Gender</th>
-                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">History</th>
-                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Notes</th>
-                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Sources</th>
-                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Status</th>
-                  <th data-sortable="false">Details</th>
-                </tr>
-              </thead>
-              <tbody>
-
-              </tbody>
-            </table>
-            <nav class="pagination" role="navigation" aria-label="pagination">
-              <a onclick="javascript:changePage(-1);" class="pagination-previous is-invisible">Previous</a>
-              <a onclick="javascript:changePage(1);" class="pagination-next">Next</a>
-            </nav>
+          <div>
+            <h3 class="has-text-centered">Map Source: <a href="https://pib.gov.in/PressReleasePage.aspx?PRID=1590112"
+                target="_blank">Map of UTs - pib.gov.in</a> (Click on the district to view stats).</h3>
             <h3 class="has-text-centered"><i><b>Note: </b></i>This includes information of only those patients whose
               district was confirmed</h3>
-            <h3 class="has-text-centered"><i><b>Note: </b></i>Reported District/Locality doesn't indicate the patient's
-              resident district/locality</h3>
+          </div>
+        </div>
+      </article>
+      <br>
+      <article>
+        <div class="container">
+          <div class="message-header">
+            <p><span>Visualisations</span></p>
+          </div>
+          <div class="message-body">
+            <div class="card">
+              <div class="card-content">
+                <div id="chart1">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container has-text-centered ">
+            <a href="datalab.html" class="button is-primary is-rounded"><span class="icon"><i
+                  class="fas fa-chart-bar"></i></span><span>See more Visualisations</span></a>
+          </div>
+        </div>
+      </article>
+      <br>
+      <article>
+        <div class="container">
+          <div class="message-header">
+            <p>
+              NEWSFEED <span class="blink live-back">LIVE</span>
+            </p>
+          </div>
+          <div class="message-body">
+            <div id="news-parent">
+              <div id="news-container" class="marquee columns is-mobile">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </article>
+      <br />
+      <article>
+        <div class="container">
+          <div class="message-header">
+            <p><span class="icon"><i class="fas fa-virus"></i></span><span>District Data</span></p>
+          </div>
+          <div class="message-body">
+            <div id="district-table">
+              <table class="table  is-fullwidth is-bordered is-striped" data-sortable style="overflow-x:auto;">
+                <thead>
+                  <tr>
+                    <th>District</th>
+                    <th>Total</th>
+                    <th>Active</th>
+                    <th>Recovered</th>
+                    <th>Deceased</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <br />
+      <article>
+        <div class="container">
+          <div class="message-header">
+            <p><span class="icon"><i class="fas fa-virus"></i></span><span>Detailed Data</span></p>
+            <p><a class="button" href="https://forms.gle/DNF58AXM25QKup3k8"><span class="icon"><i
+                    class="fas fa-hospital-user"></i></span><span>Add/Update Information</span></a></p>
+          </div>
+          <div class="message-body">
+            <div id="data-table">
+              <progress class="progress is-hidden is-small is-primary" max="100">75%</progress>
+              <h1 id="nodata-error" class="subtitle is-1 has-text-centered is-hidden">NO DATA FOUND</h1>
+              <div class="columns is-mobile is-multiline" id="data-filters">
+                <div class="column is-full-mobile">
+                  <h1 class="subtitle">Filters:</h1>
+                </div>
+                <div class="control column is-one-third-mobile">
+                  <div class="select is-loading">
+                    <select id="filter-date-announced">
+                      <option>Date: All</option>
+                    </select>
+                  </div>
+                  <div class="control column is-one-third-mobile">
+                    <div class="select is-loading">
+                      <select id="filter-date-announced">
+                        <option>Date: All</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="control column is-one-third-mobile">
+                    <div class="select is-loading">
+                      <select id="filter-district">
+                        <option>District: All</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="control column is-one-third-mobile">
+                    <div class="select is-loading">
+                      <select id="filter-status">
+                        <option>Status: All</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <nav class="pagination" role="navigation" aria-label="pagination">
+                  <a onclick="javascript:changePage(-1);" class="pagination-previous is-invisible">Previous</a>
+                  <a onclick="javascript:changePage(1);" class="pagination-next">Next</a>
+                </nav>
+                <table class="table sortable sortable-theme-minimal is-fullwidth is-bordered is-striped" data-sortable
+                  style="overflow-x:auto;">
+                  <thead>
+                    <tr>
+                      <th data-sortable="false">Id</th>
+                      <th data-sortable-type="numeric">Date Announced</th>
+                      <th>District</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Locality</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Age</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Gender</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">History</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Notes</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Sources</th>
+                      <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Status</th>
+                      <th data-sortable="false">Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+                </table>
+                <nav class="pagination" role="navigation" aria-label="pagination">
+                  <a onclick="javascript:changePage(-1);" class="pagination-previous is-invisible">Previous</a>
+                  <a onclick="javascript:changePage(1);" class="pagination-next">Next</a>
+                </nav>
+                <h3 class="has-text-centered"><i><b>Note: </b></i>This includes information of only those patients whose
+                  district was confirmed</h3>
+              </div>
+              <nav class="pagination" role="navigation" aria-label="pagination">
+                <a onclick="javascript:changePage(-1);" class="pagination-previous is-invisible">Previous</a>
+                <a onclick="javascript:changePage(1);" class="pagination-next">Next</a>
+              </nav>
+              <table class="table sortable sortable-theme-minimal is-fullwidth is-bordered is-striped" data-sortable
+                style="overflow-x:auto;">
+                <thead>
+                  <tr>
+                    <th data-sortable="false">Id</th>
+                    <th data-sortable-type="numeric">Date Announced</th>
+                    <th>Reported District</th>
+                    <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Reported Locality</th>
+                    <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Age</th>
+                    <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Gender</th>
+                    <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">History</th>
+                    <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Notes</th>
+                    <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Sources</th>
+                    <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Status</th>
+                    <th data-sortable="false">Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+              <nav class="pagination" role="navigation" aria-label="pagination">
+                <a onclick="javascript:changePage(-1);" class="pagination-previous is-invisible">Previous</a>
+                <a onclick="javascript:changePage(1);" class="pagination-next">Next</a>
+              </nav>
+              <h3 class="has-text-centered"><i><b>Note: </b></i>This includes information of only those patients whose
+                district was confirmed</h3>
+              <h3 class="has-text-centered"><i><b>Note: </b></i>Reported District/Locality doesn't indicate the
+                patient's resident district/locality</h3>
+            </div>
+          </div>
+      </article>
+      <br />
+      <div class="container has-text-centered ">
+        <a href="statistics.html" class="button is-primary is-rounded">View Detailed Statistics (Govt)</a>
+      </div>
+      <br />
+      </div>
+    </section>
+    <br>
+    <!-- Modals -->
+    <div id="modal-patient" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Patient Details</p>
+          <button class="delete" aria-label="close" onclick="javascript:toggleModal('modal-patient')"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="card">
+            <header class="card-header">
+              <p class="card-header-title">
+                <span>Patient <span id="modal-details-id"></span></span>
+              </p>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                <p><b>Age: </b><span id="modal-details-age">XXX</span></p>
+                <p><b>Gender: </b><span id="modal-details-gender">XXX</span></p>
+                <p><b>History: </b><span id="modal-details-history"></span></p>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span>Location</span>
+          </p>
+        </header>
+        <div class="card-content">
+          <div class="content">
+            <p><b>Reported City: </b><span id="modal-details-city">XXX</span></p>
+            <p><b>Reported District: </b><span id="modal-details-district">XXX</span></p>
+            <p><b>Reported Locality: </b><span id="modal-details-locality"></span></p>
+
           </div>
         </div>
       </div>
-    </article>
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span>Current Status</span>
+          </p>
+        </header>
+        <div class="card-content">
+          <div class="content">
+            <p><b>Date Announced: </b><span id="modal-details-date-announced">XXX</span></p>
+            <p><b>Current Status: </b><span id="modal-details-current-status"></span></p>
+            <p><b>Status Change Date: </b><span id="modal-details-date-change">XXX</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span>Notes</span>
+          </p>
+        </header>
+        <div class="card-content">
+          <div class="content" id="modal-details-notes">
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span>Sources</span>
+          </p>
+        </header>
+        <div class="card-content">
+          <div class="content" id="modal-details-sources">
+          </div>
+        </div>
+      </div>
+      </section>
+    </div>
+    </div>
+    <div id="modal-stats-image" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Statistics</p>
+          <button class="delete" aria-label="close" onclick="javascript:toggleModal('modal-stats-image')"></button>
+        </header>
+        <section class="modal-card-body">
+
+        </section>
+        <footer class="modal-card-foot">
+          <a download="covid19kashmir_stats.png" class="button is-success">Download</a>
+          <button class="button" onclick="javascript:toggleModal('modal-stats-image')">Cancel</button>
+        </footer>
+      </div>
+    </div>
+    <div id="modal-stats-text" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Statistics</p>
+          <button class="delete" aria-label="close" onclick="javascript:toggleModal('modal-stats-text')"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="control">
+            <textarea class="textarea" id="stats-textarea" readonly>This content is readonly</textarea>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <a onclick="javascript:copyStatsText()" class="button is-success">Copy</a>
+          <button class="button" onclick="javascript:toggleModal('modal-stats-text')">Cancel</button>
+        </footer>
+      </div>
+    </div>
+    <hr />
+    <div class="container">
+      <div class="columns">
+        <div class="column is-4">
+          <article class="tile is-child box below-box-self">
+            <h5>On Call Duty Roster<br /> GMC Srinagar.</h5>
+            <i class="fa fa-h-square"></i> <br /> <br />
+            <a href="gmc.html" class="button is-small is-danger is-rounded">View Numbers</a>
+          </article>
+        </div>
+        <div class="column is-4">
+          <article class="tile is-child box below-box-self">
+            <h5>Myth's About COVID19. <br /> WHO </h5>
+            <i class="fa fa-times"></i> <br /> <br />
+            <a href="mythbuster.html" class="button is-small is-danger is-rounded">View Myths</a>
+          </article>
+        </div>
+        <div class="column is-4">
+          <article class="tile is-child box below-box-self">
+            <h5>Important. <br /> Phone Numbers </h5>
+            <i class="fa fa-phone-square"></i> <br /> <br />
+            <a href="phones.html" class="button is-small is-info is-danger is-rounded">View Emergency Numbers</a>
+          </article>
+        </div>
+      </div>
+    </div>
     <br />
-    <div class="container has-text-centered ">
-      <a href="statistics.html" class="button is-primary is-rounded">View Detailed Statistics (Govt)</a>
-    </div>
     <br />
-
-
+    <div id="include-footer">
+      {% include 'footer.html' %}
     </div>
-  </section>
-  <br>
-
-  <!-- Modals -->
-  <div id="modal-patient" class="modal">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Patient Details</p>
-        <button class="delete" aria-label="close" onclick="javascript:toggleModal('modal-patient')"></button>
-      </header>
-      <section class="modal-card-body">
-        <div class="card">
-          <header class="card-header">
-            <p class="card-header-title">
-              <span>Patient <span id="modal-details-id"></span></span>
-            </p>
-          </header>
-          <div class="card-content">
-            <div class="content">
-              <p><b>Age: </b><span id="modal-details-age">XXX</span></p>
-              <p><b>Gender: </b><span id="modal-details-gender">XXX</span></p>
-              <p><b>History: </b><span id="modal-details-history"></span></p>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <header class="card-header">
-            <p class="card-header-title">
-              <span>Location</span>
-            </p>
-          </header>
-          <div class="card-content">
-            <div class="content">
-              <p><b>Reported City: </b><span id="modal-details-city">XXX</span></p>
-              <p><b>Reported District: </b><span id="modal-details-district">XXX</span></p>
-              <p><b>Reported Locality: </b><span id="modal-details-locality"></span></p>
-
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <header class="card-header">
-            <p class="card-header-title">
-              <span>Current Status</span>
-            </p>
-          </header>
-          <div class="card-content">
-            <div class="content">
-              <p><b>Date Announced: </b><span id="modal-details-date-announced">XXX</span></p>
-              <p><b>Current Status: </b><span id="modal-details-current-status"></span></p>
-              <p><b>Status Change Date: </b><span id="modal-details-date-change">XXX</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <header class="card-header">
-            <p class="card-header-title">
-              <span>Notes</span>
-            </p>
-          </header>
-          <div class="card-content">
-            <div class="content" id="modal-details-notes">
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <header class="card-header">
-            <p class="card-header-title">
-              <span>Sources</span>
-            </p>
-          </header>
-          <div class="card-content">
-            <div class="content" id="modal-details-sources">
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
-  <div id="modal-stats-image" class="modal">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Statistics</p>
-        <button class="delete" aria-label="close" onclick="javascript:toggleModal('modal-stats-image')"></button>
-      </header>
-      <section class="modal-card-body">
-
-      </section>
-      <footer class="modal-card-foot">
-        <a download="covid19kashmir_stats.png" class="button is-success">Download</a>
-        <button class="button" onclick="javascript:toggleModal('modal-stats-image')">Cancel</button>
-      </footer>
-    </div>
-  </div>
-  <div id="modal-stats-text" class="modal">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Statistics</p>
-        <button class="delete" aria-label="close" onclick="javascript:toggleModal('modal-stats-text')"></button>
-      </header>
-      <section class="modal-card-body">
-        <div class="control">
-          <textarea class="textarea" id="stats-textarea" readonly>This content is readonly</textarea>
-        </div>
-      </section>
-      <footer class="modal-card-foot">
-        <a onclick="javascript:copyStatsText()" class="button is-success">Copy</a>
-        <button class="button" onclick="javascript:toggleModal('modal-stats-text')">Cancel</button>
-      </footer>
-    </div>
-  </div>
-
-
-  <hr />
-  <div class="container">
-
-
-
-
-    <div class="columns">
-
-      <div class="column is-4">
-        <article class="tile is-child box below-box-self">
-          <h5>On Call Duty Roster<br /> GMC Srinagar.</h5>
-          <i class="fa fa-h-square"></i> <br /> <br />
-          <a href="gmc.html" class="button is-small is-danger is-rounded">View Numbers</a>
-        </article>
-      </div>
-
-      <div class="column is-4">
-
-        <article class="tile is-child box below-box-self">
-
-          <h5>Myth's About COVID19. <br /> WHO </h5>
-          <i class="fa fa-times"></i> <br /> <br />
-          <a href="mythbuster.html" class="button is-small is-danger is-rounded">View Myths</a>
-        </article>
-
-      </div>
-      <div class="column is-4">
-        <article class="tile is-child box below-box-self">
-
-          <h5>Important. <br /> Phone Numbers </h5>
-          <i class="fa fa-phone-square"></i> <br /> <br />
-          <a href="phones.html" class="button is-small is-info is-danger is-rounded">View Emergency Numbers</a>
-        </article>
-
-
-      </div>
-
-    </div>
-
-
-  </div>
-
-
-  <br />
-  <br />
-  <div id="include-footer">
-    {% include 'footer.html' %}
-  </div>
-  <script src="assets/js/index.js"></script>
-  <script src="assets/js/localDebug.js"></script>
-  <script src="assets/js/widgetFunction.js"></script>
-
+  </main>
+  <script async defer src="assets/js/index.js"></script>
+  <script async defer src="assets/js/localDebug.js"></script>
+  <script async defer src="assets/js/widgetFunction.js"></script>
   <!-- <script src="assets/js/newsFeed.js"></script> -->
 </body>
 
