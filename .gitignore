@@ -2,5 +2,5 @@
 .vscode/
 node_modules/
 raw/
-.netlify
 haters/
+.netlify
