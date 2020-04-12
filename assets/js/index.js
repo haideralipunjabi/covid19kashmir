@@ -84,10 +84,22 @@ function loadDistricts(){
 function loadTable() {
     progressBarVisible(false);
     $("#data-table tbody").html("")
-    for (let i =(patientData.length - 1) - tableLimit*(tablePage-1); i > (patientData.length - 1) - (tableLimit*tablePage); i--) {
+    let filteredData = patientData.filter(item=>matchesFilters(item))
+    if(filteredData.length > tableLimit){
+        $(".pagination-next").removeClass("is-invisible")
+    }
+    else {
+        $(".pagination-next").addClass("is-invisible")
+
+    }
+    for (let i =(filteredData.length - 1) - tableLimit*(tablePage-1); i > (filteredData.length - 1) - (tableLimit*tablePage); i--) {
         if(i<0) break;
-        patient = patientData[i]
-        if (!matchesFilters(patient)) continue;
+        patient = filteredData[i]
+        // if (!matchesFilters(patient)){
+        //     filterOffset++;
+        //     i--;
+        //     continue;
+        // } 
         $("#data-table tbody").append(`
         <tr ${(patient["Status"]=="Recovered") ? `style="background-color: #ebfffc"`:""} 
         ${(patient["Status"]=="Deceased") ? `style="background-color: #feecf0"`:""}
