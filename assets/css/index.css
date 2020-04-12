@@ -391,40 +391,13 @@
 twitter-widget {
   float: left;
 }
-#news-parent {
-  padding:3px;
 
-  overflow:hidden;
-}
-.marquee{
-  display:block;
-position:relative;
-animation:scroll 120s linear infinite;
-padding:3px;
+#twitterfeed-container {
+  height: 500px;
+  overflow-y: auto;
+  margin-bottom: 20px;
 }
 
-.marquee:hover {
-    animation-play-state: paused
-}
-#news-container .column {
-  padding: .75rem !important;
-}
-
-
-/* Make it move */
-@keyframes scroll{
-0% {left:800px;}
-100% {left:-7260px;}
-}
-
-
-.tweet-text{
-  font-size: 14px;
-}
-
-.tweet-feed-card{
-  margin-bottom: 4px;
-}
 .news-feed-card{
 padding: 2px;
 margin-bottom: 6px;

@@ -21,7 +21,7 @@ const FILTERS = {
 }
 
 
-const API_PROMISE = fetch(API_URL+"?fields=patientData,variance,districtMap,dailyMap,samples").then((response) => {
+const API_PROMISE = fetch(API_URL+"?fields=patientData,variance,districtMap,dailyMap,samples,IndiaData,WorldData").then((response) => {
     return response.json()
 })
 const STATS_PROMISE = fetch(LIVE_API_URL).then((response) => {
@@ -72,6 +72,7 @@ $(document).ready(() => {
         dailyMap = data["dailyMap"]
         loadSparklines(data["variance"]);
         loadSamplesData(data["samples"])
+        loadExtraData([data["india"],data["world"]]);
         loadData(true);
     })
     NEWS_PROMISE.then((data) => {
@@ -79,6 +80,20 @@ $(document).ready(() => {
     })
     $(".dropdown-trigger").click(function () {
         $(".dropdown").toggleClass("is-active");
+    })
+
+    $("#extradata li").click(function(e){
+        $("#extradata li").toggleClass("is-active")
+        let t = e.target.dataset["trigger"]
+        if(t==0){
+            $("#indStats").removeClass("is-hidden")
+            $("#wStats").addClass("is-hidden")
+        }
+        else if(t==1){
+
+            $("#indStats").addClass("is-hidden")
+            $("#wStats").removeClass("is-hidden")
+        }
     })
 })
 
@@ -205,14 +220,31 @@ function loadStats() {
 }
 
 function loadNews(data) {
-    let $container = $("#news-container")
+    let $container = $("#twitterfeed-container")
     for(let item of data){
-        let div = $("<div class='column'></div>")[0]
+        let div = $("<div></div>")[0]
         twttr.widgets.createTweet(item["url"].split("/").slice(-1)[0], div, {
-            width: 220
+            width: $container.width()
         })
         $container.append(div)
     }
+    let speed = 1;
+    let hoverFlag = false;
+    $container.hover(()=>{
+        hoverFlag =true;
+    },()=>{
+        hoverFlag = false;
+    })
+    setInterval(()=>{
+
+        if(!hoverFlag){
+            $container[0].scrollTop += speed;
+            if($container[0].scrollTop === $container[0].scrollHeight - $container[0].offsetHeight){
+                $container[0].scrollTop =0
+            }
+            // $container[0].scroll(0,$container[0].scrollTop)
+        }
+    },30)
 }
 
 function loadMap() {
@@ -359,6 +391,16 @@ function loadChart() {
     };
     let chart = new ApexCharts(document.querySelector("#chart1"), chartOptions);
     chart.render();
+}
+
+function loadExtraData(arr){
+    $("#indActive").html(arr[0]["active"])
+    $("#indRecovered").html(arr[0]["recovered"])
+    $("#indDead").html(arr[0]["deaths"])
+    $("#indTotal").html(arr[0]["total"])
+    $("#wTotal").html(arr[1]["total"])
+    $("#wDead").html(arr[1]["deaths"])
+    $("#wRecovered").html(arr[1]["recovered"])
 }
 
 function selectMapDistrict(dShape) {

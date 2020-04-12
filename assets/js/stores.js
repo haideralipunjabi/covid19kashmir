@@ -4,10 +4,6 @@ let sheetPromise = fetch(API_URL).then((response) => {
     return response.text()
 })
 
-const SOURCES = {
-    "grocery":"https://twitter.com/srinagaradmin/status/1245979874327584768?s=19",
-    "medical":"https://twitter.com/parsa_javid/status/1246731507562975232?s=19"
-}
 
 let typeDefined = getUrlParameter("type")
 
@@ -72,7 +68,7 @@ function makeMap(){
 }
 
 function getHTML(store){
-    if(store["Type"==="Grocery"]){
+    if(store["Type"]==="Grocery"){
         return `
         <h1 class="title is-6">${store["Name"]}</h1>
         <h2 class="subtitle is-6">${store["Area"]}</h2>
@@ -125,7 +121,9 @@ function createTable(){
                         store["DO - Contact No"].split(",").map(item=>`<a class="button is-info" style="margin-left: 5px; margin-bottom:5px;" href="tel:+91${item}"><span style="margin-right: 5px"><i class="icon fas fa-phone-volume"></i></span><span>${item}</span></a>`)
                     }</td>
                     <td class="has-text-centered" style="vertical-align: middle">${ (store["Google Maps Link"]!=="")?(`<a class="button is-info" href="${store["Google Maps Link"]}"><span style="margin-right: 5px"><i class="icon fas fa-map"></i></span></a>`):""}</td>
-                </tr>
+                    <td class="has-text-centered" style="vertical-align: middle">${ (store["Source"]!=="")?(`<a class="button is-info" href="${store["Source"]}"><span style="margin-right: 5px">Source</span></a>`):""}</td>
+                    
+                    </tr>
                     
                 `
     
@@ -147,7 +145,9 @@ function createTable(){
             
             </td>
             <td class="has-text-centered" style="vertical-align: middle">${ (store["Google Maps Link"]!=="")?(`<a class="button is-info" href="${store["Google Maps Link"]}"><span style="margin-right: 5px"><i class="icon fas fa-map"></i></span></a>`):""}</td>
-                </tr>
+            <td class="has-text-centered" style="vertical-align: middle">${ (store["Source"]!=="")?(`<a class="button is-info" href="${store["Source"]}"><span style="margin-right: 5px">Source</span></a>`):""}</td>
+               
+            </tr>
             `
 
         )     
@@ -162,14 +162,13 @@ function switchType(type){
             $(tabs[1]).removeClass("is-active")
             $("#table-grocery").removeClass("is-hidden")
             $("#table-medical").addClass("is-hidden")
-            $("#sourcelink").attr("href",SOURCES["grocery"])
             break;
         case 1:
                 $(tabs[1]).addClass("is-active")
                 $(tabs[0]).removeClass("is-active")
                 $("#table-grocery").addClass("is-hidden")
                 $("#table-medical").removeClass("is-hidden")
-                $("#sourcelink").attr("href",SOURCES["medical"])
+               
 
                 break
         default:

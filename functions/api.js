@@ -23,7 +23,7 @@ exports.handler = async (event, context) => {
   if(fields.includes("districtMap")){
     promises.push(fetch(URL_DISTRICTS).then(response=>response.text()))
   }
-  return Promise.all(promises).then(values=>{
+  return Promise.all(promises).then(async (values)=>{
     patientData = Utils.ArraysToDict(Utils.CSVToArray(values[0]))
     data = {}
     if(fields.includes("patientData")){
@@ -48,6 +48,12 @@ exports.handler = async (event, context) => {
     if(fields.includes("samples")){
       bulletinData = Utils.ArraysToDict(Utils.CSVToArray(values[1]))
       data["samples"] = Stats.Samples(bulletinData)
+    }
+    if(fields.includes("IndiaData")){
+      data["india"] =  await Stats.IndiaData()
+    }
+    if(fields.includes("WorldData")){
+      data["world"] = await Stats.WorldData()
     }
     
     return {
