@@ -1,5 +1,5 @@
 const Utils = require("./utils")
-
+const Population = require("./population")
 
 exports.DistrictMap = function (data) {
   console.log(data)
@@ -7,8 +7,8 @@ exports.DistrictMap = function (data) {
   for(let entry of data){
     let district = entry["District"];
     delete entry["District"]
+    entry["Population"] = Population.POPULATION[district]
     districtMap[district] = entry;
-    console.log(districtMap[district])
   }
   return districtMap
 }

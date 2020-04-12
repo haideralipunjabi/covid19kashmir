@@ -65,6 +65,7 @@ const slBaseOptions = {
     }
 };
 $(document).ready(() => {
+    loadStats()
     API_PROMISE.then((data) => {
         patientData = data["patientData"];
         districtsMap = data["districtMap"];
@@ -72,9 +73,6 @@ $(document).ready(() => {
         loadSparklines(data["variance"]);
         loadSamplesData(data["samples"])
         loadData(true);
-    })
-    STATS_PROMISE.then((data) => {
-        loadStats(data);
     })
     NEWS_PROMISE.then((data) => {
         loadNews(data);
@@ -87,18 +85,12 @@ $(document).ready(() => {
 
 function loadData(first) {
 
-    if (first) progressBarVisible(true)
-    if (!first) {
-        $("#cases_total").html("");
-        $("#cases_active").html("")
-        $("#cases_deaths").html("")
-        $("#cases_recovered").html("")
-    }
-    if (first) loadTable();
-    if (first) loadDistricts();
-    if (first) loadFilters();
-    if (first) loadMap();
-    if (first) loadChart();
+    progressBarVisible(true)
+    loadTable();
+    loadDistricts();
+    loadFilters();
+    loadMap();
+    loadChart();
 }
 function loadDistricts(){
     $("#district-table tbody").html("")
@@ -111,6 +103,7 @@ function loadDistricts(){
                 <td class="has-text-centered">${dis[1]["Active"]}</td>
                 <td class="has-text-centered">${dis[1]["Recovered"]}</td>
                 <td class="has-text-centered">${dis[1]["Deceased"]}</td>
+                <td class="has-text-centered">${Math.round(1000000/(dis[1]["Population"]/dis[1]["Total"]))}</td>
             </tr>
         `)
     }
@@ -182,7 +175,19 @@ function formatSources(patient) {
     return sources.join(" ")
 }
 
-function loadStats(data) {
+function loadStats() {
+    $("#cases_total").html("");
+    $("#cases_active").html("");
+    $("#cases_deaths").html("");
+    $("#cases_recovered").html("");
+    $("#cases_total_today").html("");
+    $("#cases_active_today").html("");
+    $("#cases_deaths_today").html("");
+    $("#cases_recovered_today").html("");
+    $("#patientstats_updated").html("")
+    fetch(LIVE_API_URL).then((response) => {
+        return response.json()
+    }).then(data=>{
     $("#cases_total").html(data.Total);
     $("#cases_active").html(data.Active);
     $("#cases_deaths").html(data.Deceased);
@@ -191,6 +196,10 @@ function loadStats(data) {
     $("#cases_active_today").html((data.Active - data.ActiveYesterday) + (data.Deceased - data.DeceasedYesterday) + (data.Recovered - data.RecoveredYesterday));
     $("#cases_deaths_today").html(data.Deceased - data.DeceasedYesterday);
     $("#cases_recovered_today").html(data.Recovered - data.RecoveredYesterday);
+    $("#patientstats_updated").html(data.Updated)
+})
+    
+    
 
 
 }

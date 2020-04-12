@@ -60,9 +60,9 @@
     <div class="container">
       <article id="stats" class="message is-primary">
         <div class="message-header">
-          <p class="has-text-centered"><span class="icon"><i class="fas fa-table"></i></span><span>Statistics</span></p>
+          <p class="has-text-centered"><span class="icon"><i class="fas fa-table"></i></span><span>Statistics</span> (Updated at: <span id="patientstats_updated"></span>)</p>
           <p>
-            <button onclick="javascript:loadData(false)" class="button">
+            <button onclick="javascript:loadStats()" class="button">
               <span class="icon is-small">
                 <i class="fas fa-sync"></i>
               </span>
@@ -88,7 +88,7 @@
 
                     <p><i class="fas fa-users"></i>
                       <span class="count-head">TOTAL</span>
-                      <span id="cases_total" class="count-num">xxx</span>
+                      <span id="cases_total" class="count-num"></span>
                     </p>
                     <p>
                       <span class="count-head-daily">New: </span>
@@ -110,7 +110,7 @@
                       <i class="fas fa-heart"></i>
                       <span class="count-head">Recovered</span>
 
-                      <span id="cases_recovered" class="count-num">xxx</span>
+                      <span id="cases_recovered" class="count-num"></span>
 
 
                     </p>
@@ -134,7 +134,7 @@
                       <i class="fas fa-bed"></i>
                       <span class="count-head">Active</span>
 
-                      <span id="cases_active" class="count-num">xxx</span>
+                      <span id="cases_active" class="count-num"></span>
 
 
                     </p>
@@ -158,7 +158,7 @@
                       <i class="fas fa-ambulance"></i>
                       <span class="count-head">Death</span>
 
-                      <span id="cases_deaths" class="count-num">xxx</span>
+                      <span id="cases_deaths" class="count-num"></span>
 
 
                     </p>
@@ -197,7 +197,7 @@
 
                   <div class="container-stat">
 
-                    <p><i class="fas fa-users"></i>
+                    <p><i class="fas fa-syringe"></i>
                       <span class="count-head">Samples Collected</span>
                       <span id="stats_samples" class="count-num">xxx</span>
                     </p>
@@ -213,7 +213,7 @@
 
                   <div class="container-stat">
                     <p>
-                      <i class="fas fa-heart"></i>
+                      <i class="fas fa-lungs-virus"></i>
                       <span class="count-head">Positive Percentage</span>
 
                       <span id="stats_posper" class="count-num">xxx</span>
@@ -231,7 +231,7 @@
 
                   <div class="container-stat">
                     <p>
-                      <i class="fas fa-heart"></i>
+                      <i class="fas fa-lungs"></i>
                       <span class="count-head">Negative Percentage</span>
 
                       <span id="stats_negper" class="count-num">xxx</span>
@@ -310,7 +310,7 @@
                   <p>District Data</p>
                 </div>
                 <div class="messasge-body">
-                  <div id="district-table">
+                  <div class="table-container" id="district-table">
                     <table class="table is-fullwidth is-bordered is-striped" data-sortable style="overflow-x:auto;">
                       <thead>
                         <tr>
@@ -319,6 +319,7 @@
                           <th>Active</th>
                           <th>Recovered</th>
                           <th>Deceased</th>
+                          <th>Cases per million</th>
                         </tr>
                       </thead>
                       <tbody>
