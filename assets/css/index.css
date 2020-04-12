@@ -416,3 +416,27 @@ padding:3px;
 0% {left:800px;}
 100% {left:-7260px;}
 }
+
+
+.tweet-text{
+  font-size: 14px;
+}
+
+.tweet-feed-card{
+  margin-bottom: 4px;
+}
+.news-feed-card{
+padding: 2px;
+margin-bottom: 6px;
+
+}
+
+#news-feed-headline{
+font-family: 'Roboto Condensed', sans-serif;
+font-size: 16px;
+
+}
+
+#news-card-source{
+font-size: 15px;
+}
