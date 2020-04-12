@@ -512,6 +512,69 @@
 
 
   <hr />
+  <!--India & World stats start-->
+  <div class="container">
+    <div class="tabs is-centered is-boxed is-medium">
+      <ul>
+        <li class="tab" class="is-active" onclick="openTab(event,'indStats')">
+          <a>
+            <span>India</span>
+          </a>
+        </li>
+        <li class="tab" onclick="openTab(event,'wStats')">
+          <a>
+            <span>World</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="section">
+        <div id="indStats" class="content-tab" >
+          <div class="columns is-mobile is-multiline">
+            
+            <div class="column map-total">
+              <h1 id="indTotal" class="has-text-centered has-text-danger">XXX</h1>
+              <h1 class="has-text-centered title has-text-danger map-count-text">Total</h1>
+            </div>
+            <div class="column map-active">
+              <h1 id="indActive" class="has-text-centered has-text-info">XXX</h1>
+              <h1 class="has-text-centered title map-count-text has-text-info">Active</h1>
+            </div>
+            <div class="column map-recovered">
+              <h1 id="indRecovered" class="has-text-centered has-text-success">XXX</h1>
+              <h1 class="has-text-centered title map-count-text has-text-success">Recovered</h1>
+            </div>
+            <div class="column map-death">
+              <h1 id="indDead" class="has-text-centered has-text-grey-dark">XXX</h1>
+              <h1 class="has-text-centered title map-count-text has-text-grey-dark">Deceased</h1>
+            </div>
+      
+          </div>
+        </div>
+        <div id="wStats" class="content-tab" style="display:none">
+          <div class="columns is-mobile is-multiline">
+      
+            <div class="column map-total">
+              <h1 id="wTotal" class="has-text-centered has-text-danger">XXX</h1>
+              <h1 class="has-text-centered title has-text-danger map-count-text">Total</h1>
+            </div>
+            <!-- <div class="column map-active">
+              <h1 id="indActive" class="has-text-centered has-text-info">XXX</h1>
+              <h1 class="has-text-centered title map-count-text has-text-info">Active</h1>
+            </div> -->
+            <div class="column map-recovered">
+              <h1 id="wRecovered" class="has-text-centered has-text-success">XXX</h1>
+              <h1 class="has-text-centered title map-count-text has-text-success">Recovered</h1>
+            </div>
+            <div class="column map-death">
+              <h1 id="wDead" class="has-text-centered has-text-grey-dark">XXX</h1>
+              <h1 class="has-text-centered title map-count-text has-text-grey-dark">Deceased</h1>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <!--India & World stats start-->
   <div class="container">
 
 
@@ -562,6 +625,7 @@
   <script src="assets/js/index.js"></script>
   <script src="assets/js/localDebug.js"></script>
   <script src="assets/js/widgetFunction.js"></script>
+  <script src="assets/js/worldstats.js"></script>
 
   <!-- <script src="assets/js/newsFeed.js"></script> -->
 </body>
