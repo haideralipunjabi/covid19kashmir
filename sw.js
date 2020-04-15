@@ -42,7 +42,10 @@ workbox.routing.registerRoute(
   /api/,
   new workbox.strategies.NetworkFirst()
 )
-
+workbox.routing.registerRoute(
+  /api\/live/,
+  new workbox.strategies.NetworkOnly()
+)
 var version = "v2.0.2";
 var swPath;
 var urlObject = new URL(location);

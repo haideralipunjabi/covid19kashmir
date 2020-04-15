@@ -6,6 +6,7 @@ exports.handler = async (event,context)=>{
             statusCode: 200,
             headers:{
                 'Access-Control-Allow-Origin': '*',
+                'access-control-allow-origin': '*',
             },
             body:JSON.stringify(data)
           }
