@@ -89,7 +89,7 @@
 
                     <p><i class="fas fa-users"></i>
                       <span class="count-head">TOTAL</span>
-                      <span id="cases_total" class="count-num"></span>
+                      <span id="cases_total" class="count-num loadanim"></span>
                     </p>
                     <p>
                       <span class="count-head-daily">New: </span>
@@ -111,7 +111,7 @@
                       <i class="fas fa-heart"></i>
                       <span class="count-head">Recovered</span>
 
-                      <span id="cases_recovered" class="count-num"></span>
+                      <span id="cases_recovered" class="count-num loadanim"></span>
 
 
                     </p>
@@ -135,7 +135,7 @@
                       <i class="fas fa-bed"></i>
                       <span class="count-head">Active</span>
 
-                      <span id="cases_active" class="count-num"></span>
+                      <span id="cases_active" class="count-num loadanim"></span>
 
 
                     </p>
@@ -159,7 +159,7 @@
                       <i class="fas fa-ambulance"></i>
                       <span class="count-head">Death</span>
 
-                      <span id="cases_deaths" class="count-num"></span>
+                      <span id="cases_deaths" class="count-num loadanim"></span>
 
 
                     </p>
@@ -200,7 +200,7 @@
 
                     <p><i class="fas fa-syringe"></i>
                       <span class="count-head">Samples Collected</span>
-                      <span id="stats_samples" class="count-num">xxx</span>
+                      <span id="stats_samples" class="count-num loadanim"></span>
                     </p>
                     <div id="slSamples" class="sparkline"></div>
                   </div>
@@ -217,7 +217,7 @@
                       <i class="fas fa-lungs-virus"></i>
                       <span class="count-head">Positive Percentage</span>
 
-                      <span id="stats_posper" class="count-num">xxx</span>
+                      <span id="stats_posper" class="count-num loadanim"></span>
 
 
                     </p>
@@ -235,7 +235,7 @@
                       <i class="fas fa-lungs"></i>
                       <span class="count-head">Negative Percentage</span>
 
-                      <span id="stats_negper" class="count-num">xxx</span>
+                      <span id="stats_negper" class="count-num  loadanim"></span>
 
 
                     </p>
@@ -260,6 +260,8 @@
         <div class="message-body">
           <div class="columns">
             <div class=" column is-half">
+                <progress class="progress is-success" max="100">30%</progress>
+
               <div id="map-container">
 
               </div>
@@ -313,6 +315,8 @@
                 <div class="messasge-body">
                   <div class="table-container" id="district-table">
                     <table class="table is-fullwidth is-bordered is-striped" data-sortable style="overflow-x:auto;">
+                        <progress class="progress is-success" max="100">30%</progress>
+
                       <thead>
                         <tr>
                           <th data-sortable="false">District</th>
@@ -341,6 +345,8 @@
 
         </div>
         <div class="message-body">
+            <progress class="progress is-success" max="100">30%</progress>
+
           <div class="card">
             <div class="card-content">
               <div id="chart1">
@@ -373,7 +379,6 @@
               </div>
 
               <div id="twitterfeed-container" class="message-body">
-
 
               </div>
             </div>

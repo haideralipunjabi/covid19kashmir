@@ -67,6 +67,7 @@ const slBaseOptions = {
 $(document).ready(() => {
     loadStats()
     API_PROMISE.then((data) => {
+        $("progress").addClass("is-hidden")
         patientData = data["patientData"];
         districtsMap = data["districtMap"];
         dailyMap = data["dailyMap"]
@@ -100,7 +101,6 @@ $(document).ready(() => {
 
 function loadData(first) {
 
-    progressBarVisible(true)
     loadTable();
     loadDistricts();
     loadFilters();
@@ -195,6 +195,10 @@ function loadStats() {
     $("#cases_active").html("");
     $("#cases_deaths").html("");
     $("#cases_recovered").html("");
+    $("#cases_total").addClass("loadanim")
+    $("#cases_active").addClass("loadanim")
+    $("#cases_deaths").addClass("loadanim")
+    $("#cases_recovered").addClass("loadanim")
     $("#cases_total_today").html("");
     $("#cases_active_today").html("");
     $("#cases_deaths_today").html("");
@@ -203,6 +207,10 @@ function loadStats() {
     fetch(LIVE_API_URL).then((response) => {
         return response.json()
     }).then(data=>{
+    $("#cases_total").removeClass("loadanim")
+    $("#cases_active").removeClass("loadanim")
+    $("#cases_deaths").removeClass("loadanim")
+    $("#cases_recovered").removeClass("loadanim")
     $("#cases_total").html(data.Total);
     $("#cases_active").html(data.Active);
     $("#cases_deaths").html(data.Deceased);
@@ -303,6 +311,9 @@ function loadSparklines(data) {
 }
 
 function loadSamplesData(data){
+    $("#stats_samples").removeClass("loadanim")
+    $("#stats_posper").removeClass("loadanim")
+    $("#stats_negper").removeClass("loadanim")
     $("#stats_date").html(data["date"])
     $("#stats_samples").html(data["stats"]["total"])
     $("#stats_posper").html(data["stats"]["posper"].toFixed(2))

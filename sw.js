@@ -24,6 +24,17 @@ workbox.routing.registerRoute(
   })
 )
 workbox.routing.registerRoute(
+  /api\/news/,
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: 'newsfeed',
+    plugins:[
+      new workbox.expiration.ExpirationPlugin({
+        purgeOnQuotaError:true,
+      })
+    ]
+  })
+)
+workbox.routing.registerRoute(
   /api\/live/,
   new workbox.strategies.NetworkOnly()
 )
