@@ -7,6 +7,7 @@ exports.handler = async (event,context)=>{
             headers:{
                 'Access-Control-Allow-Origin': '*',
                 'access-control-allow-origin': '*',
+                'Access-Control-Allow-Headers':'*',
             },
             body:JSON.stringify(data)
           }
