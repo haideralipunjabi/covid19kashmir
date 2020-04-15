@@ -120,3 +120,27 @@ exports.totalMap = function(data){
     "Deceased": data.filter(item=>{return (item["Status"]==="Deceased")}).length,
   }
 }
+
+exports.ageMap = function(data){
+  let ages = data.map(item=>{
+    let matched  = item["Age"].match(/[0-9]+/gm)
+    if(matched){
+      return parseInt(matched[0])
+    }
+  }).filter(item=>(item))
+  let maxAge = Math.max(...ages)
+  let maxRange = Math.ceil((maxAge+1)/10)*10
+  let map = {}
+  for(let i =0; i < maxRange/10; i++){
+    map[`${i*10}-${(i*10)+9}`] = ages.filter(item=> (item>=i*10 && item < ((i+1)*10))).length
+  }
+  return map;
+}
+
+exports.genderMap = function(data){
+  let genders = data.map(item=>item["Gender"])
+  return {
+    "M": genders.filter(item=>(item==="M")).length,
+    "F": genders.filter(item=>(item==="F")).length
+  }
+}

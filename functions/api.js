@@ -55,7 +55,12 @@ exports.handler = async (event, context) => {
     if(fields.includes("WorldData")){
       data["world"] = await Stats.WorldData()
     }
-    
+    if(fields.includes("ageMap")){
+      data["ageMap"] = Stats.ageMap(patientData)
+    }
+    if(fields.includes("genderMap")){
+      data["genderMap"] = Stats.genderMap(patientData)
+    }
     return {
       statusCode: 200,
       body:JSON.stringify(data)

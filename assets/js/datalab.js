@@ -6,21 +6,23 @@ const CHARTS = {
   "chartTwo": "Chart2",
   "chartThree": "Chart3",
   "chartFour": "Chart4",
-  // "chartFive": "Chart5"
+  // "chartFive": "Chart5",
+  "chartSix": "Chart6",
+  "chartSeven": "Chart7"
 }
-let  districtMap, dateMap, activeDistricts, liveData,dailyData;
+let districtMap, dateMap, activeDistricts, liveData, dailyData, ageMap, genderMap;
 
 
 $(document).ready(() => {
-  let sheetPromise = fetch(API_URL+"?fields=districtMap,dailyMap").then((response) => {
+  let sheetPromise = fetch(API_URL + "?fields=districtMap,dailyMap,genderMap,ageMap").then((response) => {
     return response.json()
   })
   let livePromise = fetch(LIVE_API, {
     'mode': 'cors',
-    headers : { 
+    headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
-     }
+    }
   }).then((response) => {
     return response.json()
   })
@@ -28,6 +30,8 @@ $(document).ready(() => {
     data = values[0]
     districtMap = data["districtMap"]
     dateMap = data["dailyMap"]
+    ageMap = data["ageMap"],
+      genderMap = data["genderMap"]
     liveData = values[1];
     createHolders();
     createCharts()
@@ -163,7 +167,7 @@ function createCharts() {
   chartOptions[2] = {
     series: [{
       name: 'Cases',
-      data: Object.values(districtMap).map(item=>item["Total"])
+      data: Object.values(districtMap).map(item => item["Total"])
     }],
     chart: {
       height: 350,
@@ -249,18 +253,18 @@ function createCharts() {
     subtitle: {
       text: "Source: covidkashmir.org"
     },
-    legend:{
-      show:true,
+    legend: {
+      show: true,
     },
     plotOptions: {
       radialBar: {
         dataLabels: {
           name: {
-            show:true,
+            show: true,
             fontSize: '22px',
           },
           value: {
-            show:true,
+            show: true,
             fontSize: '16px',
           },
           total: {
@@ -274,16 +278,14 @@ function createCharts() {
       }
     },
     labels: ["Active", "Recovered", "Deceased"],
-    responsive: [
-      {
-        breakpoint: 500,
-        options: {
-          legend: {
-            position: "bottom"
-          }
+    responsive: [{
+      breakpoint: 500,
+      options: {
+        legend: {
+          position: "bottom"
         }
       }
-    ]
+    }]
   };
   // chartOptions[4] = {
   //   series: [{
@@ -323,7 +325,123 @@ function createCharts() {
   //     },
   //   },
   // };
-
+  // chartOptions[4]={}
+  chartOptions[4] = {
+    series: [{
+      name: 'Age Group',
+      data: Object.values(ageMap)
+    }],
+    chart: {
+      type: 'bar',
+      height: 350
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: '55%',
+        endingShape: 'rounded'
+      },
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      show: true,
+      width: 2,
+      colors: ['transparent']
+    },
+    xaxis: {
+      categories: Object.keys(ageMap),
+    },
+    yaxis: {
+      title: {
+        text: 'No of patients'
+      }
+    },
+    title: {
+      text: "No. of Patients in various age groups"
+    },
+    subtitle: {
+      text: `Note: ${liveData["Total"] - Object.values(ageMap).reduce((x,y)=>x+y)} have unknown age | Source: covidkashmir.org`
+    },
+    fill: {
+      opacity: 1
+    },
+    tooltip: {
+      y: {
+        formatter: function (val) {
+          return val + " cases"
+        }
+      }
+    }
+  };
+  console.log(genderMap)
+  chartOptions[5] = {
+    series: Object.values(genderMap),
+    labels: ["Male", "Female"],
+    responsive: [{
+      breakpoint: 500,
+      options: {
+        legend: {
+          position: "bottom"
+        }
+      }
+    }],
+    chart: {
+      type: 'donut',
+      height: 350,
+      toolbar: {
+        show: true,
+        offsetX: 0,
+        offsetY: 0,
+        tools: {
+          download: true,
+          selection: false,
+          zoom: false,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
+          reset: false
+        }
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    plotOptions: {
+      pie: {
+        donut: {
+          labels: {
+            show: true,
+            name: {
+              show: true,
+              fontSize: '22px',
+            },
+            value: {
+              show: true,
+              fontSize: '16px',
+            },
+            total: {
+              show: true,
+              label: 'Total',
+              formatter: function (w) {
+                return liveData["Total"]
+              }
+            }
+          },
+        }
+      }
+    },
+    title: {
+      text: "Gender of Patients"
+    },
+    subtitle: {
+      text: `Source: covidkashmir.org`
+    },
+    fill: {
+      opacity: 1
+    },
+  };
   let keys = Object.keys(CHARTS);
   for (let key of keys) {
     new ApexCharts(document.querySelector("#" + key), chartOptions[keys.indexOf(key)]).render()
