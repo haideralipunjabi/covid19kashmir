@@ -61,7 +61,7 @@
       <article id="stats" class="message is-primary">
         <div class="message-header">
           <p class="has-text-centered"><span class="icon"><i class="fas fa-table"></i></span><span>Statistics</span>
-            (Updated at: <span id="patientstats_updated"></span>)</p>
+            <!-- (Updated at: <span id="patientstats_updated"></span>)</p> -->
           <p>
             <button onclick="javascript:loadStats()" class="button">
               <span class="icon is-small">
@@ -80,13 +80,29 @@
 
 
         <div class="message-body">
+            <div class="container">
+                <p>
+                  <span class="tag is-warning" style="margin-left: 2px;">Last Updated at:  
+                  <strong>  <span id="patientstats_updated"></span>  </strong>  
+                  </span>
+                   </p>
+                <br/>
+              
+               
+                
+            </div>
           <div class="columns is-multiline">
+
+            
+
             <div class="column is-half-tablet is-one-quarter-desktop">
+              
               <div class="tile is-parent">
+             
                 <article class="tile tile-total is-child box">
 
                   <div class="container-stat">
-
+                   
                     <p><i class="fas fa-users"></i>
                       <span class="count-head">TOTAL</span>
                       <span id="cases_total" class="count-num loadanim"></span>
@@ -185,12 +201,26 @@
       <article id="samplestats" class="message is-info">
         <div class="message-header">
           <p class="has-text-centered"><span class="icon"><i class="fas fa-table"></i></span><span>Sample
-              Statistics</span> (Based on Official Media Bulletin, dated: <span id="stats_date"></span>)</p>
+              Statistics</span></p>
 
         </div>
 
 
         <div class="message-body">
+
+            <div class="container">
+                <p>
+                  <span class="tag is-warning" style="margin-left: 2px;">Last Updated at: 
+                 <strong> <span id="stats_date"></span> </strong>  
+                  </span>
+                   </p>
+                <br/>
+              
+               
+                
+            </div>
+
+
           <div class="columns is-multiline">
             <div class="column is-half-tablet is-one-third-desktop">
               <div class="tile is-parent">
@@ -375,6 +405,79 @@
         
 
           <div class="columns">
+              <div class="column is-6">
+
+                  <div class="message-header">
+                    <p>
+                      <span class="blink live-back">TRACKER</span>
+                    </p>
+                  </div>
+                  
+                    
+                 
+    
+                  <div class="message-body">
+    
+                    <div class="card news-feed-card">
+    
+                      <div class="card-content">
+    
+                        <div class="content">
+    
+                       
+                       <h4 id="head-all-stats">India Stats</h4>
+                          <div class="columns is-mobile is-multiline inside-all-container">
+                        <div class="column all-total">
+                                 <h3 id="indTotal" style="color: #ff073a;">XXX</h3>
+                                  <h4 style="color: #ff073a;">Total</h4>
+                                </div>
+                              <div class="column all-Active">
+                                  <h3 id="indActive" style="color: #28a745;">XXX</h3>
+                                  <h4 style="color: #28a745;">Active</h4>
+                               </div>
+                               <div class="column all-Recovered">
+                                  <h3 id="indRecovered" style="color: rgba(0, 123, 255, 1);">XXX</h3>
+                                  <h4 style="color:rgba(0, 123, 255, 1);">Recovered</h4>
+                               </div>
+                                <div class="column all-Death">
+                                    <h3 id="indDead" style="color: rgba(108, 117, 125, 1);">XXX</h3>
+                                    <h4 style="color: rgba(108, 117, 125, 1);">Death</h4>
+                                 </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                   
+                    <div class="card news-feed-card">
+    
+                        <div class="card-content">
+      
+                          <div class="content">
+      
+                         
+                           <h4 id="head-all-stats">World Stats</h4>
+                            <div class="columns is-mobile is-multiline inside-all-container">
+                          <div class="column all-total">
+                                   <h3 id="wTotal" style="color: #ff073a;"> XXX</h3>
+                                    <h4 style="color: #ff073a;">Total</h4>
+                                  </div>
+                               
+                                 <div class="column all-Recovered">
+                                    <h3 id="wRecovered" style="color: rgba(0, 123, 255, 1);">224312</h3>
+                                    <h4 style="color:rgba(0, 123, 255, 1);">Recovered</h4>
+                                 </div>
+                                  <div class="column all-Death">
+                                      <h3 id="wDead" style="color: rgba(108, 117, 125, 1);">213242</h3>
+                                      <h4 style="color: rgba(108, 117, 125, 1);">Death</h4>
+                                   </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+    
+                </div>
+    
+              </div>
 
             <div class="container column is-6 ">
               <div class="message-header">
@@ -388,38 +491,7 @@
               </div>
             </div>
 
-            <div class="column is-6">
-
-              <div class="message-header">
-                <p>
-                  News Feed <span class="blink live-back">NOW</span>
-                </p>
-              </div>
-
-              <div class="message-body">
-
-                <!-- <div class="card news-feed-card">
-
-                  <div class="card-content">
-
-                    <div class="content">
-
-                      <h5 id="news-feed-headline">This is the news headline here.</h5>
-                      <p id="news-card-source"><span>Source: <strong><span class="has-text-primary">The Abcd
-                              News</span></span></strong>
-                        <br />
-                        <span class="has-text-link"><a href="#"><strong>Read Full</strong> </a></span>
-                      </p>
-
-                    </div>
-                  </div>
-                </div> -->
-                <h2 class="title has-text-centered">COMING SOON</h2>
-
-
-            </div>
-
-          </div>
+ 
 
         </div>
       </div>
@@ -631,7 +703,7 @@
 
   <hr />
   <!--India & World stats start-->
-  <div id="extradata" class="container">
+  <!-- <div id="extradata" class="container">
     <div class="tabs is-centered is-boxed is-medium">
       <ul>
         <li class="tab is-active">
@@ -674,11 +746,11 @@
             <h1 id="wTotal" class="has-text-centered has-text-danger">XXX</h1>
             <h1 class="has-text-centered title has-text-danger map-count-text">Total</h1>
           </div>
-          <!-- <div class="column map-active">
+           <div class="column map-active">
               <h1 id="indActive" class="has-text-centered has-text-info">XXX</h1>
               <h1 class="has-text-centered title map-count-text has-text-info">Active</h1>
             </div> -->
-          <div class="column map-recovered">
+          <!-- <div class="column map-recovered">
             <h1 id="wRecovered" class="has-text-centered has-text-success">XXX</h1>
             <h1 class="has-text-centered title map-count-text has-text-success">Recovered</h1>
           </div>
@@ -688,8 +760,9 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </div> -->
+  <!-- </div>  -->
+
   <!--India & World stats start-->
   <div class="container">
 
