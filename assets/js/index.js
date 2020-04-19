@@ -363,7 +363,7 @@ function loadChart() {
             curve: 'smooth'
         },
         xaxis: {
-            categories: Object.keys(dailyMap)
+            categories: Object.keys(dailyMap).map(item=>item.replace("/2020",""))
         },
         title: {
             text: "Cases Announced Daily"
