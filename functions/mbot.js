@@ -35,8 +35,7 @@ exports.handler = async (event, context) => {
       }
       return fetch(URL_GMC).then(response=>response.text()).then(values=>{
         data = Utils.ArraysToDict(Utils.CSVToArray(values))
-        date = new Date;
-        dateToday = `${date.getDate()}/${(date.getMonth()+1).toString().padStart(2,"0")}/${date.getFullYear()}`
+        dateToday = new Date().toLocaleString("en-GB", {timeZone: "Asia/Kolkata"}).split(",")[0]
         data = data.filter(item=>item["Date"]===dateToday)
         let specialities = data.map(item=>item["Speciality"].toLowerCase())
         if(specialities.includes(speciality.toLowerCase())){
