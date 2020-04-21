@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-
+const stringSimilarity = require("string-similarity")
 const Utils = require("./utils")
 const { URL_GMC } = process.env;
 const LIVE_URL  ="https://gist.githubusercontent.com/haideralipunjabi/3743624e604ed3a81a40ca2ec44d7c9c/raw/"
@@ -52,7 +52,6 @@ exports.handler = async (event, context) => {
                             return {
                                 "title": doctor.Name,
                                 "subtitle": `${doctor.Speciality} (Source: GMC On-Call Duty Roster)`,
-                                "image_url":"https://rockets.chatfuel.com/assets/contact.jpg",
                                 "buttons":[
                                     {
                                       "type":"phone_number",
@@ -70,6 +69,38 @@ exports.handler = async (event, context) => {
               return {
                   statusCode: 200,
                   body: JSON.stringify(doctorsdata)
+              }
+        }
+        else {
+            let matches = stringSimilarity.findBestMatch(speciality.toLowerCase(),specialities)
+            let returnData = {
+                "messages": [
+                  {
+                    "attachment": {
+                      "type": "template",
+                      "payload": {
+                        "template_type": "button",
+                        "text": `Did you mean ${Utils.titleCase(matches.bestMatch.target)}?`,
+                        "buttons": [
+                          {
+                            "type": "json_plugin_url",
+                            "url": `https://covidkashmir.org/.netlify/functions/mbot?doctors=1&speciality=${matches.bestMatch.target}`,
+                            "title": "Yes"
+                          },
+                          {
+                            "url": "https://covidkashmir.org/.netlify/functions/mbot?doctors=1",
+                            "type":"json_plugin_url",
+                            "title":"No"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+              return {
+                  statusCode: 200,
+                  body: JSON.stringify(returnData)
               }
         }
       }).catch(error => ({

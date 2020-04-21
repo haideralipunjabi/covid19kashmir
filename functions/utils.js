@@ -82,3 +82,8 @@ exports.createUnknownDistrict = function(data) {
 exports.parseIntOpt = function(s){
     return s? parseInt(s):0
 }
+exports.titleCase= function titleCase(str) {
+    return str.toLowerCase().split(' ').map(function(word) {
+      return word.replace(word[0], word[0].toUpperCase());
+    }).join(' ');
+  }

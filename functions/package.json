@@ -18,5 +18,7 @@
     "dotenv": "^5.0.1",
     "node-fetch": "^2.1.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "string-similarity": "^4.0.1"
+  }
 }
