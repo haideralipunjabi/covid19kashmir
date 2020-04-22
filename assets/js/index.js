@@ -555,7 +555,8 @@ function getFillColor(district) {
     let activeDistrictsMap = {}
     for(let k of Object.keys(districtsMap)){
         activeDistrictsMap[k] = districtsMap[k]["Active"]
-    }    if (!Object.keys(activeDistrictsMap).includes(district)) return "#ffffff"
+    }
+    if (!Object.keys(activeDistrictsMap).includes(district) || districtsMap[district]["Active"]==='0') return "#ffffff"
     let min = Math.min(...Object.values(activeDistrictsMap))
     let max = Math.max(...Object.values(activeDistrictsMap))
     let range = (max - min) / 3
