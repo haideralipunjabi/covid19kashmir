@@ -1,7 +1,7 @@
 {
     "name": "CovidKashmir | Covid-19 J&K Tracker",
     "short_name": "CovidKashmir",
-    "start_url": "index.html",
+    "start_url": "/?source=pwa",
     "display": "standalone",
     "background_color": "#fdfdfd",
     "theme_color": "#ff0b55",
