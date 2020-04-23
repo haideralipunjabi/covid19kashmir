@@ -1,8 +1,8 @@
 const fetch = require("node-fetch");
 const stringSimilarity = require("string-similarity")
 const Utils = require("./utils")
-const { URL_GMC } = process.env;
-const LIVE_URL  ="https://gist.githubusercontent.com/haideralipunjabi/3743624e604ed3a81a40ca2ec44d7c9c/raw/"
+const { URL_GMC, LIVE_URL } = process.env;
+
 exports.handler = async (event, context) => {
   if(event.queryStringParameters.stats){
     return fetch(LIVE_URL+"?v="+Math.floor(Math.random()*10**10).toString()).then(r=>r.json()).then(data=>{
