@@ -195,6 +195,20 @@ $(document).ready(function () {
       $(".navbar-menu").toggleClass("is-active");
 
     });
+    $("a[data-record]").click(e=>{
+        e.preventDefault();
+        let loadPage = ()=>{
+            document.location = e.currentTarget.href
+        }
+        gtag('event','link', {
+            'event_label':e.currentTarget.href,
+            'event_category':'outbound',
+            'event_callback':loadPage
+        });
+
+        setTimeout(loadPage,1000)
+
+    })
   })
 
 if('serviceWorker' in navigator) {
