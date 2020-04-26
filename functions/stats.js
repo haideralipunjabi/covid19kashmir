@@ -122,17 +122,35 @@ exports.totalMap = function(data){
 }
 
 exports.ageMap = function(data){
-  let ages = data.map(item=>{
+  let maleages = data.filter(item=>item["Gender"]==="M").map(item=>{
     let matched  = item["Age"].match(/[0-9]+/gm)
     if(matched){
       return parseInt(matched[0])
     }
   }).filter(item=>(item))
+  let femaleages = data.filter(item=>item["Gender"]==="F").map(item=>{
+    let matched  = item["Age"].match(/[0-9]+/gm)
+    if(matched){
+      return parseInt(matched[0])
+    }
+  }).filter(item=>(item))
+  let unknownages = data.filter(item=>item["Gender"]==="").map(item=>{
+    let matched  = item["Age"].match(/[0-9]+/gm)
+    if(matched){
+      return parseInt(matched[0])
+    }
+  }).filter(item=>(item))
+  let ages = [...maleages,...femaleages,...unknownages]
   let maxAge = Math.max(...ages)
   let maxRange = Math.ceil((maxAge+1)/10)*10
-  let map = {}
+  let map = {
+    "male":{},"female":{},"unknown":{}
+  }
   for(let i =0; i < maxRange/10; i++){
-    map[`${i*10}-${(i*10)+9}`] = ages.filter(item=> (item>=i*10 && item < ((i+1)*10))).length
+    map["male"][`${i*10}-${(i*10)+9}`] = maleages.filter(item=> (item>=i*10 && item < ((i+1)*10))).length
+    map["female"][`${i*10}-${(i*10)+9}`] = femaleages.filter(item=> (item>=i*10 && item < ((i+1)*10))).length
+    map["unknown"][`${i*10}-${(i*10)+9}`] = unknownages.filter(item=> (item>=i*10 && item < ((i+1)*10))).length
+
   }
   return map;
 }

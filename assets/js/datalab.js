@@ -328,18 +328,24 @@ function createCharts() {
   // chartOptions[4]={}
   chartOptions[4] = {
     series: [{
-      name: 'Age Group',
-      data: Object.values(ageMap)
+      name: 'Male',
+      data: Object.values(ageMap["male"])
+    },{
+      name: 'Female',
+      data: Object.values(ageMap["female"])
+    },{
+      name: 'Unknown',
+      data: Object.values(ageMap["unknown"])
     }],
     chart: {
       type: 'bar',
-      height: 350
+      height: 350,
+      stacked: true,
     },
     plotOptions: {
       bar: {
         horizontal: false,
         columnWidth: '55%',
-        endingShape: 'rounded'
       },
     },
     dataLabels: {
@@ -351,7 +357,7 @@ function createCharts() {
       colors: ['transparent']
     },
     xaxis: {
-      categories: Object.keys(ageMap),
+      categories: Object.keys(ageMap["male"]),
     },
     yaxis: {
       title: {
@@ -362,7 +368,7 @@ function createCharts() {
       text: "No. of Patients in various age groups"
     },
     subtitle: {
-      text: `Note: ${liveData["Total"] - Object.values(ageMap).reduce((x,y)=>x+y)} have unknown age | Source: covidkashmir.org`
+      text: `Note: ${liveData["Total"] - (Object.values(ageMap["male"]).reduce((x,y)=>x+y)+Object.values(ageMap["female"]).reduce((x,y)=>x+y)+Object.values(ageMap["unknown"]).reduce((x,y)=>x+y))} have unknown age | Source: covidkashmir.org`
     },
     fill: {
       opacity: 1
@@ -377,8 +383,8 @@ function createCharts() {
   };
   console.log(genderMap)
   chartOptions[5] = {
-    series: Object.values(genderMap),
-    labels: ["Male", "Female"],
+    series: [...Object.values(genderMap), liveData["Total"]-Object.values(genderMap).reduce((x,y)=>x+y)],
+    labels: ["Male", "Female","Unknown"],
     responsive: [{
       breakpoint: 500,
       options: {
