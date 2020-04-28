@@ -395,7 +395,7 @@ function loadChart() {
         },
         yaxis: {
             min: 0,
-            max: 40,
+            max: 60,
             title: {
                 text: 'No. of cases',
             },
