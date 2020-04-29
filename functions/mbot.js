@@ -37,11 +37,14 @@ exports.handler = async (event, context) => {
         data = Utils.ArraysToDict(Utils.CSVToArray(values))
         dateToday = new Date().toLocaleString("en-GB", {timeZone: "Asia/Kolkata"}).split(",")[0]
         timeNow = new Date().toLocaleString("en-GB", {timeZone: "Asia/Kolkata"}).split(",")[1].trim().substr(0,5).replace(":","")
+        dayToday = new Date().getDay();
         data = data.filter(item=>(item["Date"]===dateToday || item["Date"]===""))
         data = data.filter(item=>(item["Time"]==="" || 
                           (parseInt(timeNow) >= parseInt(item["Time"].split("-")[0]) && 
                             parseInt(timeNow) <= parseInt(item["Time"].split("-")[1]) )))
-        
+        data = data.filter(item=>(item["Days"]==="" || 
+                          (dayToday >= parseInt(item["Days"].split("-")[0]) &&
+                            dayToday <= parseInt(item["Days"].split("-")[1]) )))
         let keywords = data.flatMap(item=>item["Keywords"].split(",").map(k=>k.toLowerCase().trim()))
         console.log(keyword)
         if(keywords.includes(keyword.toLowerCase())){
