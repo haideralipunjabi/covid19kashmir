@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 const stringSimilarity = require("string-similarity")
 const Utils = require("./utils")
-const { URL_GMC, LIVE_URL } = process.env;
+const { LIVE_URL, URL_DOCTORS } = process.env;
 
 exports.handler = async (event, context) => {
   if(event.queryStringParameters.stats){
@@ -22,8 +22,8 @@ exports.handler = async (event, context) => {
     })
   }
   if(event.queryStringParameters.doctors) {
-      let speciality = event.queryStringParameters.speciality;
-      if(!speciality){
+      let keyword = event.queryStringParameters.keyword;
+      if(!keyword){
           return {
               statusCode: 200,
               body: JSON.stringify({
@@ -33,13 +33,19 @@ exports.handler = async (event, context) => {
               })
           }
       }
-      return fetch(URL_GMC).then(response=>response.text()).then(values=>{
+      return fetch(URL_DOCTORS).then(response=>response.text()).then(values=>{
         data = Utils.ArraysToDict(Utils.CSVToArray(values))
         dateToday = new Date().toLocaleString("en-GB", {timeZone: "Asia/Kolkata"}).split(",")[0]
-        data = data.filter(item=>item["Date"]===dateToday)
-        let specialities = data.map(item=>item["Speciality"].toLowerCase())
-        if(specialities.includes(speciality.toLowerCase())){
-            doctors = data.filter(item=>item["Speciality"].toLowerCase()===speciality.toLowerCase())
+        timeNow = new Date().toLocaleString("en-GB", {timeZone: "Asia/Kolkata"}).split(",")[1].trim().substr(0,5).replace(":","")
+        data = data.filter(item=>(item["Date"]===dateToday || item["Date"]===""))
+        data = data.filter(item=>(item["Time"]==="" || 
+                          (parseInt(timeNow) >= parseInt(item["Time"].split("-")[0]) && 
+                            parseInt(timeNow) <= parseInt(item["Time"].split("-")[1]) )))
+        
+        let keywords = data.flatMap(item=>item["Keywords"].split(",").map(k=>k.toLowerCase().trim()))
+        console.log(keyword)
+        if(keywords.includes(keyword.toLowerCase())){
+            doctors = data.filter(item=>item["Keywords"].split(",").map(k=>k.toLowerCase().trim()).includes(keyword.toLowerCase()))
             doctorsdata = {
                 "messages":[
                   {
@@ -50,11 +56,11 @@ exports.handler = async (event, context) => {
                         "elements": doctors.map(doctor=>{
                             return {
                                 "title": doctor.Name,
-                                "subtitle": `${doctor.Speciality} (Source: GMC On-Call Duty Roster)`,
+                                "subtitle": `${doctor.Field} (Source: ${doctor.Source})`,
                                 "buttons":[
                                     {
                                       "type":"phone_number",
-                                      "phone_number":"+91"+doctor["Phone No"],
+                                      "phone_number":"+91"+doctor["Contact"],
                                       "title":"Call Doctor"
                                     }
                                   ]
@@ -71,7 +77,7 @@ exports.handler = async (event, context) => {
               }
         }
         else {
-            let matches = stringSimilarity.findBestMatch(speciality.toLowerCase(),specialities)
+            let matches = stringSimilarity.findBestMatch(keyword.toLowerCase(),keywords)
             let returnData = {
                 "messages": [
                   {
@@ -83,7 +89,7 @@ exports.handler = async (event, context) => {
                         "buttons": [
                           {
                             "type": "json_plugin_url",
-                            "url": `https://covidkashmir.org/.netlify/functions/mbot?doctors=1&speciality=${matches.bestMatch.target}`,
+                            "url": `https://covidkashmir.org/.netlify/functions/mbot?doctors=1&keyword=${matches.bestMatch.target}`,
                             "title": "Yes"
                           },
                           {
