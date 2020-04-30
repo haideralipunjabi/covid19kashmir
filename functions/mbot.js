@@ -28,7 +28,7 @@ exports.handler = async (event, context) => {
               statusCode: 200,
               body: JSON.stringify({
                   "messages":[
-                      {"text": "Couldn't find a doctor!"}
+                      {"text": "No Doctor is available at the moment. Please try again later."}
                   ]
               })
           }
@@ -45,6 +45,17 @@ exports.handler = async (event, context) => {
         data = data.filter(item=>(item["Days"]==="" || 
                           (dayToday >= parseInt(item["Days"].split("-")[0]) &&
                             dayToday <= parseInt(item["Days"].split("-")[1]) )))
+        if(data.length === 0){
+          return {
+              statusCode: 200,
+              body: JSON.stringify({
+                  "messages":[
+                      {"text": "Couldn't find a doctor!"}
+                  ]
+              })
+          }
+          
+          }
         let keywords = data.flatMap(item=>item["Keywords"].split(",").map(k=>k.toLowerCase().trim()))
         console.log(keyword)
         if(keywords.includes(keyword.toLowerCase())){
