@@ -28,8 +28,24 @@ exports.handler = async (event, context) => {
               statusCode: 200,
               body: JSON.stringify({
                   "messages":[
-                      {"text": "Couldn't find a doctor!"}
-                  ]
+                      {"text": "Couldn't find a doctor!"},
+                      {
+                        "attachment": {
+                          "type": "template",
+                          "payload": {
+                            "template_type": "button",
+                            "text": "You can also talk with our admin.",
+                            "buttons": [
+                              {
+                                "type": "show_block",
+                                "block_names": ["Live Chat"],
+                                "title": "Live Chat with Admin"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                  ],
               })
           }
       }
