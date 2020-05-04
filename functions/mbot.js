@@ -61,6 +61,33 @@ exports.handler = async (event, context) => {
         data = data.filter(item=>(item["Days"]==="" || 
                           (dayToday >= parseInt(item["Days"].split("-")[0]) &&
                             dayToday <= parseInt(item["Days"].split("-")[1]) )))
+        if(data.length === 0){
+          return {
+              statusCode: 200,
+              body: JSON.stringify({
+                  "messages":[
+                      {"text": "Couldn't find a doctor!"},
+                      {
+                        "attachment": {
+                          "type": "template",
+                          "payload": {
+                            "template_type": "button",
+                            "text": "You can also talk with our admin.",
+                            "buttons": [
+                              {
+                                "type": "show_block",
+                                "block_names": ["Live Chat"],
+                                "title": "Live Chat with Admin"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                  ]
+              })
+          }
+          
+          }
         let keywords = data.flatMap(item=>item["Keywords"].split(",").map(k=>k.toLowerCase().trim()))
         console.log(keyword)
         if(keywords.includes(keyword.toLowerCase())){
