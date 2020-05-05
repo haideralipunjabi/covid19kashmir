@@ -65,21 +65,24 @@
       <article id="stats" class="message is-primary">
         <div class="message-header">
           <p class="has-text-centered"><span class="icon"><i class="fas fa-table"></i></span><span>Statistics</span>
-            <!-- (Updated at: <span id="patientstats_updated"></span>)</p> -->
-          
+            <!-- (Updated at: <span id="patientstats_updated"></span>) -->
+          </p>
+          <p>
             <button onclick="javascript:loadStats()" class="button">
               <span class="icon is-small">
                 <i class="fas fa-sync"></i>
               </span>
               <span>Refresh</span>
             </button>
-
+<!-- 
             <button onclick="javascript:shareStatsText()" class="button">
               <span class="icon is-small">
                 <i class="fas fa-share-alt"></i>
               </span>
               <span>Share</span>
-            </button>
+            </button> -->
+          </p>
+            
         </div>
 
 
@@ -235,6 +238,10 @@
                     <p><i class="fas fa-syringe"></i>
                       <span class="count-head">Samples Collected</span>
                       <span id="stats_samples" class="count-num loadanim"></span>
+                    </p>
+                    <p>
+                      <span class="count-head-daily">New: </span>
+                      <span id="stats_samples_today" class="count-num-daily"></span>
                     </p>
                     <div id="slSamples" class="sparkline"></div>
                   </div>

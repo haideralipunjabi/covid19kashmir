@@ -313,10 +313,12 @@ function loadSparklines(data) {
 
 function loadSamplesData(data){
     $("#stats_samples").removeClass("loadanim")
+    
     $("#stats_posper").removeClass("loadanim")
     $("#stats_negper").removeClass("loadanim")
     $("#stats_date").html(data["date"])
     $("#stats_samples").html(data["stats"]["total"])
+    $("#stats_samples_today").html(data["stats"]["new"])
     $("#stats_posper").html(data["stats"]["posper"].toFixed(2))
     $("#stats_negper").html(data["stats"]["negper"].toFixed(2))
     const config = {

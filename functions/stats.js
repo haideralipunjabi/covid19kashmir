@@ -64,6 +64,7 @@ exports.Samples = function(data){
   samData["date"] = data[0]["Date"]
   samData["stats"] ={
     "total": data[0]["Samples Collected"],
+    "new": data[0]["Samples Collected"]-data[1]["Samples Collected"],
     "posper": data[0]["Samples Positive"] *100 / data[0]["Samples Collected"],
     "negper": data[0]["Samples Negative"] *100 / data[0]["Samples Collected"]
   }
