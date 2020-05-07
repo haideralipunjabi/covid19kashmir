@@ -2,17 +2,49 @@ const Utils = require("./utils")
 const Population = require("./population")
 const fetch = require("node-fetch");
 
-exports.DistrictMap = function (data) {
-  console.log(data)
+exports.DistrictMap = function (d) {
+  let data = JSON.parse(JSON.stringify(d))
   let districtMap = {}
-  for(let entry of data){
-    let district = entry["District"];
-    delete entry["District"]
-    entry["Population"] = Population.POPULATION[district]
+  let lastDay = data[data.length-1]
+  delete lastDay["Date"]
+  for(let district of Object.keys(lastDay)){
+    console.log(lastDay[district].split(","))
+    const [x1,x2,x3,x4] = lastDay[district].split(",") 
+    let entry = {
+      "Total":x1,
+      "Active":x2,
+      "Recovered":x3,
+      "Deceased":x4,
+      "Population": Population.POPULATION[district]
+    }
+    console.log(entry)
     districtMap[district] = entry;
   }
   return districtMap
 }
+
+exports.DistrictVariance = function(d){
+  let data = JSON.parse(JSON.stringify(d))
+  let variance = {}
+  for(let day of data){
+    let date = day["Date"]
+    delete day["Date"]
+    for(let district of Object.keys(day)) {
+      if(!Object.keys(variance).includes(district)){
+        variance[district]={}
+      }
+      let [x1,x2,x3,x4] = day[district].split(",")
+      variance[district][date] = {
+        "Total":Utils.parseIntOpt(x1),
+        "Active":Utils.parseIntOpt(x2),
+        "Recovered":Utils.parseIntOpt(x3),
+        "Deceased":Utils.parseIntOpt(x4)
+      }
+    }
+  }
+  return variance;
+}
+
 
 exports.DailyMap = function (data) {
   let dateMap = {}

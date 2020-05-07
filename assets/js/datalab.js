@@ -2,19 +2,22 @@ const API_URL = "/.netlify/functions/api"
 const LIVE_API = "https://covidkashmir.org/api/live/"
 const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad", "Unknown"]
 const CHARTS = {
-  "chartOne": "Chart1",
-  "chartTwo": "Chart2",
-  "chartThree": "Chart3",
-  "chartFour": "Chart4",
-  // "chartFive": "Chart5",
-  "chartSix": "Chart6",
-  "chartSeven": "Chart7"
+  "chartOne": "full",
+  "chartTwo": "full",
+  "chartThree": "half",
+  "chartFour": "half",
+  "chartFive": "half",
+  "chartSix": "half",
+  "chartSeven": "full",
+  "chartEight": "full",
+  "chartNine": "full",
+  "chartTen": "full"
 }
-let districtMap, dateMap, activeDistricts, liveData, dailyData, ageMap, genderMap;
+let districtMap, dateMap, activeDistricts, liveData, dailyData, ageMap, genderMap, districtVariance, variance;
 
 
 $(document).ready(() => {
-  let sheetPromise = fetch(API_URL + "?fields=districtMap,dailyMap,genderMap,ageMap").then((response) => {
+  let sheetPromise = fetch(API_URL + "?fields=districtMap,dailyMap,genderMap,ageMap,districtVariance,variance").then((response) => {
     return response.json()
   })
   let livePromise = fetch(LIVE_API, {
@@ -31,7 +34,9 @@ $(document).ready(() => {
     districtMap = data["districtMap"]
     dateMap = data["dailyMap"]
     ageMap = data["ageMap"],
-      genderMap = data["genderMap"]
+    genderMap = data["genderMap"]
+    districtVariance = data["districtVariance"]
+    variance = data["variance"]
     liveData = values[1];
     createHolders();
     createCharts()
@@ -42,7 +47,7 @@ function createHolders() {
   for (let key of Object.keys(CHARTS)) {
     $("#charts-container").append(
       `
-      <div class="column is-half">
+      <div class="column is-${CHARTS[key]}">
         <div class="card">
           <div class="card-content">
             <div id="${key}">
@@ -127,7 +132,7 @@ function createCharts() {
       curve: 'smooth'
     },
     xaxis: {
-      categories: Object.keys(dateMap)
+      categories: Object.keys(dateMap).map(item=>item.replace("/2020",""))
     },
     title: {
       text: "Cases Announced Daily"
@@ -158,7 +163,7 @@ function createCharts() {
     },
     yaxis: {
       min: 0,
-      max: 40,
+      max: 60,
       title: {
         text: 'No. of cases',
       },
@@ -287,45 +292,6 @@ function createCharts() {
       }
     }]
   };
-  // chartOptions[4] = {
-  //   series: [{
-  //       name: 'Active',
-  //       data: dailyData["active"]
-  //     }, {
-  //       name: 'Recovered',
-  //       data: dailyData["recovered"]
-  //     },
-  //     {
-  //       name: 'Deceased',
-  //       data: dailyData["deceased"]
-  //     }
-  //   ],
-  //   chart: {
-  //     height: 350,
-  //     type: 'area'
-  //   },
-  //   dataLabels: {
-  //     enabled: false
-  //   },
-  //   title: {
-  //     text: "Daily Plot of Cases"
-  //   },
-  //   subtitle: {
-  //     text: "Source: covidkashmir.org"
-  //   },
-  //   stroke: {
-  //     curve: 'smooth'
-  //   },
-  //   xaxis: {
-  //     categories: dailyData["Dates"]
-  //   },
-  //   tooltip: {
-  //     x: {
-  //       format: 'dd/MM/yy'
-  //     },
-  //   },
-  // };
-  // chartOptions[4]={}
   chartOptions[4] = {
     series: [{
       name: 'Male',
@@ -381,7 +347,6 @@ function createCharts() {
       }
     }
   };
-  console.log(genderMap)
   chartOptions[5] = {
     series: [...Object.values(genderMap), liveData["Total"]-Object.values(genderMap).reduce((x,y)=>x+y)],
     labels: ["Male", "Female","Unknown"],
@@ -448,6 +413,158 @@ function createCharts() {
       opacity: 1
     },
   };
+  chartOptions[6] = {
+    series: Object.keys(districtVariance).map(district=>{
+      dData = districtVariance[district];
+      total = Object.values(dData).map(item=>item["Total"])
+      return {
+        "name": district,
+        "data": total
+      }
+    }),
+    chart: {
+    height: 350,
+    type: 'line',
+    zoom: {
+      enabled: false
+    }
+  },
+  dataLabels: {
+    enabled: false
+  },
+  stroke: {
+    curve: 'smooth',
+    width: 3
+  },
+  colors: ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722', '#795548', '#9e9e9e', '#607d8b'],
+  title: {
+    text: 'District Wise Increase in Total Cases',
+    align: 'left'
+  },
+  grid: {
+    row: {
+      colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+      opacity: 0.5
+    },
+  },
+  xaxis: {
+    categories: Object.keys(districtVariance["Srinagar"]).map(item=>item.replace("/2020","")),
+  }
+  };
+  chartOptions[7] = {
+    series: Object.keys(districtVariance).map(district=>{
+      dData = districtVariance[district];
+      active = Object.values(dData).map(item=>item["Active"])
+      return {
+        "name": district,
+        "data": active
+      }
+    }),
+    chart: {
+    height: 350,
+    type: 'line',
+    zoom: {
+      enabled: false
+    }
+  },
+  dataLabels: {
+    enabled: false
+  },
+  stroke: {
+    curve: 'smooth',
+    width: 3
+  },
+  colors: ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722', '#795548', '#9e9e9e', '#607d8b'],
+  title: {
+    text: 'District Wise Increase in Active Cases',
+    align: 'left'
+  },
+  grid: {
+    row: {
+      colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+      opacity: 0.5
+    },
+  },
+  xaxis: {
+    categories: Object.keys(districtVariance["Srinagar"]).map(item=>item.replace("/2020","")),
+  }
+  }
+  chartOptions[8] = {
+    series: Object.keys(districtVariance).map(district=>{
+      dData = districtVariance[district];
+      recovered = Object.values(dData).map(item=>item["Recovered"])
+      return {
+        "name": district,
+        "data": recovered
+      }
+    }),
+    chart: {
+    height: 350,
+    type: 'line',
+    zoom: {
+      enabled: false
+    }
+  },
+  dataLabels: {
+    enabled: false
+  },
+  stroke: {
+    curve: 'smooth',
+    width: 3
+  },
+  colors: ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722', '#795548', '#9e9e9e', '#607d8b'],
+  title: {
+    text: 'District Wise Increase in Recovered Cases',
+    align: 'left'
+  },
+  grid: {
+    row: {
+      colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+      opacity: 0.5
+    },
+  },
+  xaxis: {
+    categories: Object.keys(districtVariance["Srinagar"]).map(item=>item.replace("/2020","")),
+  }
+  }
+  chartOptions[9] = {
+    series: Object.keys(variance).map(a=>{
+      return {
+        "data":variance[a].map((x,i)=>variance[a].slice(0,i+1).reduce((x,y)=>x+y)),
+        "name": a
+      }
+    }),
+    chart: {
+    height: 350,
+    type: 'line',
+    zoom: {
+      enabled: false
+    }
+  },
+  dataLabels: {
+    enabled: false
+  },
+  stroke: {
+    curve: 'smooth'
+  },
+  title: {
+    text: 'Cummulative',
+    align: 'left'
+  },
+  grid: {
+    row: {
+      colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+      opacity: 0.5
+    },
+  },
+  xaxis: {
+    categories: variance["total"].map((x,i)=>{
+      a = new Date("03/09/2020");
+      a.setDate(a.getDate() + i);
+      return `${a.getDate().toString().padStart(2,"0")}/${(a.getMonth()+1).toString().padStart(2,"0")}`
+    }),
+  }
+  }
   let keys = Object.keys(CHARTS);
   for (let key of keys) {
     new ApexCharts(document.querySelector("#" + key), chartOptions[keys.indexOf(key)]).render()
