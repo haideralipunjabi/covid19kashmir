@@ -54,7 +54,8 @@ exports.DailyMap = function (data) {
   return dateMap;
 }
 
-exports.VarianceMap = function (data) {
+exports.VarianceMap = function (d) {
+  let data = JSON.parse(JSON.stringify(d))
   data.reverse()
   spData = {
     "total": [0],
@@ -91,7 +92,8 @@ exports.VarianceMap = function (data) {
   return spData
 }
 
-exports.Samples = function(data){
+exports.Samples = function(d){
+  let data = JSON.parse(JSON.stringify(d))
   let samData = {}
   samData["date"] = data[0]["Date"]
   samData["stats"] ={
