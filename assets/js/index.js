@@ -186,6 +186,10 @@ function formatSources(patient) {
     let links = patient["Sources"].split(",")
     let sources = []
     for (link of links) {
+        if(!link.startsWith("http")){
+            sources.push(`<a href=https://"${link}">${links.indexOf(link)+1}</a>`)
+            continue;
+        }
         sources.push(`<a href="${link}">${links.indexOf(link)+1}</a>`)
     }
     return sources.join(" ")
