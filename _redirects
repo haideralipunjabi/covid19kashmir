@@ -2,3 +2,4 @@ http://covid19kashmir.hackesta.org/* https://covidkashmir.org/:splat 301!
 https://covid19kashmir.hackesta.org/* https://covidkashmir.org/:splat 301!
 /medicalstores /stores?type=medical 301
 /bot https://chatfuel.com/bot/covidkashmir 200!
+/viz https://drive.google.com/drive/folders/1b0BfPaVxMzT7i5juJwot_P1BZFP_Ome6?usp=sharing 200!
