@@ -8,7 +8,6 @@ exports.DistrictMap = function (d) {
   let lastDay = data[data.length-1]
   delete lastDay["Date"]
   for(let district of Object.keys(lastDay)){
-    console.log(lastDay[district].split(","))
     const [x1,x2,x3,x4] = lastDay[district].split(",") 
     let entry = {
       "Total":x1,
@@ -17,7 +16,6 @@ exports.DistrictMap = function (d) {
       "Deceased":x4,
       "Population": Population.POPULATION[district]
     }
-    console.log(entry)
     districtMap[district] = entry;
   }
   return districtMap

@@ -4,9 +4,8 @@ const { LIVE_URL,TELEGRAM_URL } = process.env;
 exports.handler = async (event,context)=>{
     const body = JSON.parse(event.body)
     const {chat, text} = body.message;
-    console.log(chat,text)
     if(text==="/start"){
-        fetch(TELEGRAM_URL+`sendMessage?chat_id=${chat.id}&text=${`Use the following commands:\n/live: Get Live Statistics`}`)
+        fetch(TELEGRAM_URL+`sendMessage?chat_id=${chat.id}&text=${`Use the following commands:\n/live: Get Live Statistics`}`).then(r=>{console.log(r)})
     }
     if(text==="/live") {
         fetch(LIVE_URL+"?v="+Math.floor(Math.random()*10**10).toString()).then(r=>r.json()).then(data=>{
