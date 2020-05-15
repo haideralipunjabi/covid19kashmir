@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CovidKashmir</title>
+  {% include 'favicons.html' %}
+
+  <link rel="manifest" href="manifest.json" />
+
+  <link rel="stylesheet" href="assets/css/bulma.min.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+  <link rel="stylesheet" href="assets/css/sortable-theme-minimal.css">
+  <link rel="stylesheet" href="/assets/css/brands.min.css">
+  <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
+  <link rel="stylesheet" href="/assets/css/solid.min.css">
+  <script src="assets/js/jquery-3.4.1.min.js"></script>
+  <script src="assets/js/jquery.csv.min.js"></script>
+  <script src="assets/js/sortable.min.js"></script>
+  <script src="assets/js/utils.js"></script>
+  <script src="/assets/js/twitter.js" charset="utf-8"></script>
+  <link href="/assets/css/montserrat.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <div id="include-header">
+    {% include 'header.html' %}
+  </div>
+  <div id="include-navbar">
+    {% include 'navbar.html' %}
+  </div>
+  <br />
+  
+
+  <section class="section">
+    <div class="container">
+    <article>
+      <div class="container">
+        <div class="message-header">
+          <p><span class="icon"><i class="fas fa-virus"></i></span><span>Detailed Data</span></p>
+          <p><a class="button" href="https://forms.gle/DNF58AXM25QKup3k8"><span class="icon"><i
+                  class="fas fa-hospital-user"></i></span><span>Add/Update Information</span></a></p>
+        </div>
+        <div class="message-body">
+          <div id="data-table">
+            <progress class="progress is-small is-primary" max="100">75%</progress>
+            <h1 id="nodata-error" class="subtitle is-1 has-text-centered is-hidden">NO DATA FOUND</h1>
+            <div class="columns is-mobile is-multiline" id="data-filters">
+              <div class="column is-full-mobile">
+                <h1 class="subtitle">Filters:</h1>
+              </div>
+              <div class="control column is-one-third-mobile">
+                <div class="select is-loading">
+                  <select id="filter-date-announced">
+                    <option>Date: All</option>
+                  </select>
+                </div>
+              </div>
+              <div class="control column is-one-third-mobile">
+                <div class="select is-loading">
+                  <select id="filter-district">
+                    <option>District: All</option>
+                  </select>
+                </div>
+              </div>
+              <div class="control column is-one-third-mobile">
+                <div class="select is-loading">
+                  <select id="filter-status">
+                    <option>Status: All</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <nav class="pagination" role="navigation" aria-label="pagination">
+              <a onclick="javascript:changePage(-1);" class="pagination-previous is-invisible">Previous</a>
+              <a onclick="javascript:changePage(1);" class="pagination-next">Next</a>
+            </nav>
+            <table class="table sortable sortable-theme-minimal is-fullwidth is-bordered is-striped" data-sortable
+              style="overflow-x:auto;">
+              <thead>
+                <tr>
+                  <th data-sortable="false">Id</th>
+                  <th data-sortable-type="numeric">Date Announced</th>
+                  <th>Reported District</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Reported Locality</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Age</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Gender</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">History</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Notes</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Sources</th>
+                  <th data-sortable="false" class="is-hidden-mobile is-hidden-tablet-only">Status</th>
+                  <th data-sortable="false">Details</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+            <nav class="pagination" role="navigation" aria-label="pagination">
+              <a onclick="javascript:changePage(-1);" class="pagination-previous is-invisible">Previous</a>
+              <a onclick="javascript:changePage(1);" class="pagination-next">Next</a>
+            </nav>
+            <h3 class="has-text-centered"><i><b>Note: </b></i>This includes information of only those patients whose
+              district was confirmed</h3>
+            <h3 class="has-text-centered"><i><b>Note: </b></i>Reported District/Locality doesn't indicate the patient's
+              resident district/locality</h3>
+          </div>
+        </div>
+      </div>
+    </article>
+    <br />
+    <div class="container has-text-centered ">
+      <a href="statistics.html" class="button is-primary is-rounded">View Detailed Statistics (Govt)</a>
+    </div>
+    <br />
+
+
+    </div>
+  </section>
+  <br>
+
+  <!-- Modals -->
+  <div id="modal-patient" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Patient Details</p>
+        <button class="delete" aria-label="close" onclick="javascript:toggleModal('modal-patient')"></button>
+      </header>
+      <section class="modal-card-body">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span>Patient <span id="modal-details-id"></span></span>
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <p><b>Age: </b><span id="modal-details-age">XXX</span></p>
+              <p><b>Gender: </b><span id="modal-details-gender">XXX</span></p>
+              <p><b>History: </b><span id="modal-details-history"></span></p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span>Location</span>
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <p><b>Reported City: </b><span id="modal-details-city">XXX</span></p>
+              <p><b>Reported District: </b><span id="modal-details-district">XXX</span></p>
+              <p><b>Reported Locality: </b><span id="modal-details-locality"></span></p>
+
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span>Current Status</span>
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <p><b>Date Announced: </b><span id="modal-details-date-announced">XXX</span></p>
+              <p><b>Current Status: </b><span id="modal-details-current-status"></span></p>
+              <p><b>Status Change Date: </b><span id="modal-details-date-change">XXX</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span>Notes</span>
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content" id="modal-details-notes">
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span>Sources</span>
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content" id="modal-details-sources">
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <br />
+  <br />
+  <div id="include-footer">
+    {% include 'footer.html' %}
+  </div>
+  <script src="assets/js/details.js"></script>
+  <script src="assets/js/localDebug.js"></script>
+  <script src="assets/js/widgetFunction.js"></script>
+
+</body>
+
+</html>
