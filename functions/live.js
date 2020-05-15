@@ -1,4 +1,5 @@
 const fetch = require("node-fetch")
+const { LIVE_URL } = process.env;
 
 exports.handler = async (event,context)=>{
     return fetch(LIVE_URL+"?v="+Math.floor(Math.random()*10**10).toString()).then(r=>r.json()).then(data=>{
