@@ -3,7 +3,7 @@ const LIVE_API_URL = "https://covidkashmir.org/api/live"
 const NEWS_API_URL = "https://covidkashmir.org/api/news/"
 const BULLETIN_API_URL = "https://covidkashmir.org/api/bulletin/"
 
-let districtsMap, snap, countback;
+let districtsMap, snap, countback, activeDistrictsMap={};
 let deferredPrompt;
 
 const DISTRICTS = ["Baramulla", "Ganderbal", "Bandipora", "Srinagar", "Anantnag", "Budgam", "Doda", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Pulwama", "Poonch", "Rajouri", "Ramban", "Riasi", "Samba", "Shopian", "Udhampur", "Mirpur", "Muzaffarabad"]
@@ -103,19 +103,27 @@ function loadData(first) {
 }
 function loadDistricts(){
     $("#district-table tbody").html("")
+    districtsMap["Total"] = Object.values(districtsMap).reduce((i,j)=>{
+        let obj = {}
+        Object.keys(i).forEach(key=>{
+            obj[key] = i[key] + j[key]
+        })
+        return obj
+    })
     for(let dis of Object.entries(districtsMap)){
         if(dis[0]==="Unknown") continue;
         $("#district-table tbody").append(`
             <tr>
                 <td class="has-text-centered">${dis[0]}</td>
-                <td class="has-text-centered">${dis[1]["Total"]}</td>
-                <td class="has-text-centered">${dis[1]["Active"]}</td>
-                <td class="has-text-centered">${dis[1]["Recovered"]}</td>
-                <td class="has-text-centered">${dis[1]["Deceased"]}</td>
-                <td class="has-text-centered">${Math.round(1000000/(dis[1]["Population"]/dis[1]["Total"]))}</td>
+                <td>${dis[1]["Total"]} ${(dis[1]["newTotal"]>0)?`<span>${dis[1]["newTotal"]}</span>`:""}</td>
+                <td>${dis[1]["Active"]} ${(dis[1]["newActive"]>0)?`<span>${dis[1]["newActive"]}</span>`:""}</td>
+                <td>${dis[1]["Recovered"]} ${(dis[1]["newRecovered"]>0)?`<span>${dis[1]["newRecovered"]}</span>`:""}</td>
+                <td>${dis[1]["Deceased"]} ${(dis[1]["newDeceased"]>0)?`<span>${dis[1]["newDeceased"]}</span>`:""}</td>
+                <td>${Math.round(1000000/(dis[1]["Population"]/dis[1]["Total"]))}</td>
             </tr>
         `)
     }
+    delete districtsMap["Total"]
 }
 
 
@@ -185,7 +193,10 @@ function loadNews(data) {
 }
 
 function loadMap() {
-    
+    for(let k of Object.keys(districtsMap)){
+        activeDistrictsMap[k] = districtsMap[k]["Active"]
+    }
+    console.log(activeDistrictsMap)
     snap = Snap("#map")
     Snap.load("assets/media/jk_districts_1.svg", (data) => {
         snap.append(data)
@@ -245,6 +256,7 @@ function loadSamplesData(data){
     $("#stats_posper").removeClass("loadanim")
     $("#stats_negper").removeClass("loadanim")
     $("#stats_date").html(data["date"])
+    $("#map_date").html(data["date"])
     $("#stats_samples").html(data["stats"]["total"])
     $("#stats_samples_today").html(data["stats"]["new"])
     $("#stats_posper").html(data["stats"]["posper"].toFixed(2))
@@ -458,11 +470,7 @@ function makeLegend() {
 }
 
 function getFillColor(district) {
-    let activeDistrictsMap = {}
-    for(let k of Object.keys(districtsMap)){
-        activeDistrictsMap[k] = districtsMap[k]["Active"]
-    }
-    if (!Object.keys(activeDistrictsMap).includes(district) || districtsMap[district]["Active"]==='0') return "#ffffff"
+    if (!Object.keys(activeDistrictsMap).includes(district) || activeDistrictsMap[district]===0) return "#ffffff"
     let min = Math.min(...Object.values(activeDistrictsMap))
     let max = Math.max(...Object.values(activeDistrictsMap))
     let range = (max - min) / 3

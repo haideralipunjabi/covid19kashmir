@@ -502,3 +502,16 @@ font-size: 15px;
     box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
   }
 }
+
+#district-table td>span{
+  font-size: 85%;
+}
+#district-table td:nth-child(2)>span,#district-table td:nth-child(3)>span,#district-table td:nth-child(5)>span{
+  color: red;
+}
+#district-table td:nth-child(4)>span {
+  color: green;
+}
+#district-table td>span::before{
+  content: " \2191";
+}

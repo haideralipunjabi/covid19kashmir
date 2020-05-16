@@ -6,15 +6,24 @@ exports.DistrictMap = function (d) {
   let data = JSON.parse(JSON.stringify(d))
   let districtMap = {}
   let lastDay = data[data.length-1]
+  let secondLastDay = data[data.length-2]
   delete lastDay["Date"]
+  delete secondLastDay["Date"]
   for(let district of Object.keys(lastDay)){
     const [x1,x2,x3,x4] = lastDay[district].split(",") 
     let entry = {
-      "Total":x1,
-      "Active":x2,
-      "Recovered":x3,
-      "Deceased":x4,
+      "Total":Utils.parseIntOpt(x1),
+      "Active":Utils.parseIntOpt(x2),
+      "Recovered":Utils.parseIntOpt(x3),
+      "Deceased":Utils.parseIntOpt(x4),
       "Population": Population.POPULATION[district]
+    }
+    if(Object.keys(secondLastDay).includes(district)){
+      const [y1,y2,y3,y4] = secondLastDay[district].split(",")
+      entry["newTotal"] = x1 - y1
+      entry["newActive"] = (x2 - y2) + (x3 - y3) + (x4 - y4) 
+      entry["newRecovered"] = x3 - y3
+      entry["newDeceased"] = x4 - y4
     }
     districtMap[district] = entry;
   }
