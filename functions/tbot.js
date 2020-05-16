@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
-const { LIVE_URL,TELEGRAM_URL } = process.env;
+const { LIVE_URL, TELEGRAM_URL } = process.env;
 const SAMPLE_URL = "https://covidkashmir.org/.netlify/functions/api?fields=samples"
-const DISTRICT_URL = "https://covidkashmir.org/.netlify/functions/api?fields=districtMap"
+const DISTRICT_URL = "http://covidkashmir.org/.netlify/functions/api?fields=districtMap"
 function getLiveStatistics(chat){
     let rm = {
         "inline_keyboard":[
@@ -16,8 +16,8 @@ function getLiveStatistics(chat){
         "one_time_keyboard":true
     }
     return fetch(LIVE_URL+"?v="+Math.floor(Math.random()*10**10).toString()).then(r=>r.json()).then(data=>{
-        let message = `Total: ${data.Total} (New: ${data.Total - data.TotalYesterday})\nActive: ${data.Active} (New : ${(data.Active - data.ActiveYesterday) + (data.Deceased - data.DeceasedYesterday) + (data.Recovered - data.RecoveredYesterday)})\nRecovered: ${data.Recovered} (New: ${data.Recovered - data.RecoveredYesterday})\nDeceased: ${data.Deceased} (New: ${data.Deceased - data.DeceasedYesterday})\nUpdated: ${data.Updated}`
-        return fetch(TELEGRAM_URL+`sendMessage?chat_id=${chat.id}&text=${message}&reply_markup=${JSON.stringify(rm)}`).then(r=>r.json()).then(d=>{
+        let message = `<b>Total:</b> ${data.Total} <i>(New: ${data.Total - data.TotalYesterday})</i>\n<b>Active:</b> ${data.Active} <i>(New : ${(data.Active - data.ActiveYesterday) + (data.Deceased - data.DeceasedYesterday) + (data.Recovered - data.RecoveredYesterday)})</i>\n<b>Recovered:</b> ${data.Recovered} <i>(New: ${data.Recovered - data.RecoveredYesterday})</i>\n<b>Deceased:</b> ${data.Deceased} <i>(New: ${data.Deceased - data.DeceasedYesterday})</i>\n<b>Updated:</b> ${data.Updated}`
+        return fetch(TELEGRAM_URL+`sendMessage?chat_id=${chat.id}&text=${message}&parse_mode=HTML&reply_markup=${JSON.stringify(rm)}`).then(r=>r.json()).then(d=>{
             return {
                 statusCode: 200,
                 body: JSON.stringify(d)      
@@ -40,8 +40,8 @@ function getSampleStatistics(chat){
     }
     return fetch(SAMPLE_URL).then(r=>r.json()).then(d=>{
         let data = d["samples"]
-        let message = `Total Samples Collected: ${data.stats.total}\nNew Samples Collected: ${data.stats.new}\nPositive Percentage: ${data.stats.posper.toPrecision(3)+"%"}\nNegative Percentage: ${data.stats.negper.toPrecision(3)+"%"}\nDate: ${data.date}`
-        return fetch(TELEGRAM_URL+`sendMessage?chat_id=${chat.id}&text=${message}&reply_markup=${JSON.stringify(rm)}`).then(r=>r.json()).then(d=>{
+        let message = `<b>Total Samples Collected:</b> ${data.stats.total}\n<b>New Samples Collected:</b> ${data.stats.new}\n<b>Positive Percentage:</b> ${data.stats.posper.toPrecision(3)+"%"}\n<b>Negative Percentage:</b> ${data.stats.negper.toPrecision(3)+"%"}\n<b>Date:</b> ${data.date}`
+        return fetch(TELEGRAM_URL+`sendMessage?chat_id=${chat.id}&text=${message}&parse_mode=HTML&reply_markup=${JSON.stringify(rm)}`).then(r=>r.json()).then(d=>{
             return {
                 statusCode: 200,
                 body: JSON.stringify(d)      
@@ -51,7 +51,6 @@ function getSampleStatistics(chat){
 }
 function getDistrictData(chat,cDistrict){
     return fetch(DISTRICT_URL).then(r=>r.json()).then(d=>{
-        console.log(cDistrict)
         let distrctData = d["districtMap"]
         if(cDistrict===""){
             let districtObjects = Object.keys(distrctData).map(district=>{
@@ -97,8 +96,8 @@ function getDistrictData(chat,cDistrict){
                 "one_time_keyboard":true
             }
             let dData = distrctData[cDistrict]
-            let message = `Total: ${dData.Total}\nActive: ${dData.Active}\nRecovered: ${dData.Recovered}\nDeceased: ${dData.Deceased}`
-            return fetch(TELEGRAM_URL+`sendMessage?chat_id=${chat.id}&text=${message}&reply_markup=${JSON.stringify(rm)}`).then(r=>r.json()).then(db=>{
+            let message = `<b>${cDistrict}</b>\n<b>Total:</b> ${dData.Total} <i>(New: ${dData.newTotal})</i>\n<b>Active:</b> ${dData.Active} <i>(New: ${dData.newActive})</i>\n<b>Recovered:</b> ${dData.Recovered} <i>(New: ${dData.newRecovered})</i>\n<b>Deceased:</b> ${dData.Deceased} <i>(New: ${dData.newDeceased})</i>`
+            return fetch(TELEGRAM_URL+`sendMessage?chat_id=${chat.id}&text=${message}&parse_mode=HTML&reply_markup=${JSON.stringify(rm)}`).then(r=>r.json()).then(db=>{
                 return {
                     statusCode: 200,
                     body: JSON.stringify(db)      
