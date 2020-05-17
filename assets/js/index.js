@@ -337,7 +337,7 @@ function loadChart() {
         },
         yaxis: {
             min: 0,
-            max: 70,
+            max: Math.max(...Object.values(dailyMap)),
             title: {
                 text: 'No. of cases',
             },
