@@ -116,7 +116,7 @@ function loadDistricts(){
             <tr>
                 <td class="has-text-centered">${dis[0]}</td>
                 <td>${dis[1]["Total"]} ${(dis[1]["newTotal"]>0)?`<span>${dis[1]["newTotal"]}</span>`:""}</td>
-                <td>${dis[1]["Active"]} ${(dis[1]["newActive"]>0)?`<span>${dis[1]["newActive"]}</span>`:""}</td>
+                <td>${dis[1]["Active"]}</td>
                 <td>${dis[1]["Recovered"]} ${(dis[1]["newRecovered"]>0)?`<span>${dis[1]["newRecovered"]}</span>`:""}</td>
                 <td>${dis[1]["Deceased"]} ${(dis[1]["newDeceased"]>0)?`<span>${dis[1]["newDeceased"]}</span>`:""}</td>
                 <td>${Math.round(1000000/(dis[1]["Population"]/dis[1]["Total"]))}</td>
