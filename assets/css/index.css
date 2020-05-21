@@ -515,3 +515,6 @@ font-size: 15px;
 #district-table td>span::before{
   content: " \2191";
 }
+#district-table td>span.change::before{
+  content: " \2193";
+}

@@ -115,7 +115,7 @@ function loadDistricts(){
         $("#district-table tbody").append(`
             <tr>
                 <td class="has-text-centered">${dis[0]}</td>
-                <td>${dis[1]["Total"]} ${(dis[1]["newTotal"]>0)?`<span>${dis[1]["newTotal"]}</span>`:""}</td>
+                <td>${dis[1]["Total"]} ${(dis[1]["newTotal"]!=0)?`<span>${dis[1]["newTotal"]}</span>`:""}</td>
                 <td>${dis[1]["Active"]}</td>
                 <td>${dis[1]["Recovered"]} ${(dis[1]["newRecovered"]>0)?`<span>${dis[1]["newRecovered"]}</span>`:""}</td>
                 <td>${dis[1]["Deceased"]} ${(dis[1]["newDeceased"]>0)?`<span>${dis[1]["newDeceased"]}</span>`:""}</td>
@@ -123,6 +123,13 @@ function loadDistricts(){
             </tr>
         `)
     }
+    for(let node of document.querySelectorAll("#district-table td>span")){
+        if(parseInt(node.innerText) < 0 ){
+            node.style.color = "blue";
+            node.classList.add("change")
+        }
+    }
+
     delete districtsMap["Total"]
 }
 
