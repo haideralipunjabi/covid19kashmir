@@ -262,12 +262,14 @@ function loadSamplesData(data){
     
     $("#stats_posper").removeClass("loadanim")
     $("#stats_negper").removeClass("loadanim")
+    $("#stats_recper").removeClass("loadanim")
     $("#stats_date").html(data["date"])
     $("#map_date").html(data["date"])
     $("#stats_samples").html(data["stats"]["total"])
     $("#stats_samples_today").html(data["stats"]["new"])
     $("#stats_posper").html(data["stats"]["posper"].toFixed(2))
     $("#stats_negper").html(data["stats"]["negper"].toFixed(2))
+    $("#stats_recper").html(data["stats"]["recper"].toFixed(2))
     const config = {
         "total" : {
             "color":"#250339",
@@ -284,6 +286,11 @@ function loadSamplesData(data){
             "data":data["variance"]["negper"],
             "element":"#slNegativePercentage"
         },
+        "recper":{
+            "color":"#28a745",
+            "data":data["variance"]["recper"],
+            "element":"#slRecoveryPercentage"
+        }
     }
     for(let value of Object.values(config)){
         let options = slBaseOptions;

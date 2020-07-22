@@ -107,29 +107,35 @@ exports.Samples = function(d){
     "total": data[0]["Samples Collected"],
     "new": data[0]["Samples Collected"]-data[1]["Samples Collected"],
     "posper": data[0]["Samples Positive"] *100 / data[0]["Samples Collected"],
-    "negper": data[0]["Samples Negative"] *100 / data[0]["Samples Collected"]
+    "negper": data[0]["Samples Negative"] *100 / data[0]["Samples Collected"],
+    "recper": parseInt(data[0]["Cases Recovered"].split(" ")[0]) * 100 / data[0]["Samples Positive"]
   }
 
   samData["variance"] = {
     "total": [0],
     "posper": [0],
-    "negper": [0]
+    "negper": [0],
+    "recper": [0]
   }
   data.reverse()
   for(let day of data){
     let tTotal = Utils.parseIntOpt(day["Samples Collected"])
     let tPosper = Utils.parseIntOpt(day["Samples Positive"])*100 / Utils.parseIntOpt(day["Samples Collected"])
     let tNegper = Utils.parseIntOpt(day["Samples Negative"])*100 / Utils.parseIntOpt(day["Samples Collected"])
+    let tRecper = Utils.parseIntOpt(day["Cases Recovered"].split(" ")[0])*100 / Utils.parseIntOpt(day["Samples Positive"])
     let pTotal = samData["variance"]["total"].reduce((x,y)=>(x+y))
     let pPosper = samData["variance"]["posper"].reduce((x,y)=>(x+y))
     let pNegper = samData["variance"]["negper"].reduce((x,y)=>(x+y))
+    let pRecper = sameData["variance"]["recper"].reduce((x,y)=>(x+y))
     samData["variance"]["total"].push(tTotal - pTotal)
     samData["variance"]["posper"].push(tPosper - pPosper)
     samData["variance"]["negper"].push(tNegper - pNegper)
+    samData["variance"]["recper"].push(tRecper - pRecper)
   }
   samData["variance"]["total"].splice(0,1)
   samData["variance"]["posper"].splice(0,1)
   samData["variance"]["negper"].splice(0,1)
+  samData["variance"]["recper"].splice(0,1)
   return samData;
 
 }
