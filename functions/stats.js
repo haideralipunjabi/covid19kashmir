@@ -126,7 +126,7 @@ exports.Samples = function(d){
     let pTotal = samData["variance"]["total"].reduce((x,y)=>(x+y))
     let pPosper = samData["variance"]["posper"].reduce((x,y)=>(x+y))
     let pNegper = samData["variance"]["negper"].reduce((x,y)=>(x+y))
-    let pRecper = sameData["variance"]["recper"].reduce((x,y)=>(x+y))
+    let pRecper = samData["variance"]["recper"].reduce((x,y)=>(x+y))
     samData["variance"]["total"].push(tTotal - pTotal)
     samData["variance"]["posper"].push(tPosper - pPosper)
     samData["variance"]["negper"].push(tNegper - pNegper)
