@@ -229,9 +229,11 @@
 }
 
 .count-head {
-  font-family: 'Roboto Condensed', sans-serif;
-  text-transform: uppercase;
-  font-weight: 700;
+  /*font-family: 'Roboto Condensed', sans-serif;*/
+    font-family: 'Montserrat', sans-serif;
+font-size: 14px;
+  /*text-transform: uppercase;*/
+  font-weight: 600;
 }
 .count-head-daily {
   font-family: 'Roboto Condensed', sans-serif;
@@ -284,8 +286,19 @@
   color: #ff073a;
   padding: 16px;
 }
+.tile-morper{
+  background: rgba(71, 69, 70, .12549);
+  color: #474546;
+  padding: 16px;
+}
 
+.below-text-stat{
+  font-size: 14px;
+  font-weight: 600;
+  /*font-family: 'Montserrat', sans-serif;*/
+  font-family: 'Roboto Condensed', sans-serif;
 
+}
 .count-num {
   font-size: 30px;
   font-family: 'Montserrat', sans-serif;
