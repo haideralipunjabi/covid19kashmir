@@ -258,50 +258,60 @@ function loadSparklines(data) {
 }
 
 function loadSamplesData(data){
+    console.log("Samlpes: ", data)
     $("#stats_samples").removeClass("loadanim")
     
     $("#stats_posper").removeClass("loadanim")
-    $("#stats_negper").removeClass("loadanim")
+    // $("#stats_negper").removeClass("loadanim")
     $("#stats_recper").removeClass("loadanim")
+    $("#stats_decper").removeClass("loadanim")
     $("#stats_date").html(data["date"])
     $("#map_date").html(data["date"])
     $("#stats_samples").html(data["stats"]["total"])
+    $("#stats_samples_avg").html(data["stats"]["average"].toFixed(2))
     $("#stats_samples_today").html(data["stats"]["new"])
+    $("#stats_samples_avg").html(data["stats"]["total"])
     $("#stats_posper").html(data["stats"]["posper"].toFixed(2))
-    $("#stats_negper").html(data["stats"]["negper"].toFixed(2))
+    $("#stats_postext").html(Math.round(data["stats"]["posper"].toFixed(2)))
+
+    // $("#stats_negper").html(data["stats"]["negper"].toFixed(2))
     $("#stats_recper").html(data["stats"]["recper"].toFixed(2))
-    const config = {
-        "total" : {
-            "color":"#250339",
-            "data":data["variance"]["total"],
-            "element":"#slSamples"
-        },
-        "posper":{
-            "color":"#FF073A",
-            "data":data["variance"]["posper"],
-            "element":"#slPositivePercentage"
-        },
-        "negper":{
-            "color":"#28a745",
-            "data":data["variance"]["negper"],
-            "element":"#slNegativePercentage"
-        },
-        "recper":{
-            "color":"#28a745",
-            "data":data["variance"]["recper"],
-            "element":"#slRecoveryPercentage"
-        }
-    }
-    for(let value of Object.values(config)){
-        let options = slBaseOptions;
-        options["series"] = [
-            {
-                data: value["data"]
-            }
-        ]
-        options["colors"]=[value["color"]]
-        new ApexCharts($(value["element"])[0],options).render();
-    }
+    $("#stats_rectext").html(Math.round(data["stats"]["recper"].toFixed(2)))
+    $("#stats_decper").html(data["stats"]["decper"].toFixed(2))
+    $("#stats_dectext").html(Math.round(data["stats"]["decper"].toFixed(2)))
+
+    // const config = {
+    //     "total" : {
+    //         "color":"#250339",
+    //         "data":data["variance"]["total"],
+    //         "element":"#slSamples"
+    //     },
+    //     "posper":{
+    //         "color":"#FF073A",
+    //         "data":data["variance"]["posper"],
+    //         "element":"#slPositivePercentage"
+    //     },
+    //     "negper":{
+    //         "color":"#28a745",
+    //         "data":data["variance"]["negper"],
+    //         "element":"#slNegativePercentage"
+    //     },
+    //     "recper":{
+    //         "color":"#28a745",
+    //         "data":data["variance"]["recper"],
+    //         "element":"#slRecoveryPercentage"
+    //     }
+    // }
+    // for(let value of Object.values(config)){
+    //     let options = slBaseOptions;
+    //     options["series"] = [
+    //         {
+    //             data: value["data"]
+    //         }
+    //     ]
+    //     options["colors"]=[value["color"]]
+    //     new ApexCharts($(value["element"])[0],options).render();
+    // }
 
 }
 function loadChart() {
