@@ -270,7 +270,6 @@ function loadSamplesData(data){
     $("#stats_samples").html(data["stats"]["total"])
     $("#stats_samples_avg").html(data["stats"]["average"].toFixed(2))
     $("#stats_samples_today").html(data["stats"]["new"])
-    $("#stats_samples_avg").html(data["stats"]["total"])
     $("#stats_posper").html(data["stats"]["posper"].toFixed(2))
     $("#stats_postext").html(Math.round(data["stats"]["posper"].toFixed(2)))
 
