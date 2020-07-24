@@ -247,31 +247,44 @@
                       <span class="count-head-daily">New: </span>
                       <span id="stats_samples_today" class="count-num-daily"></span>
                     </p>
-                    <div id="slSamples" class="sparkline"></div>
+                    <!-- <div id="slSamples" class="sparkline"></div> -->
+                    
+                      <br/><br/>
+
+                   <p class="below-text-stat">On an Average, J&K Tests {avg} samples per day.</p>
+
                   </div>
                 </article>
               </div>
             </div>
-
-            <div class="column is-half-tablet is-one-quarter-desktop">
+        <div class="column is-half-tablet is-one-quarter-desktop">
               <div class="tile is-parent">
                 <article class="tile tile-posper is-child box">
 
                   <div class="container-stat">
                     <p>
-                      <i class="fas fa-lungs-virus"></i>
+                      <i class="fas fa-plus-square"></i>
                       <span class="count-head">Positive Percentage</span>
 
                       <span id="stats_posper" class="count-num loadanim"></span>
 
 
                     </p>
-                    <div id="slPositivePercentage" class="sparkline"></div>
+                   
+                   <br/><br/>
+
+                   <p class="below-text-stat">For Every 100 tests in J&K, <span>{0 People}</span> have tested positive.</p>
+
                   </div>
+
+                     
+
                 </article>
               </div>
             </div>
-            <div class="column is-half-tablet is-one-quarter-desktop">
+
+
+         <!--    <div class="column is-half-tablet is-one-quarter-desktop">
               <div class="tile is-parent">
                 <article class="tile tile-negper is-child box">
 
@@ -288,25 +301,51 @@
                   </div>
                 </article>
               </div>
-            </div>
+            </div> -->
             <div class="column is-half-tablet is-one-quarter-desktop">
               <div class="tile is-parent">
                 <article class="tile tile-negper is-child box">
 
                   <div class="container-stat">
                     <p>
-                      <i class="fas fa-lungs"></i>
-                      <span class="count-head">Recovery Percentage</span>
+                      <i class="fas fa-heartbeat"></i>
+                      <span class="count-head">Recovery Rate</span>
 
-                      <span id="stats_recper" class="count-num  loadanim"></span>
+                      <span id="stats_recper" class="count-num loadanim"></span>
 
 
                     </p>
-                    <div id="slRecoveryPercentage" class="sparkline"></div>
-                  </div>
+
+                   <br/><br/>
+
+                   <p class="below-text-stat">For every 100 confirmed cases, <span>{recovered}</span> have recovered in J&K.</p>
+<!--                     <div id="slRecoveryPercentage" class="sparkline"></div>
+ -->                  </div>
                 </article>
               </div>
             </div>
+                      <div class="column is-half-tablet is-one-quarter-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-morper is-child box">
+
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-heart"></i>
+                      <span class="count-head">Mortality Rate</span>
+
+                      <span id="stats_recper" class="count-num loadanim"></span>
+
+
+                    </p>
+
+                   <br/><br/>
+
+                   <p class="below-text-stat">For every 100 confirmed cases, {(deceased/confirmed) *100} Persons have passed away.</p>
+<!--                     <div id="slRecoveryPercentage" class="sparkline"></div>
+ -->                  </div>
+                </article>
+              </div>
+            </div>  
           </div>
           <br />
         </div>
