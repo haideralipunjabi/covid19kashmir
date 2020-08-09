@@ -272,10 +272,12 @@ function loadSamplesData(data){
     $("#stats_samples_today").html(data["stats"]["new"])
     $("#stats_posper").html(data["stats"]["posper"].toFixed(2))
     $("#stats_postext").html(Math.round(data["stats"]["posper"].toFixed(2)))
+    $("#stats_posper_today").html(data["stats"]["posper_today"].toFixed(2))
 
     // $("#stats_negper").html(data["stats"]["negper"].toFixed(2))
     $("#stats_recper").html(data["stats"]["recper"].toFixed(2))
     $("#stats_rectext").html(Math.round(data["stats"]["recper"].toFixed(2)))
+
     $("#stats_decper").html(data["stats"]["decper"].toFixed(2))
     $("#stats_dectext").html(Math.round(data["stats"]["decper"].toFixed(2)))
 

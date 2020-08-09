@@ -108,9 +108,14 @@ exports.Samples = function(d){
     "average": data[0]["Samples Collected"] / data.length,
     "new": data[0]["Samples Collected"]-data[1]["Samples Collected"],
     "posper": data[0]["Samples Positive"] *100 / data[0]["Samples Collected"],
+    "posper_today": (data[0]["Samples Positive"]-data[1]["Samples Positive"]) *100 / (data[0]["Samples Collected"]-data[1]["Samples Collected"]),
     "negper": data[0]["Samples Negative"] *100 / data[0]["Samples Collected"],
+    // "negper_today": (data[0]["Samples Negative"]-data[1]["Samples Negative"]) *100 / (data[0]["Samples Collected"]-data[1]["Samples Collected"]),
     "recper": parseInt(data[0]["Cases Recovered"].split(" ")[0]) * 100 / data[0]["Samples Positive"],
-    "decper": parseInt(data[0]["No. of Deaths"].split(" ")[0]) * 100 / data[0]["Samples Positive"]
+    // "recper_today": (parseInt(data[0]["Cases Recovered"].split(" ")[0]) - parseInt(data[1]["Cases Recovered"].split(" ")[0])) * 100 / (data[0]["Samples Positive"]-data[1]["Samples Positive"]),
+    "decper": parseInt(data[0]["No. of Deaths"].split(" ")[0]) * 100 / data[0]["Samples Positive"],
+    // "decper_today": (parseInt(data[0]["No. of Deaths"].split(" ")[0]) -parseInt(data[1]["No. of Deaths"].split(" ")[0])) * 100 / (data[0]["Samples Positive"]-data[1]["Samples Positive"])
+
   }
 
   // samData["variance"] = {
