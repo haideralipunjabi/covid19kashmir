@@ -17,8 +17,19 @@ const COLORS = {
 }
 
 
-
-const API_PROMISE = fetch(API_URL+"?fields=variance,districtMap,dailyMap,samples,IndiaData,WorldData").then((response) => {
+const API_VARIANCE=fetch(API_URL+"?fields=variance").then((response)=>{
+    return response.json()
+})
+const API_DISTRICT=fetch(API_URL+"?fields=districtMap").then((response)=>{
+    return response.json()
+})
+const API_DAILY=fetch(API_URL+"?fields=dailyMap").then((response)=>{
+    return response.json()
+})
+const API_SAMPLES=fetch(API_URL+"?fields=samples").then((response)=>{
+    return response.json()
+})
+const API_EXTRA=fetch(API_URL+"?fields=IndiaData,WorldData").then((response)=>{
     return response.json()
 })
 const STATS_PROMISE = fetch(LIVE_API_URL).then((response) => {
@@ -63,14 +74,29 @@ const slBaseOptions = {
 };
 $(document).ready(() => {
     loadStats()
-    API_PROMISE.then((data) => {
+    API_VARIANCE.then((data)=>{
+        $("progress").addClass("is-hidden")
+        loadSparklines(data["variance"]);
+    })
+    API_DISTRICT.then((data)=>{
         $("progress").addClass("is-hidden")
         districtsMap = data["districtMap"];
+
+        loadDistricts();
+        loadMap();
+    })
+    API_DAILY.then((data)=>{
+        $("progress").addClass("is-hidden")
         dailyMap = data["dailyMap"]
-        loadSparklines(data["variance"]);
+        loadChart();
+    })
+    API_SAMPLES.then((data)=>{
+        $("progress").addClass("is-hidden")
         loadSamplesData(data["samples"])
+    })
+    API_EXTRA.then((data)=>{
+        $("progress").addClass("is-hidden")
         loadExtraData([data["india"],data["world"]]);
-        loadData(true);
     })
     NEWS_PROMISE.then((data) => {
         loadNews(data);
@@ -94,13 +120,6 @@ $(document).ready(() => {
     })
 })
 
-
-function loadData(first) {
-
-    loadDistricts();
-    loadMap();
-    loadChart();
-}
 function loadDistricts(){
     $("#district-table tbody").html("")
     districtsMap["Total"] = Object.values(districtsMap).reduce((i,j)=>{
