@@ -14,10 +14,11 @@ exports.handler = async (event, context) => {
   }
   fields = fields.split(",")
   console.log(fields)
-  let promises = [
-    fetch(URL_PATIENTS).then(response=>response.text()).then(data=>{patientData = Utils.ArraysToDict(Utils.CSVToArray(data))})
-  ]
-  if(fields.includes("variance") || fields.includes("samples")){
+  // let promises = [
+  //   fetch(URL_PATIENTS).then(response=>response.text()).then(data=>{patientData = Utils.ArraysToDict(Utils.CSVToArray(data))})
+  // ]
+  let promises = [];
+  if(fields.includes("variance") || fields.includes("samples") || fields.includes("dailyMap") || fields.includes("total")){
     promises.push(fetch(URL_BULLETIN).then(response=>response.text()).then(data=>{bulletinData=Utils.ArraysToDict(Utils.CSVToArray(data))}))
   }
   if(fields.includes("districtMap") || fields.includes("districtVariance")){
@@ -26,9 +27,9 @@ exports.handler = async (event, context) => {
   return Promise.all(promises).then(async ()=>{
     
     data = {}
-    if(fields.includes("patientData")){
-      data["patientData"] = patientData
-    }
+    // if(fields.includes("patientData")){
+    //   data["patientData"] = patientData
+    // }
     if(fields.includes("districtMap")){
       data["districtMap"] = Stats.DistrictMap(districtData)
     }
@@ -36,10 +37,10 @@ exports.handler = async (event, context) => {
       data["districtVariance"] = Stats.DistrictVariance(districtData);
     }
     if(fields.includes("dailyMap")){
-      data["dailyMap"] = Stats.DailyMap(patientData)
+      data["dailyMap"] = Stats.DailyMap(bulletinData)
     }
     if(fields.includes("total")){
-      data["total"] = Stats.totalMap(patientData)
+      data["total"] = Stats.totalMap(bulletinData)
     }
     if(fields.includes("variance")){
       data["variance"] = Stats.VarianceMap(bulletinData)
@@ -54,10 +55,10 @@ exports.handler = async (event, context) => {
       data["world"] = await Stats.WorldData()
     }
     if(fields.includes("ageMap")){
-      data["ageMap"] = Stats.ageMap(patientData)
+      data["ageMap"] = Stats.ageMap()
     }
     if(fields.includes("genderMap")){
-      data["genderMap"] = Stats.genderMap(patientData)
+      data["genderMap"] = Stats.genderMap()
     }
     return {
       statusCode: 200,

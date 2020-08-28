@@ -53,10 +53,13 @@ exports.DistrictVariance = function(d){
 }
 
 
-exports.DailyMap = function (data) {
+exports.DailyMap = function (d) {
   let dateMap = {}
-  for (let date of Utils.getUnique(data, "Date Announced")) {
-    dateMap[date] = Utils.filterDataByDate(data, date).length
+  let data = JSON.parse(JSON.stringify(d))
+  data.reverse()
+  dateMap[data[0]["Date"]] = Utils.parseIntOpt(data[0]["Samples Positive"])
+  for (let i=1; i < data.length; i++) {
+    dateMap[data[i]["Date"]] = Utils.parseIntOpt(data[i]["Samples Positive"]) - Utils.parseIntOpt(data[i-1]["Samples Positive"])
   }
   return dateMap;
 }
@@ -171,52 +174,94 @@ exports.WorldData = async function(){
 }
 
 exports.totalMap = function(data){
+  d = data[0];
+  console.log(d)
   return {
-    "Total": data.length,
-    "Active": data.filter(item=>{return (item["Status"]==="Hospitalized")}).length,
-    "Recovered": data.filter(item=>{return (item["Status"]==="Recovered")}).length,
-    "Deceased": data.filter(item=>{return (item["Status"]==="Deceased")}).length,
+    "Total": d["Samples Positive"],
+    "Active": d["Active Postive"].split(" ")[0],
+    "Recovered": d["Cases Recovered"].split(" ")[0],
+    "Deceased": d["No. of Deaths"].split(" ")[0],
   }
 }
 
-exports.ageMap = function(data){
-  let maleages = data.filter(item=>item["Gender"]==="M").map(item=>{
-    let matched  = item["Age"].match(/[0-9]+/gm)
-    if(matched){
-      return parseInt(matched[0])
-    }
-  }).filter(item=>(item))
-  let femaleages = data.filter(item=>item["Gender"]==="F").map(item=>{
-    let matched  = item["Age"].match(/[0-9]+/gm)
-    if(matched){
-      return parseInt(matched[0])
-    }
-  }).filter(item=>(item))
-  let unknownages = data.filter(item=>item["Gender"]==="").map(item=>{
-    let matched  = item["Age"].match(/[0-9]+/gm)
-    if(matched){
-      return parseInt(matched[0])
-    }
-  }).filter(item=>(item))
-  let ages = [...maleages,...femaleages,...unknownages]
-  let maxAge = Math.max(...ages)
-  let maxRange = Math.ceil((maxAge+1)/10)*10
-  let map = {
-    "male":{},"female":{},"unknown":{}
-  }
-  for(let i =0; i < maxRange/10; i++){
-    map["male"][`${i*10}-${(i*10)+9}`] = maleages.filter(item=> (item>=i*10 && item < ((i+1)*10))).length
-    map["female"][`${i*10}-${(i*10)+9}`] = femaleages.filter(item=> (item>=i*10 && item < ((i+1)*10))).length
-    map["unknown"][`${i*10}-${(i*10)+9}`] = unknownages.filter(item=> (item>=i*10 && item < ((i+1)*10))).length
+exports.ageMap = function(){
+  // let maleages = data.filter(item=>item["Gender"]==="M").map(item=>{
+  //   let matched  = item["Age"].match(/[0-9]+/gm)
+  //   if(matched){
+  //     return parseInt(matched[0])
+  //   }
+  // }).filter(item=>(item))
+  // let femaleages = data.filter(item=>item["Gender"]==="F").map(item=>{
+  //   let matched  = item["Age"].match(/[0-9]+/gm)
+  //   if(matched){
+  //     return parseInt(matched[0])
+  //   }
+  // }).filter(item=>(item))
+  // let unknownages = data.filter(item=>item["Gender"]==="").map(item=>{
+  //   let matched  = item["Age"].match(/[0-9]+/gm)
+  //   if(matched){
+  //     return parseInt(matched[0])
+  //   }
+  // }).filter(item=>(item))
+  // let ages = [...maleages,...femaleages,...unknownages]
+  // let maxAge = Math.max(...ages)
+  // let maxRange = Math.ceil((maxAge+1)/10)*10
+  // let map = {
+  //   "male":{},"female":{},"unknown":{}
+  // }
+  // for(let i =0; i < maxRange/10; i++){
+  //   map["male"][`${i*10}-${(i*10)+9}`] = maleages.filter(item=> (item>=i*10 && item < ((i+1)*10))).length
+  //   map["female"][`${i*10}-${(i*10)+9}`] = femaleages.filter(item=> (item>=i*10 && item < ((i+1)*10))).length
+  //   map["unknown"][`${i*10}-${(i*10)+9}`] = unknownages.filter(item=> (item>=i*10 && item < ((i+1)*10))).length
 
-  }
-  return map;
+  // }
+  // console.log(map)
+  return {
+    'male': {
+      '0-9': 17,
+      '10-19': 43,
+      '20-29': 106,
+      '30-39': 70,
+      '40-49': 58,
+      '50-59': 48,
+      '60-69': 53,
+      '70-79': 23,
+      '80-89': 8,
+      '90-99': 1
+    },
+    'female': {
+      '0-9': 21,
+      '10-19': 45,
+      '20-29': 72,
+      '30-39': 59,
+      '40-49': 45,
+      '50-59': 32,
+      '60-69': 29,
+      '70-79': 16,
+      '80-89': 1,
+      '90-99': 0
+    },
+    'unknown': {
+      '0-9': 23,
+      '10-19': 12,
+      '20-29': 20,
+      '30-39': 21,
+      '40-49': 14,
+      '50-59': 4,
+      '60-69': 3,
+      '70-79': 4,
+      '80-89': 0,
+      '90-99': 0
+    }
+  };
 }
 
-exports.genderMap = function(data){
-  let genders = data.map(item=>item["Gender"])
-  return {
-    "M": genders.filter(item=>(item==="M")).length,
-    "F": genders.filter(item=>(item==="F")).length
-  }
+exports.genderMap = function(){
+  // let genders = data.map(item=>item["Gender"])
+  // let map = {
+  //   "M": genders.filter(item=>(item==="M")).length,
+  //   "F": genders.filter(item=>(item==="F")).length
+  // }
+  // console.log(map)
+  return { 'M': 495, 'F': 544 };
 }
