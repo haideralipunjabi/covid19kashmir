@@ -2,8 +2,7 @@ const fetch = require("node-fetch");
 
 const Utils = require("./utils")
 const Stats = require("./stats")
-const { URL_BULLETIN, URL_PATIENTS,URL_DISTRICTS } = process.env;
-let URL_BEDS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSg-doiJ59mWF5UiJP-tCB6XCqahr9YaXe6eHiyWFyjylHtGRuy5yZrw1ZNWq3etbbyU8Gqz0i5gANp/pub?gid=1077410698&single=true&output=csv"
+const { URL_BULLETIN, URL_PATIENTS,URL_DISTRICTS, URL_BEDS } = process.env;
 exports.handler = async (event, context) => {
   let fields = event.queryStringParameters.fields;
   let patientData, districtData, bulletinData,bedsRawData;
