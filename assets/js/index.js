@@ -59,6 +59,9 @@ const API_EXTRA = fetch(API_URL + "?fields=IndiaData,WorldData").then(
     return response.json();
   }
 );
+const API_BEDS = fetch(API_URL + "?fields=beds").then((response) => {
+  return response.json();
+});
 const STATS_PROMISE = fetch(LIVE_API_URL).then((response) => {
   return response.json();
 });
@@ -124,6 +127,9 @@ $(document).ready(() => {
   API_EXTRA.then((data) => {
     $("progress").addClass("is-hidden");
     loadExtraData([data["india"], data["world"]]);
+  });
+  API_BEDS.then((data) => {
+    loadBeds(data["beds"]);
   });
   NEWS_PROMISE.then((data) => {
     loadNews(data);
@@ -199,16 +205,11 @@ function loadStats() {
   $("#cases_deaths_today").html("");
   $("#cases_recovered_today").html("");
   $("#patientstats_updated").html("");
-  $("#bed_stats_date").html("");
-  $("#stats_beds_available").html("");
-  $("#stats_beds_vacant").html("");
-  $("#stats_beds_occupied").html("");
   fetch(LIVE_API_URL)
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      console.log("TEST", data);
       $("#cases_total").removeClass("loadanim");
       $("#cases_active").removeClass("loadanim");
       $("#cases_deaths").removeClass("loadanim");
@@ -224,17 +225,26 @@ function loadStats() {
         data.Recovered - data.RecoveredYesterday
       );
       $("#patientstats_updated").html(data.Updated);
-      $("#bed_stats_date").html(data.Updated);
-      $("#stats_beds_available").html(data.Beds.Available);
-      $("#stats_beds_vacant").html(data.Beds.Vacant);
-      $("#stats_beds_occupied").html(data.Beds.Occupied);
-      $("#stats_beds_available").removeClass("loadanim");
-      $("#stats_beds_vacant").removeClass("loadanim");
-      $("#stats_beds_occupied").removeClass("loadanim");
-      $("#beds_source").attr("href", data.Beds.Source);
     });
 }
-
+function loadBeds(data) {
+  const sections = ["Jammu", "Kashmir"];
+  $("#bed_stats_date").html(data.Date);
+  $("#beds_source").attr('href',data.Source);
+  for (let section of sections) {
+    for (let key1 of Object.keys(data[section])) {
+      for (let key2 of Object.keys(data[section][key1])) {
+        console.log(`#beds_${section.toLowerCase()}_${key1.toLowerCase()}_${key2.toLowerCase()}`)
+        $(
+          `#beds_${section.toLowerCase()}_${key1.toLowerCase()}_${key2.toLowerCase()}`
+        ).removeClass("loadanim");
+        $(
+          `#beds_${section.toLowerCase()}_${key1.toLowerCase()}_${key2.toLowerCase()}`
+        ).html(data[section][key1][key2]);
+      }
+    }
+  }
+}
 function loadNews(data) {
   let $container = $("#twitterfeed-container");
   for (let item of data) {
@@ -272,7 +282,6 @@ function loadMap() {
   for (let k of Object.keys(districtsMap)) {
     activeDistrictsMap[k] = districtsMap[k]["Active"];
   }
-  console.log(activeDistrictsMap);
   snap = Snap("#map");
   Snap.load("assets/media/jk_districts_1.svg", (data) => {
     snap.append(data);
@@ -329,7 +338,6 @@ function loadSparklines(data) {
 }
 
 function loadSamplesData(data) {
-  console.log("Samlpes: ", data);
   $("#stats_samples").removeClass("loadanim");
 
   $("#stats_posper").removeClass("loadanim");

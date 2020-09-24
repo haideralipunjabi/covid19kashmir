@@ -3,9 +3,10 @@ const fetch = require("node-fetch");
 const Utils = require("./utils")
 const Stats = require("./stats")
 const { URL_BULLETIN, URL_PATIENTS,URL_DISTRICTS } = process.env;
+let URL_BEDS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSg-doiJ59mWF5UiJP-tCB6XCqahr9YaXe6eHiyWFyjylHtGRuy5yZrw1ZNWq3etbbyU8Gqz0i5gANp/pub?gid=1077410698&single=true&output=csv"
 exports.handler = async (event, context) => {
   let fields = event.queryStringParameters.fields;
-  let patientData, districtData, bulletinData;
+  let patientData, districtData, bulletinData,bedsRawData;
   if(!fields){
     return {
       statusCode: 200,
@@ -14,15 +15,15 @@ exports.handler = async (event, context) => {
   }
   fields = fields.split(",")
   console.log(fields)
-  // let promises = [
-  //   fetch(URL_PATIENTS).then(response=>response.text()).then(data=>{patientData = Utils.ArraysToDict(Utils.CSVToArray(data))})
-  // ]
   let promises = [];
   if(fields.includes("variance") || fields.includes("samples") || fields.includes("dailyMap") || fields.includes("total")){
     promises.push(fetch(URL_BULLETIN).then(response=>response.text()).then(data=>{bulletinData=Utils.ArraysToDict(Utils.CSVToArray(data))}))
   }
   if(fields.includes("districtMap") || fields.includes("districtVariance")){
     promises.push(fetch(URL_DISTRICTS).then(response=>response.text()).then(data=>{districtData=Utils.ArraysToDict(Utils.CSVToArray(data))}))
+  }
+  if(fields.includes("beds")){
+    promises.push(fetch(URL_BEDS).then(response=>response.text()).then(data=>{bedsRawData=data}))
   }
   return Promise.all(promises).then(async ()=>{
     
@@ -59,6 +60,9 @@ exports.handler = async (event, context) => {
     }
     if(fields.includes("genderMap")){
       data["genderMap"] = Stats.genderMap()
+    }
+    if(fields.includes("beds")){
+      data["beds"] = Stats.beds(bedsRawData);
     }
     return {
       statusCode: 200,

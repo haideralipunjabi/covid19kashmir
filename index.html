@@ -342,14 +342,17 @@
 
         </div>
         <div class="message-body">
-          <div class="container">
             <p>
               <span class="tag is-info" style="margin-left: 2px;">Last Updated at:
-                <strong> <span id="bed_stats_date"></span> </strong>
+                <strong><span id="bed_stats_date"></span> </strong>
               </span>
             </p>
+
+            <!-- Jammu Division -->
+            <p class="has-text-centered"><span class="tag is-info is-size-3" style="margin-left: 2px"><strong>Jammu</strong></span></p>
             <br />
-          </div>
+            <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>Covid Dedicated Beds</strong></span></p>
+            <br />
           <div class="columns is-multiline">
             <div class="column is-half-tablet is-one-third-desktop">
               <div class="tile is-parent">
@@ -357,7 +360,7 @@
                   <div class="container-stat">
                     <p><i class="fas fa-hospital"></i>
                       <span class="count-head">Beds Available</span>
-                      <span id="stats_beds_available" class="count-num loadanim"></span>
+                      <span id="beds_jammu_covid_available" class="count-num loadanim"></span>
                     </p>
                   </div>
                 </article>
@@ -370,7 +373,7 @@
                     <p>
                       <i class="fas fa-bed"></i>
                       <span class="count-head">Beds Vacant</span>
-                      <span id="stats_beds_vacant" class="count-num loadanim"></span>
+                      <span id="beds_jammu_covid_vacant" class="count-num loadanim"></span>
                     </p>
                   </div>
                 </article>
@@ -383,7 +386,7 @@
                     <p>
                       <i class="fas fa-procedures"></i>
                       <span class="count-head">Beds Occupied</span>
-                      <span id="stats_beds_occupied" class="count-num loadanim"></span>
+                      <span id="beds_jammu_covid_occupied" class="count-num loadanim"></span>
                     </p>
                   </div>
                 </article>
@@ -391,8 +394,251 @@
             </div>
           </div>
           <br>
+          <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>Beds with Oxygen Support</strong></span></p>
+            <br />
+          <div class="columns is-multiline">
+            <div class="column is-half-tablet is-one-third-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-samples is-child box">
+                  <div class="container-stat">
+                    <p><i class="fas fa-hospital"></i>
+                      <span class="count-head">Beds Available</span>
+                      <span id="beds_jammu_oxygen_available" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-third-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-negper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-bed"></i>
+                      <span class="count-head">Beds Vacant</span>
+                      <span id="beds_jammu_oxygen_vacant" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-third-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-posper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-procedures"></i>
+                      <span class="count-head">Beds Occupied</span>
+                      <span id="beds_jammu_oxygen_occupied" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+          <br>
+          <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>ICU Beds</strong></span></p>
+            <br />
+          <div class="columns is-multiline">
+            <div class="column is-half-tablet is-one-fourth-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-samples is-child box">
+                  <div class="container-stat">
+                    <p><i class="fas fa-hospital"></i>
+                      <span class="count-head">Beds Available</span>
+                      <span id="beds_jammu_icu_available" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-fourth-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-negper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-bed"></i>
+                      <span class="count-head">Beds Vacant</span>
+                      <span id="beds_jammu_icu_vacant" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-fourth-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-posper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-procedures"></i>
+                      <span class="count-head">Beds Occupied without Ventilator</span>
+                      <span id="beds_jammu_icu_occupied" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-fourth-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-posper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-procedures"></i>
+                      <span class="count-head">Beds Occupied with Ventilator</span>
+                      <span id="beds_jammu_icu_occupied_ventilator" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+          <br>
+          <!-- Kashmir Division -->
+          <p class="has-text-centered"><span class="tag is-info is-size-3" style="margin-left: 2px"><strong>Kashmir</strong></span></p>
+          <br />
+          <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>Covid Dedicated Beds</strong></span></p>
+          <br />
+        <div class="columns is-multiline">
+          <div class="column is-half-tablet is-one-third-desktop">
+            <div class="tile is-parent">
+              <article class="tile tile-samples is-child box">
+                <div class="container-stat">
+                  <p><i class="fas fa-hospital"></i>
+                    <span class="count-head">Beds Available</span>
+                    <span id="beds_kashmir_covid_available" class="count-num loadanim"></span>
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column is-half-tablet is-one-third-desktop">
+            <div class="tile is-parent">
+              <article class="tile tile-negper is-child box">
+                <div class="container-stat">
+                  <p>
+                    <i class="fas fa-bed"></i>
+                    <span class="count-head">Beds Vacant</span>
+                    <span id="beds_kashmir_covid_vacant" class="count-num loadanim"></span>
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column is-half-tablet is-one-third-desktop">
+            <div class="tile is-parent">
+              <article class="tile tile-posper is-child box">
+                <div class="container-stat">
+                  <p>
+                    <i class="fas fa-procedures"></i>
+                    <span class="count-head">Beds Occupied</span>
+                    <span id="beds_kashmir_covid_occupied" class="count-num loadanim"></span>
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+        <br>
+        <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>Beds with Oxygen Support</strong></span></p>
+          <br />
+        <div class="columns is-multiline">
+          <div class="column is-half-tablet is-one-third-desktop">
+            <div class="tile is-parent">
+              <article class="tile tile-samples is-child box">
+                <div class="container-stat">
+                  <p><i class="fas fa-hospital"></i>
+                    <span class="count-head">Beds Available</span>
+                    <span id="beds_kashmir_oxygen_available" class="count-num loadanim"></span>
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column is-half-tablet is-one-third-desktop">
+            <div class="tile is-parent">
+              <article class="tile tile-negper is-child box">
+                <div class="container-stat">
+                  <p>
+                    <i class="fas fa-bed"></i>
+                    <span class="count-head">Beds Vacant</span>
+                    <span id="beds_kashmir_oxygen_vacant" class="count-num loadanim"></span>
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column is-half-tablet is-one-third-desktop">
+            <div class="tile is-parent">
+              <article class="tile tile-posper is-child box">
+                <div class="container-stat">
+                  <p>
+                    <i class="fas fa-procedures"></i>
+                    <span class="count-head">Beds Occupied</span>
+                    <span id="beds_kashmir_oxygen_occupied" class="count-num loadanim"></span>
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+        <br>
+        <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>ICU Beds</strong></span></p>
+          <br />
+        <div class="columns is-multiline">
+          <div class="column is-half-tablet is-one-fourth-desktop">
+            <div class="tile is-parent">
+              <article class="tile tile-samples is-child box">
+                <div class="container-stat">
+                  <p><i class="fas fa-hospital"></i>
+                    <span class="count-head">Beds Available</span>
+                    <span id="beds_kashmir_icu_available" class="count-num loadanim"></span>
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column is-half-tablet is-one-fourth-desktop">
+            <div class="tile is-parent">
+              <article class="tile tile-negper is-child box">
+                <div class="container-stat">
+                  <p>
+                    <i class="fas fa-bed"></i>
+                    <span class="count-head">Beds Vacant</span>
+                    <span id="beds_kashmir_icu_vacant" class="count-num loadanim"></span>
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column is-half-tablet is-one-fourth-desktop">
+            <div class="tile is-parent">
+              <article class="tile tile-posper is-child box">
+                <div class="container-stat">
+                  <p>
+                    <i class="fas fa-procedures"></i>
+                    <span class="count-head">Beds Occupied without Ventilator</span>
+                    <span id="beds_kashmir_icu_occupied" class="count-num loadanim"></span>
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column is-half-tablet is-one-fourth-desktop">
+            <div class="tile is-parent">
+              <article class="tile tile-posper is-child box">
+                <div class="container-stat">
+                  <p>
+                    <i class="fas fa-procedures"></i>
+                    <span class="count-head">Beds Occupied with Ventilator</span>
+                    <span id="beds_kashmir_icu_occupied_ventilator" class="count-num loadanim"></span>
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
           <div class="container has-text-centered ">
-            <a id="beds_source" href="" class="button is-primary is-rounded">View Details</a>
+            <a id="beds_source" href="" target="_blank" class="button is-primary is-rounded">View Details</a>
           </div>
           <br />
         </div>
