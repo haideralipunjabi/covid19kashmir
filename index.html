@@ -267,10 +267,7 @@
                     <p>
                       <i class="fas fa-plus-square"></i>
                       <span class="count-head">Positive Percentage</span>
-
                       <span id="stats_posper" class="count-num loadanim"></span>
-
-
                     </p>
                     <p>
                       <span class="count-head-daily">Today: </span>
@@ -282,32 +279,10 @@
                     </p>
 
                   </div>
-
-
-
                 </article>
               </div>
             </div>
 
-
-            <!--    <div class="column is-half-tablet is-one-quarter-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-negper is-child box">
-
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-lungs"></i>
-                      <span class="count-head">Negative Percentage</span>
-
-                      <span id="stats_negper" class="count-num  loadanim"></span>
-
-
-                    </p>
-                    <div id="slNegativePercentage" class="sparkline"></div>
-                  </div>
-                </article>
-              </div>
-            </div> -->
             <div class="column is-half-tablet is-one-quarter-desktop">
               <div class="tile is-parent">
                 <article class="tile tile-negper is-child box">
@@ -356,8 +331,72 @@
           </div>
           <br />
         </div>
+      </article>
     </div>
-    </article>
+    <br>
+    <div class="container">
+      <article id="bedstats" class="message is-warning">
+        <div class="message-header">
+          <p class="has-text-centered"><span class="icon"><i class="fas fa-hospital"></i></span><span>Hospital Bed
+              Statistics</span></p>
+
+        </div>
+        <div class="message-body">
+          <div class="container">
+            <p>
+              <span class="tag is-info" style="margin-left: 2px;">Last Updated at:
+                <strong> <span id="bed_stats_date"></span> </strong>
+              </span>
+            </p>
+            <br />
+          </div>
+          <div class="columns is-multiline">
+            <div class="column is-half-tablet is-one-third-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-samples is-child box">
+                  <div class="container-stat">
+                    <p><i class="fas fa-hospital"></i>
+                      <span class="count-head">Beds Available</span>
+                      <span id="stats_beds_available" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-third-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-negper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-bed"></i>
+                      <span class="count-head">Beds Vacant</span>
+                      <span id="stats_beds_vacant" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-third-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-posper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-procedures"></i>
+                      <span class="count-head">Beds Occupied</span>
+                      <span id="stats_beds_occupied" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="container has-text-centered ">
+            <a id="beds_source" href="" class="button is-primary is-rounded">View Details</a>
+          </div>
+          <br />
+        </div>
+      </article>
     </div>
     <br>
     <article>
