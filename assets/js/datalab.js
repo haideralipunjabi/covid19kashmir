@@ -36,6 +36,7 @@ const CHARTS = {
   chartEight: "full",
   chartNine: "full",
   chartTen: "full",
+  chartEleven: "full"
 };
 let districtMap,
   dateMap,
@@ -538,7 +539,12 @@ function createCharts() {
   chartOptions[7] = {
     series: Object.keys(districtVariance).map((district) => {
       dData = districtVariance[district];
-      active = Object.values(dData).map((item) => item["Active"]);
+      prev = 0;
+      active = Object.values(dData).map((item) => {
+        let n = item["Active"] - prev;
+        prev = item["Active"];
+        return n;
+      });
       return {
         name: district,
         data: active,
@@ -580,7 +586,7 @@ function createCharts() {
       "#607d8b",
     ],
     title: {
-      text: "District Wise Increase in Active Cases",
+      text: "District Wise Change in Active Cases",
       align: "left",
     },
     grid: {
@@ -598,7 +604,12 @@ function createCharts() {
   chartOptions[8] = {
     series: Object.keys(districtVariance).map((district) => {
       dData = districtVariance[district];
-      recovered = Object.values(dData).map((item) => item["Recovered"]);
+      prev = 0;
+      recovered = Object.values(dData).map((item) => {
+        let n = item["Recovered"] - prev;
+        prev = item["Recovered"];
+        return n;
+      });
       return {
         name: district,
         data: recovered,
@@ -640,7 +651,7 @@ function createCharts() {
       "#607d8b",
     ],
     title: {
-      text: "District Wise Increase in Recovered Cases",
+      text: "District Wise Change in Recovered Cases",
       align: "left",
     },
     grid: {
@@ -656,6 +667,71 @@ function createCharts() {
     },
   };
   chartOptions[9] = {
+    series: Object.keys(districtVariance).map((district) => {
+      dData = districtVariance[district];
+      prev = 0;
+      deceased = Object.values(dData).map((item) => {
+        let n = item["Deceased"] - prev;
+        prev = item["Deceased"];
+        return n;
+      });
+      return {
+        name: district,
+        data: deceased,
+      };
+    }),
+    chart: {
+      height: 350,
+      type: "line",
+      zoom: {
+        enabled: false,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "smooth",
+      width: 3,
+    },
+    colors: [
+      "#f44336",
+      "#e91e63",
+      "#9c27b0",
+      "#673ab7",
+      "#3f51b5",
+      "#2196f3",
+      "#03a9f4",
+      "#00bcd4",
+      "#009688",
+      "#4caf50",
+      "#8bc34a",
+      "#cddc39",
+      "#ffeb3b",
+      "#ffc107",
+      "#ff9800",
+      "#ff5722",
+      "#795548",
+      "#9e9e9e",
+      "#607d8b",
+    ],
+    title: {
+      text: "District Wise Change in Deceased Cases",
+      align: "left",
+    },
+    grid: {
+      row: {
+        colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+        opacity: 0.5,
+      },
+    },
+    xaxis: {
+      categories: Object.keys(districtVariance["Srinagar"]).map((item) =>
+        item.replace("/2020", "")
+      ),
+    },
+  };
+  chartOptions[10] = {
     series: Object.keys(variance).map((a) => {
       return {
         data: variance[a].map((x, i) =>
