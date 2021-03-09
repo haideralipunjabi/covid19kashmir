@@ -53,7 +53,9 @@
 
       </div>
     </article>
-    <button id="buttonDownload" onclick="javascript:downloadApplication();" style="margin-left: auto; margin-right: auto; display: block;" class="button is-rounded is-primary is-outlined is-hidden">
+    <button id="buttonDownload" onclick="javascript:downloadApplication();"
+      style="margin-left: auto; margin-right: auto; display: block;"
+      class="button is-rounded is-primary is-outlined is-hidden">
       <span style="margin-right: 5px;" class="icon is-small">
         <i class="fas fa-download"></i>
       </span>Download Application
@@ -74,7 +76,7 @@
               </span>
               <span>Refresh</span>
             </button>
-<!-- 
+            <!-- 
             <button onclick="javascript:shareStatsText()" class="button">
               <span class="icon is-small">
                 <i class="fas fa-share-alt"></i>
@@ -82,34 +84,34 @@
               <span>Share</span>
             </button> -->
           </p>
-            
+
         </div>
 
 
         <div class="message-body">
-            <div class="container">
-                <p>
-                  <span class="tag is-warning" style="margin-left: 2px;">Last Updated at:  
-                  <strong>  <span id="patientstats_updated"></span>  </strong>  
-                  </span>
-                   </p>
-                <br/>
-              
-               
-                
-            </div>
+          <div class="container">
+            <p>
+              <span class="tag is-warning" style="margin-left: 2px;">Last Updated at:
+                <strong> <span id="patientstats_updated"></span> </strong>
+              </span>
+            </p>
+            <br />
+
+
+
+          </div>
           <div class="columns is-multiline">
 
-            
+
 
             <div class="column is-half-tablet is-one-quarter-desktop">
-              
+
               <div class="tile is-parent">
-             
+
                 <article class="tile tile-total is-child box">
 
                   <div class="container-stat">
-                   
+
                     <p><i class="fas fa-users"></i>
                       <span class="count-head">TOTAL</span>
                       <span id="cases_total" class="count-num loadanim"></span>
@@ -219,17 +221,17 @@
 
         <div class="message-body">
 
-            <div class="container">
-                <p>
-                  <span class="tag is-warning" style="margin-left: 2px;">Last Updated at: 
-                 <strong> <span id="stats_date"></span> </strong>  
-                  </span>
-                   </p>
-                <br/>
-              
-               
-                
-            </div>
+          <div class="container">
+            <p>
+              <span class="tag is-warning" style="margin-left: 2px;">Last Updated at:
+                <strong> <span id="stats_date"></span> </strong>
+              </span>
+            </p>
+            <br />
+
+
+
+          </div>
 
 
           <div class="columns is-multiline">
@@ -248,16 +250,16 @@
                       <span id="stats_samples_today" class="count-num-daily"></span>
                     </p>
                     <!-- <div id="slSamples" class="sparkline"></div> -->
-                    
-                      <br/><br/>
 
-                   <p class="below-text-stat">On an Average, J&K Tests {avg} samples per day.</p>
+                    <br /><br />
+
+                    <p class="below-text-stat">On an Average, J&K Tests <span id="stats_samples_avg"></span> samples per day.</p>
 
                   </div>
                 </article>
               </div>
             </div>
-        <div class="column is-half-tablet is-one-quarter-desktop">
+            <div class="column is-half-tablet is-one-quarter-desktop">
               <div class="tile is-parent">
                 <article class="tile tile-posper is-child box">
 
@@ -265,43 +267,22 @@
                     <p>
                       <i class="fas fa-plus-square"></i>
                       <span class="count-head">Positive Percentage</span>
-
                       <span id="stats_posper" class="count-num loadanim"></span>
-
-
                     </p>
-                   
-                   <br/><br/>
+                    <p>
+                      <span class="count-head-daily">Today: </span>
+                      <span id="stats_posper_today" class="count-num-daily"></span>
+                    </p>
+                    <br /><br />
 
-                   <p class="below-text-stat">For Every 100 tests in J&K, <span>{0 People}</span> have tested positive.</p>
+                    <p class="below-text-stat">For Every 100 tests in J&K, around <span id="stats_postext"></span> persons have tested positive.
+                    </p>
 
                   </div>
-
-                     
-
                 </article>
               </div>
             </div>
 
-
-         <!--    <div class="column is-half-tablet is-one-quarter-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-negper is-child box">
-
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-lungs"></i>
-                      <span class="count-head">Negative Percentage</span>
-
-                      <span id="stats_negper" class="count-num  loadanim"></span>
-
-
-                    </p>
-                    <div id="slNegativePercentage" class="sparkline"></div>
-                  </div>
-                </article>
-              </div>
-            </div> -->
             <div class="column is-half-tablet is-one-quarter-desktop">
               <div class="tile is-parent">
                 <article class="tile tile-negper is-child box">
@@ -315,16 +296,17 @@
 
 
                     </p>
+                    <br /><br />
 
-                   <br/><br/>
-
-                   <p class="below-text-stat">For every 100 confirmed cases, <span>{recovered}</span> have recovered in J&K.</p>
-<!--                     <div id="slRecoveryPercentage" class="sparkline"></div>
- -->                  </div>
+                    <p class="below-text-stat">For every 100 confirmed cases, around <span id="stats_rectext"></span> patients have recovered in
+                      J&K.</p>
+                    <!--                     <div id="slRecoveryPercentage" class="sparkline"></div>
+ -->
+                  </div>
                 </article>
               </div>
             </div>
-                      <div class="column is-half-tablet is-one-quarter-desktop">
+            <div class="column is-half-tablet is-one-quarter-desktop">
               <div class="tile is-parent">
                 <article class="tile tile-morper is-child box">
 
@@ -333,24 +315,391 @@
                       <i class="fas fa-heart"></i>
                       <span class="count-head">Mortality Rate</span>
 
-                      <span id="stats_recper" class="count-num loadanim"></span>
+                      <span id="stats_decper" class="count-num loadanim"></span>
 
 
                     </p>
+                    <br /><br />
 
-                   <br/><br/>
-
-                   <p class="below-text-stat">For every 100 confirmed cases, {(deceased/confirmed) *100} Persons have passed away.</p>
-<!--                     <div id="slRecoveryPercentage" class="sparkline"></div>
- -->                  </div>
+                    <p class="below-text-stat">For every 100 confirmed cases, around <span id="stats_dectext"></span> patients have
+                      passed away.</p>
+ 
+                  </div>
                 </article>
               </div>
-            </div>  
+            </div>
           </div>
           <br />
         </div>
+      </article>
     </div>
-    </article>
+    <br>
+    <div class="container">
+      <article id="bedstats" class="message is-warning">
+        <div class="message-header">
+          <p class="has-text-centered"><span class="icon"><i class="fas fa-hospital"></i></span><span>Hospital Bed
+              Statistics</span></p>
+
+        </div>
+        <div class="message-body">
+            <p>
+              <span class="tag is-info" style="margin-left: 2px;">Last Updated at:
+                <strong><span id="bed_stats_date"></span> </strong>
+              </span>
+            </p>
+
+            <!-- Jammu Division -->
+            <div>
+            <p class="has-text-centered"><span class="tag is-info is-size-3" style="margin-left: 2px"><strong>Jammu</strong></span></p>
+            <br />
+            <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>Covid Dedicated Beds</strong></span></p>
+            <br />
+          <div class="columns is-multiline">
+            <div class="column is-half-tablet is-one-third-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-samples is-child box">
+                  <div class="container-stat">
+                    <p><i class="fas fa-hospital"></i>
+                      <span class="count-head">Beds Available</span>
+                      <span id="beds_jammu_covid_available" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-third-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-negper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-bed"></i>
+                      <span class="count-head">Beds Vacant</span>
+                      <span id="beds_jammu_covid_vacant" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-third-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-posper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-procedures"></i>
+                      <span class="count-head">Beds Occupied</span>
+                      <span id="beds_jammu_covid_occupied" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+          <br>
+          <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>Isolation Beds</strong></span></p>
+            <br />
+          <div class="columns is-multiline">
+            <div class="column is-half-tablet is-one-quarter-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-samples is-child box">
+                  <div class="container-stat">
+                    <p><i class="fas fa-hospital"></i>
+                      <span class="count-head">Beds Available</span>
+                      <span id="beds_jammu_isolation_available" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-quarter-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-negper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-bed"></i>
+                      <span class="count-head">Beds Vacant</span>
+                      <span id="beds_jammu_isolation_vacant" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-quarter-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-posper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-procedures"></i>
+                      <span class="count-head">Patients without O2 Support</span>
+                      <span id="beds_jammu_isolation_without_o2" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-quarter-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-posper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-procedures"></i>
+                      <span class="count-head">Patients on O2 Support</span>
+                      <span id="beds_jammu_isolation_with_o2" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+          <br>
+          <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>ICU Beds</strong></span></p>
+            <br />
+          <div class="columns is-multiline">
+            <div class="column is-half-tablet is-one-fifth-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-samples is-child box">
+                  <div class="container-stat">
+                    <p><i class="fas fa-hospital"></i>
+                      <span class="count-head">Beds Available</span>
+                      <span id="beds_jammu_icu_available" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-fifth-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-negper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-bed"></i>
+                      <span class="count-head">Beds Vacant</span>
+                      <span id="beds_jammu_icu_vacant" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-fifth-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-posper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-procedures"></i>
+                      <span class="count-head">Beds Occupied</span>
+                      <span id="beds_jammu_icu_occupied" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-fifth-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-posper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-procedures"></i>
+                      <span class="count-head">Beds Occupied with Ventilator (Invasive)</span>
+                      <span id="beds_jammu_icu_occupied_ventilator_invasive" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-fifth-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-posper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-procedures"></i>
+                      <span class="count-head">Beds Occupied with Ventilator (Non Invasive)</span>
+                      <span id="beds_jammu_icu_occupied_ventilator_non_invasive" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+          <br>
+          <!-- Kashmir Division -->
+          <div>
+            <p class="has-text-centered"><span class="tag is-info is-size-3" style="margin-left: 2px"><strong>Kashmir</strong></span></p>
+            <br />
+            <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>Covid Dedicated Beds</strong></span></p>
+            <br />
+          <div class="columns is-multiline">
+            <div class="column is-half-tablet is-one-third-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-samples is-child box">
+                  <div class="container-stat">
+                    <p><i class="fas fa-hospital"></i>
+                      <span class="count-head">Beds Available</span>
+                      <span id="beds_kashmir_covid_available" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-third-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-negper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-bed"></i>
+                      <span class="count-head">Beds Vacant</span>
+                      <span id="beds_kashmir_covid_vacant" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-third-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-posper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-procedures"></i>
+                      <span class="count-head">Beds Occupied</span>
+                      <span id="beds_kashmir_covid_occupied" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+          <br>
+          <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>Isolation Beds</strong></span></p>
+            <br />
+          <div class="columns is-multiline">
+            <div class="column is-half-tablet is-one-quarter-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-samples is-child box">
+                  <div class="container-stat">
+                    <p><i class="fas fa-hospital"></i>
+                      <span class="count-head">Beds Available</span>
+                      <span id="beds_kashmir_isolation_available" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-quarter-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-negper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-bed"></i>
+                      <span class="count-head">Beds Vacant</span>
+                      <span id="beds_kashmir_isolation_vacant" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-quarter-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-posper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-procedures"></i>
+                      <span class="count-head">Patients without O2 Support</span>
+                      <span id="beds_kashmir_isolation_without_o2" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-quarter-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-posper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-procedures"></i>
+                      <span class="count-head">Patients on O2 Support</span>
+                      <span id="beds_kashmir_isolation_with_o2" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+          <br>
+          <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>ICU Beds</strong></span></p>
+            <br />
+          <div class="columns is-multiline">
+            <div class="column is-half-tablet is-one-fifth-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-samples is-child box">
+                  <div class="container-stat">
+                    <p><i class="fas fa-hospital"></i>
+                      <span class="count-head">Beds Available</span>
+                      <span id="beds_kashmir_icu_available" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-fifth-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-negper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-bed"></i>
+                      <span class="count-head">Beds Vacant</span>
+                      <span id="beds_kashmir_icu_vacant" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-fifth-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-posper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-procedures"></i>
+                      <span class="count-head">Beds Occupied</span>
+                      <span id="beds_kashmir_icu_occupied" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-fifth-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-posper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-procedures"></i>
+                      <span class="count-head">Beds Occupied with Ventilator (Invasive)</span>
+                      <span id="beds_kashmir_icu_occupied_ventilator_invasive" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column is-half-tablet is-one-fifth-desktop">
+              <div class="tile is-parent">
+                <article class="tile tile-posper is-child box">
+                  <div class="container-stat">
+                    <p>
+                      <i class="fas fa-procedures"></i>
+                      <span class="count-head">Beds Occupied with Ventilator (Non Invasive)</span>
+                      <span id="beds_kashmir_icu_occupied_ventilator_non_invasive" class="count-num loadanim"></span>
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+          <div class="container has-text-centered ">
+            <a id="beds_source" href="" target="_blank" class="button is-primary is-rounded">View Details</a>
+          </div>
+          <br />
+        </div>
+      </article>
     </div>
     <br>
     <article>
@@ -362,20 +711,22 @@
           <article class="message">
             <div class="message-body">
               <p>
-                <span class="tag is-warning" style="margin-left: 2px;">Last Updated at: 
-               <strong> <span id="map_date"></span> </strong>  
+                <span class="tag is-warning" style="margin-left: 2px;">Last Updated at:
+                  <strong> <span id="map_date"></span> </strong>
                 </span>
-                 </p>
-              <p style="font-family: 'Montserrat', sans-serif; font-size: 14px; padding:10px; text-align: justify;"><span
-                  class="has-text-danger"><i class="fa fa-exclamation-circle"></i></span> The map and table use the Daily Media Bulletins 
-                  from <a target="_blank" href="https://twitter.com/diprjk">the Twitter Handle of Department of Information & Public Relations</a>, and as such, is updated only once a day.
               </p>
-      
+              <p style="font-family: 'Montserrat', sans-serif; font-size: 14px; padding:10px; text-align: justify;">
+                <span class="has-text-danger"><i class="fa fa-exclamation-circle"></i></span> The map and table use the
+                Daily Media Bulletins
+                from <a target="_blank" href="https://twitter.com/diprjk">the Twitter Handle of Department of
+                  Information & Public Relations</a>, and as such, is updated only once a day.
+              </p>
+
             </div>
           </article>
           <div class="columns">
             <div class=" column is-half">
-                <progress class="progress is-success" max="100">30%</progress>
+              <progress class="progress is-success" max="100">30%</progress>
 
               <div id="map-container">
 
@@ -430,7 +781,7 @@
                 <div class="messasge-body">
                   <div class="table-container" id="district-table">
                     <table class="table is-fullwidth is-bordered is-striped" data-sortable style="overflow-x:auto;">
-                        <progress class="progress is-success" max="100">30%</progress>
+                      <progress class="progress is-success" max="100">30%</progress>
 
                       <thead>
                         <tr>
@@ -450,9 +801,12 @@
               </article>
               <div>
                 <h3 class="has-text-centered">Population Source: <a
-                    href="http://censusindia.gov.in/pca/DDW_PCA0000_2011_Indiastatedist.xlsx" target="_blank">Census of India Website - Office of the Registrar General & Census Commissioner, India</a></h3>
-                <h3 class="has-text-centered">District wise breakup represents districts from which the patients have been traced or are ordinarily residing</h3>
-                <h3 class="has-text-centered">District wise distribution is subject to further verification and reconciliation. (Indicated with blue numbers)</h3>
+                    href="http://censusindia.gov.in/pca/DDW_PCA0000_2011_Indiastatedist.xlsx" target="_blank">Census of
+                    India Website - Office of the Registrar General & Census Commissioner, India</a></h3>
+                <h3 class="has-text-centered">District wise breakup represents districts from which the patients have
+                  been traced or are ordinarily residing</h3>
+                <h3 class="has-text-centered">District wise distribution is subject to further verification and
+                  reconciliation. (Indicated with blue numbers)</h3>
               </div>
             </div>
           </div>
@@ -466,7 +820,7 @@
 
         </div>
         <div class="message-body">
-            <progress class="progress is-success" max="100">30%</progress>
+          <progress class="progress is-success" max="100">30%</progress>
 
           <div class="card">
             <div class="card-content">
@@ -488,94 +842,94 @@
 
     <article>
       <div class="container">
-        
 
-          <div class="columns">
-              <div class="column is-6">
 
-                  <div class="message-header">
-                    <p>
-                      <span class="blink live-back">TRACKER</span>
-                    </p>
-                  </div>
-                  
-                    
-                 
-    
-                  <div class="message-body">
-    
-                    <div class="card news-feed-card">
-    
-                      <div class="card-content">
-    
-                        <div class="content">
-    
-                       
-                       <h4 id="head-all-stats">India Stats</h4>
-                          <div class="columns is-mobile is-multiline inside-all-container">
-                        <div class="column all-total">
-                                 <h3 id="indTotal" style="color: #ff073a;">XXX</h3>
-                                  <h4 style="color: #ff073a;">Total</h4>
-                                </div>
-                              <div class="column all-Active">
-                                  <h3 id="indActive" style="color: #28a745;">XXX</h3>
-                                  <h4 style="color: #28a745;">Active</h4>
-                               </div>
-                               <div class="column all-Recovered">
-                                  <h3 id="indRecovered" style="color: rgba(0, 123, 255, 1);">XXX</h3>
-                                  <h4 style="color:rgba(0, 123, 255, 1);">Recovered</h4>
-                               </div>
-                                <div class="column all-Death">
-                                    <h3 id="indDead" style="color: rgba(108, 117, 125, 1);">XXX</h3>
-                                    <h4 style="color: rgba(108, 117, 125, 1);">Death</h4>
-                                 </div>
-                          </div>
-                        </div>
+        <div class="columns">
+          <div class="column is-6">
+
+            <div class="message-header">
+              <p>
+                <span class="blink live-back">TRACKER</span>
+              </p>
+            </div>
+
+
+
+
+            <div class="message-body">
+
+              <div class="card news-feed-card">
+
+                <div class="card-content">
+
+                  <div class="content">
+
+
+                    <h4 id="head-all-stats">India Stats</h4>
+                    <div class="columns is-mobile is-multiline inside-all-container">
+                      <div class="column all-total">
+                        <h3 id="indTotal" style="color: #ff073a;">XXX</h3>
+                        <h4 style="color: #ff073a;">Total</h4>
+                      </div>
+                      <div class="column all-Active">
+                        <h3 id="indActive" style="color: #28a745;">XXX</h3>
+                        <h4 style="color: #28a745;">Active</h4>
+                      </div>
+                      <div class="column all-Recovered">
+                        <h3 id="indRecovered" style="color: rgba(0, 123, 255, 1);">XXX</h3>
+                        <h4 style="color:rgba(0, 123, 255, 1);">Recovered</h4>
+                      </div>
+                      <div class="column all-Death">
+                        <h3 id="indDead" style="color: rgba(108, 117, 125, 1);">XXX</h3>
+                        <h4 style="color: rgba(108, 117, 125, 1);">Death</h4>
                       </div>
                     </div>
-                   
-                    <div class="card news-feed-card">
-    
-                        <div class="card-content">
-      
-                          <div class="content">
-      
-                         
-                           <h4 id="head-all-stats">World Stats</h4>
-                            <div class="columns is-mobile is-multiline inside-all-container">
-                          <div class="column all-total">
-                                   <h3 id="wTotal" style="color: #ff073a;"> XXX</h3>
-                                    <h4 style="color: #ff073a;">Total</h4>
-                                  </div>
-                               
-                                 <div class="column all-Recovered">
-                                    <h3 id="wRecovered" style="color: rgba(0, 123, 255, 1);">224312</h3>
-                                    <h4 style="color:rgba(0, 123, 255, 1);">Recovered</h4>
-                                 </div>
-                                  <div class="column all-Death">
-                                      <h3 id="wDead" style="color: rgba(108, 117, 125, 1);">213242</h3>
-                                      <h4 style="color: rgba(108, 117, 125, 1);">Death</h4>
-                                   </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-    
+                  </div>
                 </div>
-    
               </div>
 
-            <div class="container column is-6 ">
-              <div class="message-header">
-                <p>
-                  Twitter Feed <span class="blink"><i class="fab fa-twitter"></i></span>
-                </p>
+              <div class="card news-feed-card">
+
+                <div class="card-content">
+
+                  <div class="content">
+
+
+                    <h4 id="head-all-stats">World Stats</h4>
+                    <div class="columns is-mobile is-multiline inside-all-container">
+                      <div class="column all-total">
+                        <h3 id="wTotal" style="color: #ff073a;"> XXX</h3>
+                        <h4 style="color: #ff073a;">Total</h4>
+                      </div>
+
+                      <div class="column all-Recovered">
+                        <h3 id="wRecovered" style="color: rgba(0, 123, 255, 1);">224312</h3>
+                        <h4 style="color:rgba(0, 123, 255, 1);">Recovered</h4>
+                      </div>
+                      <div class="column all-Death">
+                        <h3 id="wDead" style="color: rgba(108, 117, 125, 1);">213242</h3>
+                        <h4 style="color: rgba(108, 117, 125, 1);">Death</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div id="twitterfeed-container" class="message-body">
-
-              </div>
             </div>
+
+          </div>
+
+          <div class="container column is-6 ">
+            <div class="message-header">
+              <p>
+                Twitter Feed <span class="blink"><i class="fab fa-twitter"></i></span>
+              </p>
+            </div>
+
+            <div id="twitterfeed-container" class="message-body">
+
+            </div>
+          </div>
 
         </div>
       </div>
@@ -630,17 +984,18 @@
 
   <div class="container">
 
-  <article class="message">
-    <div class="message-body">
-      <p style="font-family: 'Montserrat', sans-serif; font-size: 14px; padding:10px; text-align: justify;"><span
-          class="has-text-danger"><i class="fa fa-exclamation-circle"></i></span> In Order to Improve Speed of Website Detailed Patient Data has been moved to another page. <span
-          class="has-text-info"><a href="details.html">Click Here To Visit</a></span> 
+    <article class="message">
+      <div class="message-body">
+        <p style="font-family: 'Montserrat', sans-serif; font-size: 14px; padding:10px; text-align: justify;"><span
+            class="has-text-danger"><i class="fa fa-exclamation-circle"></i></span> In Order to Improve Speed of Website
+          Detailed Patient Data has been moved to another page. <span class="has-text-info"><a href="details.html">Click
+              Here To Visit</a></span>
 
-      </p>
+        </p>
 
-    </div>
-  </article>
-</div>
+      </div>
+    </article>
+  </div>
   <div class="container">
 
     <hr />
