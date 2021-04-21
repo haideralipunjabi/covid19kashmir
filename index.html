@@ -335,363 +335,295 @@
     </div>
     <br>
     <div class="container">
-      <article id="bedstats" class="message is-warning">
+      <article id="bedstats" class="message is-dark">
         <div class="message-header">
           <p class="has-text-centered"><span class="icon"><i class="fas fa-hospital"></i></span><span>Hospital Bed
               Statistics</span></p>
 
         </div>
         <div class="message-body">
-            <p>
-              <span class="tag is-info" style="margin-left: 2px;">Last Updated at:
-                <strong><span id="bed_stats_date"></span> </strong>
-              </span>
-            </p>
+   
+            <!-- Begins  -->
+            <div class="card">
+             
+              <div class="card-content">
 
+                <p>
+                  <span class="tag is-warning" style="margin-left: 2px;">Last Updated at:
+                    <strong> <span id="bed_stats_date"></span></strong>
+                  </span>
+                </p><br/>
+    
+                <div class="content">
+                  <div class="tile is-ancestor">
+                  
+                    <div class="tile is-parent is-4">
+                      <article class="tile is-child box">
+                        <span class="tag is-link is-medium">COVID DEDICATED BEDS</span>
+                        <hr/>
+                        <strong><p class="is-size-7">Beds Available</p></strong><br/>
+                        <div class="field is-grouped is-grouped-multiline">
+                          <div class="control">
+                            <div class="tags has-addons">
+                              <span class="tag is-dark">Jammu</span>
+                              <span class="tag is-danger" id="beds_jammu_covid_available"></span>
+                            </div>
+                          </div>
+                        
+                          <div class="control">
+                            <div class="tags has-addons">
+                              <span class="tag is-dark">Kashmir</span>
+                              <span class="tag is-danger" id="beds_kashmir_covid_available"></span>
+                            </div>
+                          </div>
+                         
+                             </div>
+                          <hr/>
+                          <strong><p class="is-size-7">Beds Vacant</p></strong><br/>
+                          <div class="field is-grouped is-grouped-multiline">
+                            <div class="control">
+                              <div class="tags has-addons">
+                                <span class="tag is-dark">Jammu</span>
+                                <span class="tag is-danger" id="beds_jammu_covid_vacant"></span>
+                              </div>
+                            </div>
+                          
+                            <div class="control">
+                              <div class="tags has-addons">
+                                <span class="tag is-dark">Kashmir</span>
+                                <span class="tag is-danger" id="beds_kashmir_covid_vacant"></span>
+                              </div>
+                            </div>
+                           
+                               </div>
+                            <hr/>
+                            <strong><p class="is-size-7">Beds Occupied</p></strong><br/>
+                            <div class="field is-grouped is-grouped-multiline">
+                              <div class="control">
+                                <div class="tags has-addons">
+                                  <span class="tag is-dark">Jammu</span>
+                                  <span class="tag is-danger" id="beds_jammu_covid_occupied"></span>
+                                </div>
+                              </div>
+                            
+                              <div class="control">
+                                <div class="tags has-addons">
+                                  <span class="tag is-dark">Kashmir</span>
+                                  <span class="tag is-danger" id="beds_kashmir_covid_occupied"></span>
+                                </div>
+                              </div>
+                             
+                                 </div>
+                          
+
+                        <!-- Put any content you want -->
+                      </article>
+                    </div>
+                    <div class="tile is-parent is-4">
+                      <article class="tile is-child box">
+                        <span class="tag is-link is-medium">ISOLATION BEDS</span>
+                        <hr/>
+                        <strong><p class="is-size-7">Beds Available</p></strong><br/>
+                        <div class="field is-grouped is-grouped-multiline">
+                          <div class="control">
+                            <div class="tags has-addons">
+                              <span class="tag is-dark">Jammu</span>
+                              <span class="tag is-danger" id="beds_jammu_isolation_available"></span>
+                            </div>
+                          </div>
+                        
+                          <div class="control">
+                            <div class="tags has-addons">
+                              <span class="tag is-dark">Kashmir</span>
+                              <span class="tag is-danger" id="beds_kashmir_isolation_available"></span>
+                            </div>
+                          </div>
+                         
+                             </div>
+                          <hr/>
+                          <strong><p class="is-size-7">Beds Vacant</p></strong><br/>
+                          <div class="field is-grouped is-grouped-multiline">
+                            <div class="control">
+                              <div class="tags has-addons">
+                                <span class="tag is-dark">Jammu</span>
+                                <span class="tag is-danger" id="beds_jammu_isolation_vacant"></span>
+
+                              </div>
+                            </div>
+                          
+                            <div class="control">
+                              <div class="tags has-addons">
+                                <span class="tag is-dark">Kashmir</span>
+                                <span class="tag is-danger" id="beds_kashmir_isolation_vacant"></span>
+
+                              </div>
+                            </div>
+                           
+                               </div>
+                            <hr/>
+                           
+                        <strong><p class="is-size-7">Patients With 02 Support</p></strong><br/>
+                        <div class="field is-grouped is-grouped-multiline">
+                          <div class="control">
+                            <div class="tags has-addons">
+                              <span class="tag is-dark">Jammu</span>
+                              <span class="tag is-danger" id="beds_jammu_isolation_with_o2"></span>
+
+                            </div>
+                          </div>
+                        
+                          <div class="control">
+                            <div class="tags has-addons">
+                              <span class="tag is-dark">Kashmir</span>
+                              <span class="tag is-danger" id="beds_kashmir_isolation_with_o2"></span>
+                            </div>
+                          </div>
+                         
+                             </div>
+                        <hr/>
+                        <strong><p class="is-size-7">Patients Without 02 Support</p></strong><br/>
+                          <div class="field is-grouped is-grouped-multiline">
+                            <br/>
+                            <div class="control">
+                              
+                              <div class="tags has-addons">
+                                <span class="tag is-dark">Jammu</span>
+                                <span class="tag is-danger" id="beds_jammu_isolation_without_o2"></span>
+                              </div>
+                            </div>
+                          
+                            <div class="control">
+                              <div class="tags has-addons">
+                                <span class="tag is-dark">Kashmir</span>
+                                <span class="tag is-danger" id="beds_kashmir_isolation_without_o2"></span>
+                              </div>
+                            </div>
+                           
+                               </div>
+                           
+                        <!-- Put any content you want -->
+                      </article>
+                    </div>
+                    <div class="tile is-parent is-4">
+                      <article class="tile is-child box">
+                        <span class="tag is-link is-medium">ICU BEDS</span>
+                        <!-- Put any content you want -->
+                        <hr/>
+                        <strong><p class="is-size-7">Beds Available</p></strong><br/>
+                        <div class="field is-grouped is-grouped-multiline">
+                          <br/>
+                          <div class="control">
+                            
+                            <div class="tags has-addons">
+                              <span class="tag is-dark">Jammu</span>
+                              <span id="beds_jammu_icu_available" class="tag is-danger"></span>
+                            </div>
+                          </div>
+                        
+                          <div class="control">
+                            <div class="tags has-addons">
+                              <span class="tag is-dark">Kashmir</span>
+                              <span id="beds_kashmir_icu_available" class="tag is-danger"></span>
+                            </div>
+                          </div>
+                         
+                             </div>
+                             <hr/>
+                             <strong><p class="is-size-7">Beds Vacant</p></strong><br/>
+                             <div class="field is-grouped is-grouped-multiline">
+                               <br/>
+                               <div class="control">
+                                 
+                                 <div class="tags has-addons">
+                                   <span class="tag is-dark">Jammu</span>
+                                   <span id="beds_jammu_icu_vacant" class="tag is-danger"></span>
+                                  </div>
+                               </div>
+                             
+                               <div class="control">
+                                 <div class="tags has-addons">
+                                   <span class="tag is-dark">Kashmir</span>
+                                   <span id="beds_kashmir_icu_vacant" class="tag is-danger"></span>
+
+                                 </div>
+                               </div>
+                              
+                                  </div>
+                                  <hr/>
+                                  <strong><p class="is-size-7">Beds Occupied</p></strong><br/>
+                                  <div class="field is-grouped is-grouped-multiline">
+                                    <br/>
+                                    <div class="control">
+                                      
+                                      <div class="tags has-addons">
+                                        <span class="tag is-dark">Jammu</span>
+                                        <span id="beds_jammu_icu_occupied" class="tag is-danger"></span>
+                                      </div>
+                                    </div>
+                                  
+                                    <div class="control">
+                                      <div class="tags has-addons">
+                                        <span class="tag is-dark">Kashmir</span>
+                                        <span id="beds_kashmir_icu_occupied" class="tag is-danger"></span>
+
+                                      </div>
+                                    </div>
+                                   
+                                       </div>
+                                       <hr/>
+                                       <strong><p class="is-size-7">Beds Occupied with Ventilator (Invasive)</p></strong><br/>
+                                       <div class="field is-grouped is-grouped-multiline">
+                                         <br/>
+                                         <div class="control">
+                                           
+                                           <div class="tags has-addons">
+                                             <span class="tag is-dark">Jammu</span>
+                                             <span id="beds_jammu_icu_occupied_ventilator_invasive" class="tag is-danger"></span>
+                                            </div>
+                                         </div>
+                                       
+                                         <div class="control">
+                                           <div class="tags has-addons">
+                                             <span class="tag is-dark">Kashmir</span>
+                                             <span id="beds_kashmir_icu_occupied_ventilator_invasive" class="tag is-danger"></span>
+                                           </div>
+                                         </div>
+                                        
+                                            </div>
+                                            <hr/>
+                                            <strong><p class="is-size-7">Beds Occupied with Ventilator (Non Invasive)</p></strong><br/>
+                                            <div class="field is-grouped is-grouped-multiline">
+                                              <br/>
+                                              <div class="control">
+                                                
+                                                <div class="tags has-addons">
+                                                  <span class="tag is-dark">Jammu</span>
+                                                  <span id="beds_jammu_icu_occupied_ventilator_non_invasive" class="tag is-danger"></span>
+                                                </div>
+                                              </div>
+                                            
+                                              <div class="control">
+                                                <div class="tags has-addons">
+                                                  <span class="tag is-dark">Kashmir</span>
+                                                  <span id="beds_kashmir_icu_occupied_ventilator_non_invasive" class="tag is-danger"></span>
+                                                </div>
+                                              </div>
+                                             
+                                                 </div>
+                                                                    
+                      </article>
+                    </div>
+                  </div>
+                 
+                </div>
+              </div>
+           
+            </div>
+
+            <!-- Ends -->
             <!-- Jammu Division -->
             <div>
-            <p class="has-text-centered"><span class="tag is-info is-size-3" style="margin-left: 2px"><strong>Jammu</strong></span></p>
-            <br />
-            <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>Covid Dedicated Beds</strong></span></p>
-            <br />
-          <div class="columns is-multiline">
-            <div class="column is-half-tablet is-one-third-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-samples is-child box">
-                  <div class="container-stat">
-                    <p><i class="fas fa-hospital"></i>
-                      <span class="count-head">Beds Available</span>
-                      <span id="beds_jammu_covid_available" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-third-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-negper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-bed"></i>
-                      <span class="count-head">Beds Vacant</span>
-                      <span id="beds_jammu_covid_vacant" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-third-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-posper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-procedures"></i>
-                      <span class="count-head">Beds Occupied</span>
-                      <span id="beds_jammu_covid_occupied" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
-          <br>
-          <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>Isolation Beds</strong></span></p>
-            <br />
-          <div class="columns is-multiline">
-            <div class="column is-half-tablet is-one-quarter-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-samples is-child box">
-                  <div class="container-stat">
-                    <p><i class="fas fa-hospital"></i>
-                      <span class="count-head">Beds Available</span>
-                      <span id="beds_jammu_isolation_available" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-quarter-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-negper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-bed"></i>
-                      <span class="count-head">Beds Vacant</span>
-                      <span id="beds_jammu_isolation_vacant" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-quarter-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-posper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-procedures"></i>
-                      <span class="count-head">Patients without O2 Support</span>
-                      <span id="beds_jammu_isolation_without_o2" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-quarter-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-posper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-procedures"></i>
-                      <span class="count-head">Patients on O2 Support</span>
-                      <span id="beds_jammu_isolation_with_o2" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
-          <br>
-          <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>ICU Beds</strong></span></p>
-            <br />
-          <div class="columns is-multiline">
-            <div class="column is-half-tablet is-one-fifth-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-samples is-child box">
-                  <div class="container-stat">
-                    <p><i class="fas fa-hospital"></i>
-                      <span class="count-head">Beds Available</span>
-                      <span id="beds_jammu_icu_available" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-fifth-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-negper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-bed"></i>
-                      <span class="count-head">Beds Vacant</span>
-                      <span id="beds_jammu_icu_vacant" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-fifth-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-posper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-procedures"></i>
-                      <span class="count-head">Beds Occupied</span>
-                      <span id="beds_jammu_icu_occupied" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-fifth-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-posper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-procedures"></i>
-                      <span class="count-head">Beds Occupied with Ventilator (Invasive)</span>
-                      <span id="beds_jammu_icu_occupied_ventilator_invasive" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-fifth-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-posper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-procedures"></i>
-                      <span class="count-head">Beds Occupied with Ventilator (Non Invasive)</span>
-                      <span id="beds_jammu_icu_occupied_ventilator_non_invasive" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
         </div>
-          <br>
-          <!-- Kashmir Division -->
-          <div>
-            <p class="has-text-centered"><span class="tag is-info is-size-3" style="margin-left: 2px"><strong>Kashmir</strong></span></p>
-            <br />
-            <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>Covid Dedicated Beds</strong></span></p>
-            <br />
-          <div class="columns is-multiline">
-            <div class="column is-half-tablet is-one-third-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-samples is-child box">
-                  <div class="container-stat">
-                    <p><i class="fas fa-hospital"></i>
-                      <span class="count-head">Beds Available</span>
-                      <span id="beds_kashmir_covid_available" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-third-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-negper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-bed"></i>
-                      <span class="count-head">Beds Vacant</span>
-                      <span id="beds_kashmir_covid_vacant" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-third-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-posper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-procedures"></i>
-                      <span class="count-head">Beds Occupied</span>
-                      <span id="beds_kashmir_covid_occupied" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
-          <br>
-          <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>Isolation Beds</strong></span></p>
-            <br />
-          <div class="columns is-multiline">
-            <div class="column is-half-tablet is-one-quarter-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-samples is-child box">
-                  <div class="container-stat">
-                    <p><i class="fas fa-hospital"></i>
-                      <span class="count-head">Beds Available</span>
-                      <span id="beds_kashmir_isolation_available" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-quarter-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-negper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-bed"></i>
-                      <span class="count-head">Beds Vacant</span>
-                      <span id="beds_kashmir_isolation_vacant" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-quarter-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-posper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-procedures"></i>
-                      <span class="count-head">Patients without O2 Support</span>
-                      <span id="beds_kashmir_isolation_without_o2" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-quarter-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-posper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-procedures"></i>
-                      <span class="count-head">Patients on O2 Support</span>
-                      <span id="beds_kashmir_isolation_with_o2" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
-          <br>
-          <p class="has-text-centered"><span class="tag is-info is-size-4" style="margin-left: 2px"><strong>ICU Beds</strong></span></p>
-            <br />
-          <div class="columns is-multiline">
-            <div class="column is-half-tablet is-one-fifth-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-samples is-child box">
-                  <div class="container-stat">
-                    <p><i class="fas fa-hospital"></i>
-                      <span class="count-head">Beds Available</span>
-                      <span id="beds_kashmir_icu_available" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-fifth-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-negper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-bed"></i>
-                      <span class="count-head">Beds Vacant</span>
-                      <span id="beds_kashmir_icu_vacant" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-fifth-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-posper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-procedures"></i>
-                      <span class="count-head">Beds Occupied</span>
-                      <span id="beds_kashmir_icu_occupied" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-fifth-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-posper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-procedures"></i>
-                      <span class="count-head">Beds Occupied with Ventilator (Invasive)</span>
-                      <span id="beds_kashmir_icu_occupied_ventilator_invasive" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="column is-half-tablet is-one-fifth-desktop">
-              <div class="tile is-parent">
-                <article class="tile tile-posper is-child box">
-                  <div class="container-stat">
-                    <p>
-                      <i class="fas fa-procedures"></i>
-                      <span class="count-head">Beds Occupied with Ventilator (Non Invasive)</span>
-                      <span id="beds_kashmir_icu_occupied_ventilator_non_invasive" class="count-num loadanim"></span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
         </div>
       
           <div class="container has-text-centered ">
