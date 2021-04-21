@@ -65,9 +65,9 @@ const API_BEDS = fetch(API_URL + "?fields=beds").then((response) => {
 const STATS_PROMISE = fetch(LIVE_API_URL).then((response) => {
   return response.json();
 });
-const NEWS_PROMISE = fetch(NEWS_API_URL).then((response) => {
-  return response.json();
-});
+// const NEWS_PROMISE = fetch(NEWS_API_URL).then((response) => {
+//   return response.json();
+// });
 
 const slBaseOptions = {
   chart: {
@@ -131,9 +131,9 @@ $(document).ready(() => {
   API_BEDS.then((data) => {
     loadBeds(data["beds"]);
   });
-  NEWS_PROMISE.then((data) => {
-    loadNews(data);
-  });
+  // NEWS_PROMISE.then((data) => {
+  //   loadNews(data);
+  // });
   $(".dropdown-trigger").click(function () {
     $(".dropdown").toggleClass("is-active");
   });
