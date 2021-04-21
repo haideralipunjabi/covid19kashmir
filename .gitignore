@@ -5,3 +5,4 @@ raw/
 haters/
 .netlify
 *.env
+.env.local

@@ -41,7 +41,16 @@ const COLORS = {
     DECEASED: "#4a4a4a",
   },
 };
-
+const YLORBR = [
+  "#fff7bc",
+  "#fee391",
+  "#fec44f",
+  "#fe9929",
+  "#ec7014",
+  "#cc4c02",
+  "#993404",
+  "#662506",
+];
 const API_VARIANCE = fetch(API_URL + "?fields=variance").then((response) => {
   return response.json();
 });
@@ -230,11 +239,13 @@ function loadStats() {
 function loadBeds(data) {
   const sections = ["Jammu", "Kashmir"];
   $("#bed_stats_date").html(data.Date);
-  $("#beds_source").attr('href',data.Source);
+  $("#beds_source").attr("href", data.Source);
   for (let section of sections) {
     for (let key1 of Object.keys(data[section])) {
       for (let key2 of Object.keys(data[section][key1])) {
-        console.log(`#beds_${section.toLowerCase()}_${key1.toLowerCase()}_${key2.toLowerCase()}`)
+        console.log(
+          `#beds_${section.toLowerCase()}_${key1.toLowerCase()}_${key2.toLowerCase()}`
+        );
         $(
           `#beds_${section.toLowerCase()}_${key1.toLowerCase()}_${key2.toLowerCase()}`
         ).removeClass("loadanim");
@@ -561,27 +572,38 @@ function makeLegend() {
   let svgWidth = snap.node.offsetWidth;
   let min = Math.min(...Object.values(activeDistrictsMap));
   let max = Math.max(...Object.values(activeDistrictsMap));
-  let range = (max - min) / 3;
-  let stops = [
-    svgWidth / 3,
-    (4 * svgWidth) / 9,
-    (5 * svgWidth) / 9,
-    (2 * svgWidth) / 3,
-  ];
-  // let stops = [0, svgWidth/3, 2*svgWidth/3, svgWidth]
-  let barWidth = svgWidth / 9;
+  let stopCount  = YLORBR.length;
+  let range = (max - min) / stopCount;
+  // let stops = [
+  //   svgWidth / 3,
+  //   (4 * svgWidth) / 9,
+  //   (5 * svgWidth) / 9,
+  //   (2 * svgWidth) / 3,
+  // ];
   let barHeight = 10;
-  legend.rect(stops[0], 0, barWidth, barHeight).attr("fill", "#fee8c8");
-  legend.rect(stops[1], 0, barWidth, barHeight).attr("fill", "#fdbb84");
-  legend.rect(stops[2], 0, barWidth, barHeight).attr("fill", "#e34a33");
-  legend.text(stops[0] - 5, 2.5 * barHeight, "1").attr("fill", "#000");
-  legend
-    .text(stops[1] - 5, 2.5 * barHeight, `${Math.floor(min + range)}`)
-    .attr("fill", "#000");
-  legend
-    .text(stops[2] - 5, 2.5 * barHeight, `${Math.floor(min + range * 2)}`)
-    .attr("fill", "#000");
-  legend.text(stops[3] - 5, 2.5 * barHeight, max).attr("fill", "#000");
+  let barWidth = (svgWidth)/stopCount;
+  for(let i = 0; i <stopCount;i++) {
+    legend.rect(i*barWidth,2*barHeight,barWidth,barHeight).attr("fill",YLORBR[i]);
+    let number = Math.floor(min + (range*i)).toString();
+    let x = i*barWidth-(5*number.length)
+    if(i===0) x = i*barWidth
+    legend.text(x, (i%2==0?1.5:4.5)*barHeight, number).attr("fill","#000");
+  }
+  legend.text(svgWidth-(10*max.toString().length), (stopCount%2==0?1.5:4.5)*barHeight, max.toString()).attr("fill","#000");
+
+  // let stops = [0, svgWidth/3, 2*svgWidth/3, svgWidth]
+  // let barWidth = svgWidth / 9;
+  // legend.rect(stops[0], 0, barWidth, barHeight).attr("fill", "#fee8c8");
+  // legend.rect(stops[1], 0, barWidth, barHeight).attr("fill", "#fdbb84");
+  // legend.rect(stops[2], 0, barWidth, barHeight).attr("fill", "#e34a33");
+  // legend.text(stops[0] - 5, 2.5 * barHeight, "1").attr("fill", "#000");
+  // legend
+  //   .text(stops[1] - 5, 2.5 * barHeight, `${Math.floor(min + range)}`)
+  //   .attr("fill", "#000");
+  // legend
+  //   .text(stops[2] - 5, 2.5 * barHeight, `${Math.floor(min + range * 2)}`)
+  //   .attr("fill", "#000");
+  // legend.text(stops[3] - 5, 2.5 * barHeight, max).attr("fill", "#000");
 }
 
 function getFillColor(district) {
@@ -592,11 +614,10 @@ function getFillColor(district) {
     return "#ffffff";
   let min = Math.min(...Object.values(activeDistrictsMap));
   let max = Math.max(...Object.values(activeDistrictsMap));
-  let range = (max - min) / 3;
+  let range = (max - min) / YLORBR.length;
   let number = activeDistrictsMap[district];
-  if (number < min + range) return "#fee8c8";
-  else if (number < min + range * 2) return "#fdbb84";
-  else if (number <= max) return "#e34a33";
+  if(number === max) number--;
+  return YLORBR[Math.floor((number - min) / range)];
 }
 
 window.addEventListener("beforeinstallprompt", (e) => {
