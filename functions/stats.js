@@ -275,6 +275,64 @@ exports.genderMap = function () {
   return { M: 495, F: 544 };
 };
 
+exports.varianceBeds = function(raw) {
+  let arr = Utils.CSVToArray(raw);
+  Utils.fillArray(arr[0]);
+  Utils.fillArray(arr[1]);
+  let totalData = [];
+  for(let day = 3; day < arr.length; day++){
+    let data = {};
+    for (let i = 0; i < arr[0].length; i++) {
+      if (!Object.keys(data).includes(arr[0][i])) {
+        if (arr[1][i]) data[arr[0][i]] = {};
+        else {
+          data[arr[0][i]] = arr[day][i];
+          continue;
+        }
+      }
+      if (!Object.keys(data[arr[0][i]]).includes(arr[1][i])) {
+        if (arr[2][i]) data[arr[0][i]][arr[1][i]] = {};
+        else {
+          data[arr[0][i]][arr[1][i]] = arr[day][i];
+          continue;
+        }
+      }
+      data[arr[0][i]][arr[1][i]][arr[2][i]] = arr[day][i];
+    }
+    totalData.push(data);
+  }
+  totalData.reverse();
+  totalData = totalData.slice(8)
+  return {
+    "Dates": totalData.map(data=>data["Date"]),
+    "Jammu": {
+      "total_available":totalData.map(data=>data["Jammu"]["Covid"]["Available"]),
+      "total_occupied":totalData.map(data=>data["Jammu"]["Covid"]["Occupied"]),
+      "isolation_occupied": totalData.map(data=>
+        parseInt(data["Jammu"]["Isolation"]["Without_O2"])+
+        parseInt(data["Jammu"]["Isolation"]["With_O2"])
+        ),
+      "icu_occupied": totalData.map(data=>
+        parseInt(data["Jammu"]["ICU"]["Occupied"])+
+        parseInt(data["Jammu"]["ICU"]["Occupied_Ventilator_Non_Invasive"])+
+        parseInt(data["Jammu"]["ICU"]["Occupied_Ventilator_Invasive"])
+        ),
+    },
+    "Kashmir": {
+      "total_available":totalData.map(data=>data["Kashmir"]["Covid"]["Available"]),
+      "total_occupied":totalData.map(data=>data["Kashmir"]["Covid"]["Occupied"]),
+      "isolation_occupied": totalData.map(data=>
+        parseInt(data["Kashmir"]["Isolation"]["Without_O2"])+
+        parseInt(data["Kashmir"]["Isolation"]["With_O2"])
+        ),
+      "icu_occupied": totalData.map(data=>
+        parseInt(data["Kashmir"]["ICU"]["Occupied"])+
+        parseInt(data["Kashmir"]["ICU"]["Occupied_Ventilator_Non_Invasive"])+
+        parseInt(data["Kashmir"]["ICU"]["Occupied_Ventilator_Invasive"])
+        ),
+    }
+  }
+}
 exports.beds = function (raw) {
   let arr = Utils.CSVToArray(raw);
   Utils.fillArray(arr[0]);

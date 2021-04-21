@@ -21,7 +21,7 @@ exports.handler = async (event, context) => {
   if(fields.includes("districtMap") || fields.includes("districtVariance")){
     promises.push(fetch(URL_DISTRICTS).then(response=>response.text()).then(data=>{districtData=Utils.ArraysToDict(Utils.CSVToArray(data))}))
   }
-  if(fields.includes("beds")){
+  if(fields.includes("beds") || fields.includes("varianceBeds")){
     promises.push(fetch(URL_BEDS).then(response=>response.text()).then(data=>{bedsRawData=data}))
   }
   return Promise.all(promises).then(async ()=>{
@@ -62,6 +62,9 @@ exports.handler = async (event, context) => {
     }
     if(fields.includes("beds")){
       data["beds"] = Stats.beds(bedsRawData);
+    }
+    if(fields.includes("varianceBeds")){
+      data["varianceBeds"] = Stats.varianceBeds(bedsRawData)
     }
     return {
       statusCode: 200,

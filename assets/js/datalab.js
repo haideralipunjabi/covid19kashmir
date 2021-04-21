@@ -42,16 +42,15 @@ let districtMap,
   dateMap,
   activeDistricts,
   liveData,
+  bedsData,
   dailyData,
-  ageMap,
-  genderMap,
   districtVariance,
   variance;
 
 $(document).ready(() => {
   let sheetPromise = fetch(
     API_URL +
-      "?fields=districtMap,dailyMap,genderMap,ageMap,districtVariance,variance"
+      "?fields=districtMap,dailyMap,districtVariance,variance,varianceBeds"
   ).then((response) => {
     return response.json();
   });
@@ -68,7 +67,8 @@ $(document).ready(() => {
     data = values[0];
     districtMap = data["districtMap"];
     dateMap = data["dailyMap"];
-    (ageMap = data["ageMap"]), (genderMap = data["genderMap"]);
+    // (ageMap = data["ageMap"]), (genderMap = data["genderMap"]);
+    bedsData = data["varianceBeds"];
     districtVariance = data["districtVariance"];
     variance = data["variance"];
     liveData = values[1];
@@ -336,139 +336,200 @@ function createCharts() {
       },
     ],
   };
+  
+  // chartOptions[4] = {
+  //   series: [
+  //     {
+  //       name: "Male",
+  //       data: Object.values(ageMap["male"]),
+  //     },
+  //     {
+  //       name: "Female",
+  //       data: Object.values(ageMap["female"]),
+  //     },
+  //     {
+  //       name: "Unknown",
+  //       data: Object.values(ageMap["unknown"]),
+  //     },
+  //   ],
+  //   chart: {
+  //     type: "bar",
+  //     height: 350,
+  //     stacked: true,
+  //   },
+  //   plotOptions: {
+  //     bar: {
+  //       horizontal: false,
+  //       columnWidth: "55%",
+  //     },
+  //   },
+  //   dataLabels: {
+  //     enabled: false,
+  //   },
+  //   stroke: {
+  //     show: true,
+  //     width: 2,
+  //     colors: ["transparent"],
+  //   },
+  //   xaxis: {
+  //     categories: Object.keys(ageMap["male"]),
+  //   },
+  //   yaxis: {
+  //     title: {
+  //       text: "No of patients",
+  //     },
+  //   },
+  //   title: {
+  //     text: "No. of Patients in various age groups",
+  //   },
+  //   subtitle: {
+  //     text: `Note: ${
+  //       liveData["Total"] -
+  //       (Object.values(ageMap["male"]).reduce((x, y) => x + y) +
+  //         Object.values(ageMap["female"]).reduce((x, y) => x + y) +
+  //         Object.values(ageMap["unknown"]).reduce((x, y) => x + y))
+  //     } have unknown age | Source: covidkashmir.org`,
+  //   },
+  //   fill: {
+  //     opacity: 1,
+  //   },
+  //   tooltip: {
+  //     y: {
+  //       formatter: function (val) {
+  //         return val + " cases";
+  //       },
+  //     },
+  //   },
+  // };
+  // chartOptions[5] = {
+  //   series: [
+  //     ...Object.values(genderMap),
+  //     liveData["Total"] - Object.values(genderMap).reduce((x, y) => x + y),
+  //   ],
+  //   labels: ["Male", "Female", "Unknown"],
+  //   responsive: [
+  //     {
+  //       breakpoint: 500,
+  //       options: {
+  //         legend: {
+  //           position: "bottom",
+  //         },
+  //       },
+  //     },
+  //   ],
+  //   chart: {
+  //     type: "donut",
+  //     height: 350,
+  //     toolbar: {
+  //       show: true,
+  //       offsetX: 0,
+  //       offsetY: 0,
+  //       tools: {
+  //         download: true,
+  //         selection: false,
+  //         zoom: false,
+  //         zoomin: false,
+  //         zoomout: false,
+  //         pan: false,
+  //         reset: false,
+  //       },
+  //     },
+  //   },
+  //   dataLabels: {
+  //     enabled: false,
+  //   },
+  //   plotOptions: {
+  //     pie: {
+  //       donut: {
+  //         labels: {
+  //           show: true,
+  //           name: {
+  //             show: true,
+  //             fontSize: "22px",
+  //           },
+  //           value: {
+  //             show: true,
+  //             fontSize: "16px",
+  //           },
+  //           total: {
+  //             show: true,
+  //             label: "Total",
+  //             formatter: function (w) {
+  //               return liveData["Total"];
+  //             },
+  //           },
+  //         },
+  //       },
+  //     },
+  //   },
+  //   title: {
+  //     text: "Gender of Patients",
+  //   },
+  //   subtitle: {
+  //     text: `Source: covidkashmir.org`,
+  //   },
+  //   fill: {
+  //     opacity: 1,
+  //   },
+  // };
   chartOptions[4] = {
-    series: [
-      {
-        name: "Male",
-        data: Object.values(ageMap["male"]),
-      },
-      {
-        name: "Female",
-        data: Object.values(ageMap["female"]),
-      },
-      {
-        name: "Unknown",
-        data: Object.values(ageMap["unknown"]),
-      },
-    ],
+    series: Object.keys(bedsData["Jammu"]).map(key=>({
+      name: key.replace("_"," - ").toTitleCase(),
+      data: bedsData["Jammu"][key],
+    })),
     chart: {
-      type: "bar",
       height: 350,
-      stacked: true,
-    },
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        columnWidth: "55%",
-      },
+      type: "line",
     },
     dataLabels: {
       enabled: false,
     },
     stroke: {
-      show: true,
-      width: 2,
-      colors: ["transparent"],
-    },
-    xaxis: {
-      categories: Object.keys(ageMap["male"]),
-    },
-    yaxis: {
-      title: {
-        text: "No of patients",
-      },
+      curve: "smooth",
+      width: 3,
     },
     title: {
-      text: "No. of Patients in various age groups",
+      text: "Jammu Hospital Beds Status",
+      align: "left",
     },
-    subtitle: {
-      text: `Note: ${
-        liveData["Total"] -
-        (Object.values(ageMap["male"]).reduce((x, y) => x + y) +
-          Object.values(ageMap["female"]).reduce((x, y) => x + y) +
-          Object.values(ageMap["unknown"]).reduce((x, y) => x + y))
-      } have unknown age | Source: covidkashmir.org`,
-    },
-    fill: {
-      opacity: 1,
-    },
-    tooltip: {
-      y: {
-        formatter: function (val) {
-          return val + " cases";
-        },
+    grid: {
+      row: {
+        colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+        opacity: 0.5,
       },
+    },
+    xaxis: {
+      categories: bedsData["Dates"],
     },
   };
   chartOptions[5] = {
-    series: [
-      ...Object.values(genderMap),
-      liveData["Total"] - Object.values(genderMap).reduce((x, y) => x + y),
-    ],
-    labels: ["Male", "Female", "Unknown"],
-    responsive: [
-      {
-        breakpoint: 500,
-        options: {
-          legend: {
-            position: "bottom",
-          },
-        },
-      },
-    ],
+    series: Object.keys(bedsData["Kashmir"]).map(key=>({
+      name: key.replace("_"," - ").toTitleCase(),
+      data: bedsData["Kashmir"][key],
+    })),
     chart: {
-      type: "donut",
       height: 350,
-      toolbar: {
-        show: true,
-        offsetX: 0,
-        offsetY: 0,
-        tools: {
-          download: true,
-          selection: false,
-          zoom: false,
-          zoomin: false,
-          zoomout: false,
-          pan: false,
-          reset: false,
-        },
-      },
+      type: "line",
     },
     dataLabels: {
       enabled: false,
     },
-    plotOptions: {
-      pie: {
-        donut: {
-          labels: {
-            show: true,
-            name: {
-              show: true,
-              fontSize: "22px",
-            },
-            value: {
-              show: true,
-              fontSize: "16px",
-            },
-            total: {
-              show: true,
-              label: "Total",
-              formatter: function (w) {
-                return liveData["Total"];
-              },
-            },
-          },
-        },
-      },
+    stroke: {
+      curve: "smooth",
+      width: 3,
     },
     title: {
-      text: "Gender of Patients",
+      text: "Kashmir Hospital Beds Status",
+      align: "left",
     },
-    subtitle: {
-      text: `Source: covidkashmir.org`,
+    grid: {
+      row: {
+        colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+        opacity: 0.5,
+      },
     },
-    fill: {
-      opacity: 1,
+    xaxis: {
+      categories: bedsData["Dates"],
     },
   };
   chartOptions[6] = {
@@ -488,9 +549,6 @@ function createCharts() {
     chart: {
       height: 350,
       type: "line",
-      zoom: {
-        enabled: false,
-      },
     },
     dataLabels: {
       enabled: false,
@@ -553,9 +611,6 @@ function createCharts() {
     chart: {
       height: 350,
       type: "line",
-      zoom: {
-        enabled: false,
-      },
     },
     dataLabels: {
       enabled: false,
@@ -618,9 +673,6 @@ function createCharts() {
     chart: {
       height: 350,
       type: "line",
-      zoom: {
-        enabled: false,
-      },
     },
     dataLabels: {
       enabled: false,
@@ -683,9 +735,6 @@ function createCharts() {
     chart: {
       height: 350,
       type: "line",
-      zoom: {
-        enabled: false,
-      },
     },
     dataLabels: {
       enabled: false,
@@ -743,9 +792,6 @@ function createCharts() {
     chart: {
       height: 350,
       type: "line",
-      zoom: {
-        enabled: false,
-      },
     },
     dataLabels: {
       enabled: false,
