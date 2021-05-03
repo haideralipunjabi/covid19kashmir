@@ -120,7 +120,8 @@ $(document).ready(() => {
   API_DISTRICT.then((data) => {
     $("progress").addClass("is-hidden");
     districtsMap = data["districtMap"];
-
+    $("#map_date").html(districtsMap["date"]);
+    delete districtsMap["date"];
     loadDistricts();
     loadMap();
   });
@@ -356,7 +357,7 @@ function loadSamplesData(data) {
   $("#stats_recper").removeClass("loadanim");
   $("#stats_decper").removeClass("loadanim");
   $("#stats_date").html(data["date"]);
-  $("#map_date").html(data["date"]);
+  // $("#map_date").html(data["date"]);
   $("#stats_samples").html(data["stats"]["total"]);
   $("#stats_samples_avg").html(data["stats"]["average"].toFixed(2));
   $("#stats_samples_today").html(data["stats"]["new"]);
