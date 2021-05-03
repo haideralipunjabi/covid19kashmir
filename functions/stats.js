@@ -7,7 +7,7 @@ exports.DistrictMap = function (d) {
   let districtMap = {};
   let lastDay = data[data.length - 1];
   let secondLastDay = data[data.length - 2];
-  districtMap["date"] = lastDay["date"]
+  districtMap["date"] = lastDay["Date"]
   delete lastDay["Date"];
   delete secondLastDay["Date"];
   for (let district of Object.keys(lastDay)) {
